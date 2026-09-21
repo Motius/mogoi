@@ -11,7 +11,7 @@ name: Docker Build
 # bun.lock and package.json, so dependency changes hit this most often.
 on:
   push:
-    branches: [main]
+    branches: [master]
     paths:
       - "Dockerfile"
       - ".dockerignore"
@@ -30,7 +30,7 @@ on:
 # post-merge verdict on the Dockerfile.
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/master' }}
 
 jobs:
   docker-build:

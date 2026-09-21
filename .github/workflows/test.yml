@@ -5,7 +5,7 @@ on:
   # pull_request — running the whole matrix (incl. the 10x-billed macOS jobs)
   # for the same commit and doubling exposure to any install-time flake.
   push:
-    branches: [main]
+    branches: [master]
   pull_request:
   workflow_dispatch:
 
@@ -14,7 +14,7 @@ on:
 # run leaves the branch with no verdict.
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/master' }}
 
 env:
   GO_VERSION: "1.25"

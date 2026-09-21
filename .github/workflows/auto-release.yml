@@ -1,0 +1,44 @@
+name: Auto Release
+
+# Automatically creates or updates a GitHub Release whenever changes
+# are pushed to master. Uses GitHub's auto-generated release notes
+# so every push produces a clean, fresh release.
+
+on:
+  push:
+    branches: [master]
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Generate release notes
+        id: notes
+        run: |
+          # Get the most recent non-workflow commit message for a clean headline
+          MSG=$(git log --oneline -1 --format="%s")
+          echo "msg=${MSG}" >> "$GITHUB_OUTPUT"
+
+      - name: Create or update release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "Release ${{ github.sha }}"
+          body: |
+            ### Automatic Release
+
+            Auto-generated from push to `master`.
+
+            Latest change: ${{ steps.notes.outputs.msg }}
+          draft: false
+          prerelease: false
+          make_latest: true
+          tag_name: "latest"
+          overwrite: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
