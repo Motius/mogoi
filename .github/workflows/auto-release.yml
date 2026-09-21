@@ -1,8 +1,7 @@
 name: Auto Release
 
 # Automatically creates or updates a GitHub Release whenever changes
-# are pushed to master. Uses GitHub's auto-generated release notes
-# so every push produces a clean, fresh release.
+# are pushed to master. Release name follows the format "Mogoi-AI <version>".
 
 on:
   push:
@@ -18,23 +17,22 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      - name: Generate release notes
-        id: notes
+      - name: Get version from package.json
+        id: version
         run: |
-          # Get the most recent non-workflow commit message for a clean headline
-          MSG=$(git log --oneline -1 --format="%s")
-          echo "msg=${MSG}" >> "$GITHUB_OUTPUT"
+          VER=$(jq -r .version package.json)
+          echo "version=${VER}" >> "$GITHUB_OUTPUT"
 
       - name: Create or update release
         uses: softprops/action-gh-release@v2
         with:
-          name: "Release ${{ github.sha }}"
+          name: "Mogoi-AI ${{ steps.version.outputs.version }}"
           body: |
             ### Automatic Release
 
             Auto-generated from push to `master`.
 
-            Latest change: ${{ steps.notes.outputs.msg }}
+            Version: ${{ steps.version.outputs.version }}
           draft: false
           prerelease: false
           make_latest: true
