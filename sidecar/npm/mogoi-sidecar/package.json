@@ -1,0 +1,21 @@
+{
+  "name": "@motius/sidecar",
+  "version": "0.1.0",
+  "description": "Mogoi sidecar client -- connects to the brain and executes RPC requests locally",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Motius/mogoi.git",
+    "directory": "sidecar/npm/mogoi-sidecar"
+  },
+  "bin": {
+    "mogoi": "bin/mogoi"
+  },
+  "files": ["bin"],
+  "optionalDependencies": {
+    "@motius/sidecar-darwin-arm64": "0.1.0",
+    "@motius/sidecar-darwin-x64": "0.1.0",
+    "@motius/sidecar-linux-x64": "0.1.0",
+    "@motius/sidecar-linux-arm64": "0.1.0",
+    "@motius/sidecar-win32-x64": "0.1.0"
+  }
+}

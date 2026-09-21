@@ -1,0 +1,13 @@
+{
+  "name": "@motius/sidecar-darwin-x64",
+  "version": "0.1.0",
+  "description": "Mogoi sidecar binary for macOS x64",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Motius/mogoi.git",
+    "directory": "sidecar/npm/darwin-x64"
+  },
+  "os": ["darwin"],
+  "cpu": ["x64"],
+  "files": ["bin"]
+}
