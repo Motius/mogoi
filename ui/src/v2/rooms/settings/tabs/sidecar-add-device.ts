@@ -10,7 +10,7 @@
  *    Not their only route -- docs/SELF_HOSTING.md calls `mogoi enroll <name>`
  *    on the brain host the primary one -- but it is the only route the
  *    dashboard offers, so it must keep working here.
- *  - HOSTED: the device enrolls ITSELF. Install Mogoi there, sign in, and the
+ *  - HOSTED: the device enrolls ITSELF. Install Mogoi-AI there, sign in, and the
  *    control plane runs `mogoi enroll` over SSH. There is no token to copy:
  *    the JWT goes to the sidecar over the handshake nonce and never through
  *    page JS. The daemon refuses the mint route with a 403 -- both because the

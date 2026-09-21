@@ -74,7 +74,7 @@ export function WorkflowActivation({ onContinue }: {
         {pending ? "Opening Mogoi…" : "Review request in Talk"}<ArrowRight size={15} aria-hidden="true" />
       </button>
       <button className="obw-skip" type="button" disabled={pending} onClick={() => void continueToMogoi()}>
-        Explore Mogoi first
+        Explore Mogoi-AI first
       </button>
     </form>
   );

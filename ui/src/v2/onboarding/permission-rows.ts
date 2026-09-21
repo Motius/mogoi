@@ -61,7 +61,7 @@ export interface PermCopy {
  * WHAT IS NOT HERE, deliberately: Automation and "Files & Folders", both of
  * which the old screen listed. Neither can be pre-granted at all - their TCC
  * panes are EMPTY until the app has already tried the thing they gate, so the
- * link showed the user a list Mogoi was not in and could not be added to.
+ * link showed the user a list Mogoi-AI was not in and could not be added to.
  * macOS prompts for both in the moment, which is the only time they can be
  * answered. (The old "Files & Folders" row also pointed at Privacy_AllFiles,
  * which is Full Disk Access: a far broader grant than the row described.)
@@ -78,7 +78,7 @@ export const PERM_COPY: Record<string, PermCopy> = {
     label: "Accessibility",
     glyph: "access",
     required: true,
-    body: "Keyboard shortcuts and desktop control, so Mogoi can operate your apps as part of a workflow. Enable this in macOS Settings; action approval rules are separate in Authority.",
+    body: "Keyboard shortcuts and desktop control, so Mogoi-AI can operate your apps as part of a workflow. Enable this in macOS Settings; action approval rules are separate in Authority.",
   },
   screen: {
     label: "Screen Recording",
@@ -96,7 +96,7 @@ export const PERM_COPY: Record<string, PermCopy> = {
     label: "Notifications",
     glyph: "bell",
     required: false,
-    body: "Letting Mogoi reach you when something needs a decision.",
+    body: "Letting Mogoi-AI reach you when something needs a decision.",
   },
 };
 
@@ -197,8 +197,8 @@ export function requestFeedback(result: PermRequestResult | null, label: string)
   if (result.grant === "pane" && !result.paneOpened) {
     const where = `System Settings \u203A Privacy & Security \u203A ${label}`;
     return result.paneError
-      ? `Mogoi couldn't open ${where} (${result.paneError}). Open it yourself.`
-      : `Mogoi couldn't open ${where}. Open it yourself.`;
+      ? `Mogoi-AI couldn't open ${where} (${result.paneError}). Open it yourself.`
+      : `Mogoi-AI couldn't open ${where}. Open it yourself.`;
   }
   return null;
 }
@@ -231,7 +231,7 @@ export function unavailableCopy(reason: PermUnavailable): { title: string; body:
   switch (reason) {
     case "offline":
       return {
-        title: "Mogoi isn't running on this machine right now.",
+        title: "Mogoi-AI isn't running on this machine right now.",
         body: "The desktop app has to be open for permissions to be read or granted. Start it and this page will catch up on its own.",
       };
     case "refused":
@@ -242,23 +242,23 @@ export function unavailableCopy(reason: PermUnavailable): { title: string; body:
     case "unsupported":
       return {
         title: "Your desktop app is older than this screen.",
-        body: "Update Mogoi on this machine to grant permissions from here. Until then, the desktop app asks for what it needs as it goes.",
+        body: "Update Mogoi-AI on this machine to grant permissions from here. Until then, the desktop app asks for what it needs as it goes.",
       };
     case "ambiguous":
       return {
         title: "More than one machine is connected.",
-        body: "Permissions belong to one computer, and this page can't tell which one you're at. Open Mogoi on that machine and run through setup there.",
+        body: "Permissions belong to one computer, and this page can't tell which one you're at. Open Mogoi-AI on that machine and run through setup there.",
       };
     case "unreachable":
       return {
         title: "The desktop app didn't answer.",
-        body: "It may have just quit or gone to sleep. You can carry on — Mogoi asks for what it needs as it goes — or reopen it and come back.",
+        body: "It may have just quit or gone to sleep. You can carry on — Mogoi-AI asks for what it needs as it goes — or reopen it and come back.",
       };
     case "no_sidecar":
     default:
       return {
         title: "Nothing to set up from here.",
-        body: "This page isn't talking to a Mogoi desktop app, so there's nothing on this computer to grant. Install or open Mogoi on the machine you want it to act on.",
+        body: "This page isn't talking to a Mogoi desktop app, so there's nothing on this computer to grant. Install or open Mogoi-AI on the machine you want it to act on.",
       };
   }
 }

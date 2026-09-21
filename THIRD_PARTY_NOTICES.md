@@ -2,7 +2,7 @@
 
 ## Scope
 
-This file covers **third-party source vendored into this repository** -- code that ships in the Mogoi source tree at build time (today, just Activepieces under `src/workflows/activepieces/`). Each vendored project is distributed under its own license, reproduced below. The combined work (Mogoi) is distributed under the [Mogoi Source Available License 2.0](LICENSE); the third-party portions retain their original licenses for any party who extracts them as a standalone work.
+This file covers **third-party source vendored into this repository** -- code that ships in the Mogoi-AI source tree at build time (today, just Activepieces under `src/workflows/activepieces/`). Each vendored project is distributed under its own license, reproduced below. The combined work (Mogoi-AI) is distributed under the [Mogoi-AI Source Available License 2.0](LICENSE); the third-party portions retain their original licenses for any party who extracts them as a standalone work.
 
 **Not covered here:**
 

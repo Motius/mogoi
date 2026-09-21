@@ -6,7 +6,7 @@
  *   1. persisted sampleData[step.name] -- user-pinned or run-captured for
  *      THIS specific step (the most authoritative source).
  *   2. declared output from the piece catalog -- `action.outputSample`
- *      (Mogoi extension to AP) or `trigger.sampleData` (upstream-native).
+ *      (Mogoi-AI extension to AP) or `trigger.sampleData` (upstream-native).
  *      Acts as the author's "this is what my action returns" contract.
  *   3. persisted sampleData from a SIBLING step that shares the same
  *      (pieceName, actionName) / (pieceName, triggerName). Lets a second
@@ -26,7 +26,7 @@ import type { FlowStepNode, PieceCatalogEntry } from "./useWorkflowEditor";
  * How many nested object levels the picker drills into. Most workflow event
  * payloads are 1-2 levels deep; capping prevents a pathological output (or a
  * sample with a recursive structure) from drowning the picker. Empirically
- * 3 covers every Mogoi event taxonomy and the upstream piece samples we
+ * 3 covers every Mogoi-AI event taxonomy and the upstream piece samples we
  * ship.
  */
 const MAX_PICKER_DEPTH = 3;

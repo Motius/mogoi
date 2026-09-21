@@ -164,7 +164,7 @@ export function IntegrationsTab({
             {g.is_authenticated ? (
               <>
                 <p className="v2-set__hint">
-                  Gmail and Google Calendar are connected, read-only. Mogoi never sends mail or
+                  Gmail and Google Calendar are connected, read-only. Mogoi-AI never sends mail or
                   edits events.
                 </p>
                 <div style={{ display: "flex", justifyContent: "flex-end" }}>
@@ -184,7 +184,7 @@ export function IntegrationsTab({
                   {g.status === "reconnect_required"
                     ? (g.reconnect_reason ??
                       "Google access is no longer valid — connect your account again.")
-                    : "Connect your Google account to let Mogoi read your Gmail and Calendar. Nothing is sent or changed — access is read-only, and you can disconnect at any time."}
+                    : "Connect your Google account to let Mogoi-AI read your Gmail and Calendar. Nothing is sent or changed — access is read-only, and you can disconnect at any time."}
                 </p>
                 <div style={{ display: "flex", justifyContent: "flex-end" }}>
                   <a

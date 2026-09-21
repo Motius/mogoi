@@ -90,8 +90,8 @@ export function VoiceTab({
             {!rt.available && (
               <p className="v2-set__hint" data-tone="warn">
                 {realtimeUnavailableReason(copy!) === "plan"
-                  ? "Live voice is not included in your current plan. MOGOI uses the standard voice pipeline instead."
-                  : "Enabled, but no OpenAI provider is configured. Add one under Settings > LLM. Until then MOGOI uses the standard voice pipeline."}
+                  ? "Live voice is not included in your current plan. MOGOI-AI uses the standard voice pipeline instead."
+                  : "Enabled, but no OpenAI provider is configured. Add one under Settings > LLM. Until then MOGOI-AI uses the standard voice pipeline."}
               </p>
             )}
             {showsPlanDefaultHint(copy!) && (
@@ -100,7 +100,7 @@ export function VoiceTab({
                     UNKNOWN plan verdict too (the gate defaults open until the
                     catalog answers), so claiming inclusion here can be wrong for
                     the first few seconds after a restart. */}
-                On because your plan may include it. Switch it off here and MOGOI goes
+                On because your plan may include it. Switch it off here and MOGOI-AI goes
                 back to the standard voice pipeline.
               </p>
             )}

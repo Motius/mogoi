@@ -28,7 +28,7 @@ export interface ApprovalCardProps {
  * per the Authority engine — no destructive tool call bypasses it.
  *
  * Structure mirrors prototype hearth3.jsx:571-614:
- *  - Accent attribution row ("● MOGOI · needs your OK") with impact chip on the right
+ *  - Accent attribution row ("● MOGOI-AI · needs your OK") with impact chip on the right
  *  - Intent sentence in display serif 16/1.45
  *  - Category as mono caption below the intent
  *  - Actions row: accent Approve, ghost Cancel, voice hint on the right
@@ -50,7 +50,7 @@ export function ApprovalCard({
     >
       <div className="v2-approval__attribution">
         <span className="v2-approval__attribution-dot" aria-hidden="true" />
-        Mogoi
+        Mogoi-AI
         <span className="v2-approval__attribution-tag">· needs your OK</span>
         <span className={`v2-approval__impact v2-approval__impact--${impact}`}>
           {IMPACT_LABEL[impact]}

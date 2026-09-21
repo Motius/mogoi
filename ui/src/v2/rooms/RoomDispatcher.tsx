@@ -175,7 +175,7 @@ const ROOM_META: Record<RoomKey, RoomMeta> = {
     subtitle: "entities · facts · relationships",
     phaseTag: "Phase 6.5 — Memory Room",
     description:
-      "What Mogoi knows. Browse entities, facts, and relationships, or look at the knowledge constellation as a whole.",
+      "What Mogoi-AI knows. Browse entities, facts, and relationships, or look at the knowledge constellation as a whole.",
   },
   authority: {
     title: "Authority",

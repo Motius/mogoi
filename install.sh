@@ -171,11 +171,11 @@ add_path_to_shell() {
   if ! grep -q "\.bun/bin" "$profile" 2>/dev/null; then
     if [ "$shell_name" = "fish" ]; then
       echo "" >> "$profile"
-      echo "# Bun global bin (added by MOGOI installer)" >> "$profile"
+      echo "# Bun global bin (added by Mogoi-AI installer)" >> "$profile"
       echo "set -gx PATH \$HOME/.bun/bin \$PATH" >> "$profile"
     else
       echo "" >> "$profile"
-      echo "# Bun global bin (added by MOGOI installer)" >> "$profile"
+      echo "# Bun global bin (added by Mogoi-AI installer)" >> "$profile"
       echo "export PATH=\"\$HOME/.bun/bin:\$PATH\"" >> "$profile"
     fi
     info "Added bun bin to ${profile}"
@@ -193,13 +193,13 @@ main() {
   echo ""
 
   if [ "$OS" = "unknown" ]; then
-    err "Unsupported operating system. MOGOI supports macOS, Linux, and WSL."
+    err "Unsupported operating system. Mogoi-AI supports macOS, Linux, and WSL."
     exit 1
   fi
 
   if [ "$OS" = "windows-native" ]; then
-    err "Native Windows installs are not supported for the MOGOI daemon."
-    err "Use WSL2 for the Bun install, or run MOGOI with Docker on Windows."
+    err "Native Windows installs are not supported for the Mogoi-AI daemon."
+    err "Use WSL2 for the Bun install, or run Mogoi-AI with Docker on Windows."
     err "The Windows sidecar is still supported separately."
     exit 1
   fi
@@ -326,7 +326,7 @@ main() {
       err "Failed to clone repository. Check your internet connection."
       exit 1
     }
-    ok "Downloaded MOGOI ${LATEST_TAG}"
+    ok "Downloaded Mogoi-AI ${LATEST_TAG}"
   fi
 
   echo ""

@@ -1,6 +1,6 @@
 /**
  * Hook for the Library tab. Fetches the catalog (curated community pieces
- * Mogoi users can install), tracks per-piece "installing" / "uninstalling"
+ * Mogoi-AI users can install), tracks per-piece "installing" / "uninstalling"
  * state, exposes install + uninstall mutations.
  *
  * On a MANAGED install (`managed: true` -- a host installed the whole catalog

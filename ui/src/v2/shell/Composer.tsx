@@ -18,7 +18,7 @@ export interface ComposerProps {
 export function Composer({
   onSubmit,
   onSlash,
-  placeholder = "Ask Mogoi, or press / to summon a tool…",
+  placeholder = "Ask Mogoi-AI, or press / to summon a tool…",
   disabled,
   responding = false,
   onStop,
@@ -137,7 +137,7 @@ export function Composer({
             }
           }}
           disabled={disabled}
-          aria-label="Message Mogoi"
+          aria-label="Message Mogoi-AI"
         />
         <button
           type="button"

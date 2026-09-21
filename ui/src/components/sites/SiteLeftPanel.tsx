@@ -75,7 +75,7 @@ export function SiteLeftPanel({ leftTab, setLeftTab, projectId, onFileSelect, se
                 <div style={emptyStyle}>Open a project to start chatting</div>
               ) : projectMessages.length === 0 ? (
                 <div style={emptyStyle}>
-                  Chat with MOGOI about this project. Your messages will be scoped to the active project.
+                  Chat with MOGOI-AI about this project. Your messages will be scoped to the active project.
                 </div>
               ) : (
                 projectMessages.map((msg) => (
@@ -92,7 +92,7 @@ export function SiteLeftPanel({ leftTab, setLeftTab, projectId, onFileSelect, se
                     wordBreak: "break-word",
                   }}>
                     <div style={{ fontSize: "10px", color: "var(--ink3)", marginBottom: 2, fontWeight: 600 }}>
-                      {msg.role === "user" ? "You" : "MOGOI"}
+                      {msg.role === "user" ? "You" : "MOGOI-AI"}
                     </div>
                     {msg.content}
                     {msg.isStreaming && <span style={{ color: "var(--ink)" }}> ▍</span>}
@@ -110,7 +110,7 @@ export function SiteLeftPanel({ leftTab, setLeftTab, projectId, onFileSelect, se
                   value={chatInput}
                   onChange={(e) => setChatInput(e.target.value)}
                   onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); handleSend(); } }}
-                  placeholder={projectId ? "Ask MOGOI to build..." : "Select a project first"}
+                  placeholder={projectId ? "Ask MOGOI-AI to build..." : "Select a project first"}
                   disabled={!projectId || !isConnected}
                   style={inputStyle}
                 />

@@ -7,7 +7,7 @@
  *   mogoi stop [--port N]                  Stop the running daemon (graceful drain)
  *   mogoi drain [--port N]                 Graceful drain + stop (finish in-flight work)
  *   mogoi status                           Show daemon status
- *   mogoi uninstall                        Remove MOGOI (detects install method)
+ *   mogoi uninstall                        Remove Mogoi-AI (detects install method)
  *   mogoi doctor                           Check environment & connectivity
  *   mogoi version                          Print version
  *   mogoi help                             Show this help
@@ -40,13 +40,13 @@ ${c.bold('Usage:')}
   mogoi <command> [options]
 
 ${c.bold('Commands:')}
-  ${c.cyan('start')}     Start the MOGOI daemon
+  ${c.cyan('start')}     Start the Mogoi-AI daemon
   ${c.cyan('stop')}      Stop the running daemon
   ${c.cyan('restart')}   Restart the daemon (stop + start)
   ${c.cyan('status')}    Show daemon status
   ${c.cyan('logs')}      Tail the daemon log file
-  ${c.cyan('update')}    Update MOGOI (dispatches based on install method)
-  ${c.cyan('uninstall')} Remove MOGOI (dispatches based on install method)
+  ${c.cyan('update')}    Update Mogoi-AI (dispatches based on install method)
+  ${c.cyan('uninstall')} Remove Mogoi-AI (dispatches based on install method)
   ${c.cyan('doctor')}    Check environment and connectivity
   ${c.cyan('enroll')}    Enroll a sidecar device: mint + store its JWT (no daemon needed)
   ${c.cyan('sidecars')}  List enrolled devices (sidecars list [--json])
@@ -74,7 +74,7 @@ ${c.bold('Examples:')}
   mogoi restart                Restart with same settings
   mogoi logs -f                Follow live log output
   mogoi update                 Update to latest version
-  mogoi uninstall              Remove MOGOI from this machine
+  mogoi uninstall              Remove Mogoi-AI from this machine
   mogoi enroll "desktop-NA23"  Mint an enrollment token for a device
   mogoi enroll <name> --rotate Re-enroll invalidating all previous tokens
   mogoi sidecars list --json   List devices (machine-readable)
@@ -85,8 +85,8 @@ ${c.bold('Examples:')}
 
 function assertSupportedPlatform(): void {
   if (process.platform !== 'win32') return;
-  console.error(c.red('Native Windows installs are not supported for the MOGOI daemon.'));
-  console.error(c.dim('Use WSL2 for the Bun install, or run MOGOI with Docker on Windows.'));
+  console.error(c.red('Native Windows installs are not supported for the Mogoi-AI daemon.'));
+  console.error(c.dim('Use WSL2 for the Bun install, or run Mogoi-AI with Docker on Windows.'));
   console.error(c.dim('The Windows sidecar is still supported separately.'));
   process.exit(1);
 }
@@ -122,7 +122,7 @@ async function cmdStart(args: string[]): Promise<void> {
   const { homedir } = await import('node:os');
   const cfgPath = join(homedir(), '.mogoi', 'config.yaml');
   if (!_exists(cfgPath)) {
-    console.log(c.cyan('First-run detected. Mogoi is JWT-only by default:'));
+    console.log(c.cyan('First-run detected. Mogoi-AI is JWT-only by default:'));
     console.log(c.dim('  1. mogoi enroll "<device-name>"   mint your device token'));
     console.log(c.dim('  2. paste the token into the sidecar (desktop app) to connect'));
     console.log(c.dim('  Setting up without a sidecar? Put "auth:\n  insecure_open_access: true"'));
@@ -134,7 +134,7 @@ async function cmdStart(args: string[]): Promise<void> {
   if (!detach) {
     // Run in foreground — acquire lock atomically (checks + locks in one step)
     if (!acquireLock(process.pid)) {
-      console.log(c.yellow('MOGOI is already running'));
+      console.log(c.yellow('Mogoi-AI is already running'));
       console.log(c.dim('  Stop it first with: mogoi stop'));
       process.exit(1);
     }
@@ -154,7 +154,7 @@ async function cmdStart(args: string[]): Promise<void> {
     // Check if already running before spawning detached child
     const existingPid = isLocked();
     if (existingPid) {
-      console.log(c.yellow(`MOGOI is already running (PID ${existingPid})`));
+      console.log(c.yellow(`Mogoi-AI is already running (PID ${existingPid})`));
       console.log(c.dim('  Stop it first with: mogoi stop'));
       process.exit(1);
     }
@@ -191,7 +191,7 @@ async function cmdStart(args: string[]): Promise<void> {
     }
 
     if (runningPid) {
-      console.log(c.green(`✓ MOGOI daemon started (PID ${runningPid})`));
+      console.log(c.green(`✓ Mogoi-AI daemon started (PID ${runningPid})`));
       console.log(c.dim(`  Dashboard: http://localhost:${port ?? 1846}`));
       console.log(c.dim(`  Logs:      ${logPath}`));
       console.log(c.dim(`  Stop with: mogoi stop`));
@@ -238,7 +238,7 @@ async function cmdStop(args: string[] = [], opts: { verb?: string } = {}): Promi
 
   if (!pid) {
     if (port === null) {
-      console.log(c.yellow('MOGOI is not running.'));
+      console.log(c.yellow('Mogoi-AI is not running.'));
       return true;
     }
     const cleanup = await ensurePortReleased(port);
@@ -246,14 +246,14 @@ async function cmdStop(args: string[] = [], opts: { verb?: string } = {}): Promi
       const details = cleanup.forced.length > 0
         ? ` Force-killed lingering listener(s) on port ${port}: ${cleanup.forced.join(', ')}.`
         : ` Cleaned up lingering listener(s) on port ${port}: ${cleanup.terminated.join(', ')}.`;
-      console.log(c.green(`✓ MOGOI was not locked, but the port is now clear.${details}`));
+      console.log(c.green(`✓ Mogoi-AI was not locked, but the port is now clear.${details}`));
     } else {
-      console.log(c.yellow('MOGOI is not running.'));
+      console.log(c.yellow('Mogoi-AI is not running.'));
     }
     return true;
   }
 
-  console.log(c.cyan(`${verb} MOGOI daemon (PID ${pid})...`));
+  console.log(c.cyan(`${verb} Mogoi-AI daemon (PID ${pid})...`));
   try {
     process.kill(pid, 'SIGTERM');
 
@@ -295,8 +295,8 @@ async function cmdStop(args: string[] = [], opts: { verb?: string } = {}): Promi
       const relaunched = holder !== null && holder !== pid;
       console.error(c.red(
         relaunched
-          ? `✗ MOGOI daemon (PID ${pid}) stopped, but a new one (PID ${holder}) is already running.`
-          : `✗ Could not stop MOGOI daemon (PID ${pid}) — it is still running.`,
+          ? `✗ Mogoi-AI daemon (PID ${pid}) stopped, but a new one (PID ${holder}) is already running.`
+          : `✗ Could not stop Mogoi-AI daemon (PID ${pid}) — it is still running.`,
       ));
       console.error(c.dim(
         relaunched
@@ -307,12 +307,12 @@ async function cmdStop(args: string[] = [], opts: { verb?: string } = {}): Promi
     }
 
     if (port === null) {
-      console.log(c.green('✓ MOGOI daemon stopped.'));
+      console.log(c.green('✓ Mogoi-AI daemon stopped.'));
       return true;
     }
     const cleanup = await ensurePortReleased(port);
     if (!cleanup.released) {
-      console.error(c.red(`✗ MOGOI stopped but port ${port} is still occupied.`));
+      console.error(c.red(`✗ Mogoi-AI stopped but port ${port} is still occupied.`));
       return false;
     }
 
@@ -321,7 +321,7 @@ async function cmdStop(args: string[] = [], opts: { verb?: string } = {}): Promi
       : cleanup.terminated.length > 0
         ? ` Cleaned up lingering listener(s) on port ${port}: ${cleanup.terminated.join(', ')}.`
         : '';
-    console.log(c.green(`✓ MOGOI daemon stopped.${details}`));
+    console.log(c.green(`✓ Mogoi-AI daemon stopped.${details}`));
     return true;
   } catch (err) {
     console.error(c.red(`Failed to stop process ${pid}: ${err}`));
@@ -375,7 +375,7 @@ async function cmdRestart(args: string[]): Promise<void> {
       // only fail acquireLock() against the live replacement.
       const holder = isLocked();
       if (holder !== null && holder !== pid) {
-        console.log(c.green(`✓ MOGOI restarted by its service manager (PID ${holder}).`));
+        console.log(c.green(`✓ Mogoi-AI restarted by its service manager (PID ${holder}).`));
         return;
       }
       process.exit(1);

@@ -19,7 +19,7 @@ export function GeneralTab({
   const [restarting, setRestarting] = useState(false);
 
   const handleRestart = async () => {
-    if (!await confirmDialog("Restart Mogoi now? Your dashboard will reconnect after a few seconds.")) return;
+    if (!await confirmDialog("Restart Mogoi-AI now? Your dashboard will reconnect after a few seconds.")) return;
     setRestarting(true);
     const r = await data.restartDaemon();
     onToast(r.message, r.ok ? "ok" : "warn");
@@ -34,7 +34,7 @@ export function GeneralTab({
           <div>
             <h3 className="v2-set__section-title">24/7 Service</h3>
             <div className="v2-set__section-sub">
-              Keepalive that runs Mogoi in the background after the terminal closes.
+              Keepalive that runs Mogoi-AI in the background after the terminal closes.
             </div>
           </div>
           {autostart && (
@@ -75,7 +75,7 @@ export function GeneralTab({
                 disabled={!autostart.restart_supported || restarting}
                 onClick={handleRestart}
               >
-                {restarting ? "Restarting…" : "Restart Mogoi"}
+                {restarting ? "Restarting…" : "Restart Mogoi-AI"}
               </button>
               <button
                 type="button"
@@ -97,7 +97,7 @@ export function GeneralTab({
           <div>
             <h3 className="v2-set__section-title">Heartbeat</h3>
             <div className="v2-set__section-sub">
-              How often Mogoi checks in with you proactively.
+              How often Mogoi-AI checks in with you proactively.
             </div>
           </div>
         </div>
@@ -404,7 +404,7 @@ function OnboardingDebugSection({
         <div>
           <h3 className="v2-set__section-title">Onboarding</h3>
           <div className="v2-set__section-sub">
-            Replay any phase of first-run onboarding. Useful after Mogoi
+            Replay any phase of first-run onboarding. Useful after Mogoi-AI
             updates or for testing. Page reloads after the reset fires.
           </div>
         </div>

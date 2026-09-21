@@ -2,7 +2,7 @@
 
 ## Overview
 
-Sidecars are lightweight processes running on user PCs that expose local capabilities (terminal, filesystem, desktop, browser) to the Mogoi brain (the central server). This document describes how sidecars are enrolled and authenticated.
+Sidecars are lightweight processes running on user PCs that expose local capabilities (terminal, filesystem, desktop, browser) to the Mogoi-AI brain (the central server). This document describes how sidecars are enrolled and authenticated.
 
 ## Choosing the Brain and JWKS URLs
 
@@ -228,7 +228,7 @@ Symptoms:
 Fix:
 
 1. Set `MOGOI_PUBLIC_URL` or `daemon.public_url` to the correct public origin
-2. Restart/reload Mogoi so the daemon uses the new value
+2. Restart/reload Mogoi-AI so the daemon uses the new value
 3. Re-enroll the sidecar so a fresh token is minted with corrected claims
 
 Remember: existing tokens keep the URLs they were issued with.
@@ -243,7 +243,7 @@ Symptoms:
 Fix:
 
 1. Verify the configured origin serves `GET /api/sidecars/.well-known/jwks.json`
-2. Confirm your proxy/tunnel forwards that path to Mogoi
+2. Confirm your proxy/tunnel forwards that path to Mogoi-AI
 3. Make sure the sidecar machine can resolve and reach the configured host
 4. Use a certificate trusted by the sidecar machine when using HTTPS
 

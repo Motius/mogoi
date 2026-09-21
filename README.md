@@ -13,7 +13,7 @@
 
 *An always-on autonomous AI daemon with desktop awareness, multi-agent hierarchy, visual workflows, and goal pursuit.*
 
-MOGOI is not a chatbot with tools. It is a persistent daemon that sees your screen, understands what you're doing, and acts — within the authority limits you define. Run it on a server for 24/7 availability, then connect sidecars on your laptop, desktop, or any other machine to give it eyes and hands everywhere.
+MOGOI-AI is not a chatbot with tools. It is a persistent daemon that sees your screen, understands what you're doing, and acts — within the authority limits you define. Run it on a server for 24/7 availability, then connect sidecars on your laptop, desktop, or any other machine to give it eyes and hands everywhere.
 
 </div>
 
@@ -25,7 +25,7 @@ MOGOI is not a chatbot with tools. It is a persistent daemon that sees your scre
 
 - [MOGOI](#mogoi)
   - [Table of Contents](#table-of-contents)
-  - [🔍 What Makes MOGOI Different](#-what-makes-mogoi-different)
+  - [🔍 What Makes MOGOI-AI Different](#-what-makes-mogoi-different)
   - [⚡ Quick Start](#-quick-start)
   - [🪨 Ambient mode (recommended)](#-ambient-mode-recommended)
   - [☁️ Managed Hosting](#️-managed-hosting)
@@ -56,9 +56,9 @@ MOGOI is not a chatbot with tools. It is a persistent daemon that sees your scre
 
 ---
 
-## 🔍 What Makes MOGOI Different
+## 🔍 What Makes MOGOI-AI Different
 
-| Feature | Typical AI Assistant | MOGOI |
+| Feature | Typical AI Assistant | MOGOI-AI |
 |---|---|---|
 | Always-on | No — request/response only | Yes — persistent daemon, runs 24/7 on a server or locally |
 | Reach across machines | No — single machine only | Yes — one daemon, unlimited sidecars on any machine |
@@ -86,7 +86,7 @@ Open `http://localhost:1846` — the dashboard walks you through LLM provider, v
 
 ## 🪨 Ambient mode
 
-MOGOI ships a "dashboard-less" experience built around a small cursor-following pebble — **on by default** after onboarding. Just run:
+MOGOI-AI ships a "dashboard-less" experience built around a small cursor-following pebble — **on by default** after onboarding. Just run:
 
 ```bash
 bun run start
@@ -94,7 +94,7 @@ bun run start
 
 What you get:
 
-- **Pebble** — a small paper-toned disc that follows your cursor. Wake-word ("Hey Mogoi"), `Ctrl+Space`, or click summons it. Long-press the disc to blind awareness instantly (privacy toggle); the eye glyph next to it shows when MOGOI is actively reading your screen.
+- **Pebble** — a small paper-toned disc that follows your cursor. Wake-word ("Hey Mogoi"), `Ctrl+Space`, or click summons it. Long-press the disc to blind awareness instantly (privacy toggle); the eye glyph next to it shows when MOGOI-AI is actively reading your screen.
 - **Native windows** — every dashboard room (workflows, memory, settings, …) opens as a real Windows window via voice ("open settings", "show me workflows") or `Ctrl+K`. No browser tab.
 - **Sub-pebble rail** — say "in the background, research X" and a colored sub-pebble flies to the right edge of your screen. Click it to see what the agent is doing; "open full ↗" pops a dedicated result panel.
 - **Voice-first** — "what's on my screen?", "close all background agents", "open the workflows window", "in the background, summarize today's meeting notes" — all routed inline, no LLM round-trip for the common verbs.
@@ -111,7 +111,7 @@ Don't want to deal with servers, DNS, or TLS certificates? We've partnered with 
 
 - **No self-hosting hassle** — no server to provision, no dependencies to install
 - **Dedicated domain included** — no need to buy a domain or configure DNS and TLS
-- **Up and running in under 5 minutes** — spin up your MOGOI instance and start using it immediately
+- **Up and running in under 5 minutes** — spin up your MOGOI-AI instance and start using it immediately
 
 Visit [opencove.host](https://opencove.host) to get started.
 
@@ -119,15 +119,15 @@ Visit [opencove.host](https://opencove.host) to get started.
 
 ## 💡 Use Cases
 
-**Research while you work** — Ask MOGOI to deep-dive a topic. It runs browser searches, reads pages, and compiles a summary in the background while you focus on other things.
+**Research while you work** — Ask MOGOI-AI to deep-dive a topic. It runs browser searches, reads pages, and compiles a summary in the background while you focus on other things.
 
-**Automate across machines** — Run the daemon on your home server. Connect sidecars on your work laptop and your desktop. MOGOI can move files between them, run scripts on your server, and open apps on your laptop — all from one conversation.
+**Automate across machines** — Run the daemon on your home server. Connect sidecars on your work laptop and your desktop. MOGOI-AI can move files between them, run scripts on your server, and open apps on your laptop — all from one conversation.
 
 **Inbox triage** — Set up a workflow that monitors your Gmail, categorizes incoming messages, drafts replies for your review, and schedules follow-ups on your calendar.
 
-**Desktop co-pilot** — MOGOI watches your screen via the sidecar. If it sees you struggling with an error message or a complex form, it proactively offers help or fills in fields for you.
+**Desktop co-pilot** — MOGOI-AI watches your screen via the sidecar. If it sees you struggling with an error message or a complex form, it proactively offers help or fills in fields for you.
 
-**Goal accountability** — Define OKRs in the Goals dashboard. MOGOI plans your day each morning, checks in during the evening, and escalates if you're falling behind — like a personal drill sergeant.
+**Goal accountability** — Define OKRs in the Goals dashboard. MOGOI-AI plans your day each morning, checks in during the evening, and escalates if you're falling behind — like a personal drill sergeant.
 
 **Multi-step workflows** — Build visual automations with 50+ node types: "when a file appears in this folder, OCR it, extract key data, update the spreadsheet, and notify me on Telegram."
 
@@ -155,11 +155,11 @@ The first time you run `mogoi start`, the daemon boots in setup mode and the das
 
 > **Restart after first-time setup:** The daemon constructs background services (heartbeat, commitments, awareness) at boot, gated on setup having already been completed. Once you finish setup in the dashboard, those services don't activate until the next start — the dashboard shows a banner reminding you. Run `mogoi restart` (or stop/start) to bring them online. This will go away in a follow-up that constructs the services in-process at setup completion.
 
-> **Note:** Native Windows is not a supported platform for the MOGOI daemon. MOGOI is built for Unix-like systems (macOS, Linux, and WSL); supporting native Windows would mean porting to a fundamentally different OS, which is out of scope. On Windows, use WSL2 for the Bun install above, or use the Docker install instead.
+> **Note:** Native Windows is not a supported platform for the MOGOI-AI daemon. MOGOI-AI is built for Unix-like systems (macOS, Linux, and WSL); supporting native Windows would mean porting to a fundamentally different OS, which is out of scope. On Windows, use WSL2 for the Bun install above, or use the Docker install instead.
 
 ### Docker
 
-Run MOGOI on any OS with a single command — no Bun or dependencies required. Install [Docker Desktop](https://www.docker.com/products/docker-desktop/) (Windows, macOS, Linux) if you don't have Docker yet.
+Run MOGOI-AI on any OS with a single command — no Bun or dependencies required. Install [Docker Desktop](https://www.docker.com/products/docker-desktop/) (Windows, macOS, Linux) if you don't have Docker yet.
 
 ```bash
 docker run -d --name mogoi \
@@ -170,7 +170,7 @@ docker run -d --name mogoi \
 
 The image is available on [GHCR](https://ghcr.io/Motius/mogoi). Non-LLM configuration can be provided via environment variables or by mounting a `config.yaml` into the `/data` volume. LLM providers, API keys, and model routing are configured from the settings dashboard (open http://localhost:1846 after first boot) and stored in the database + encrypted keychain - they are not set via env vars or `config.yaml`.
 
-> **Note:** Docker runs in an isolated container, so the daemon inside it cannot access your host desktop, browser, or clipboard directly. You must still install the [sidecar](#️-sidecar-setup) on each machine where you want MOGOI to have desktop awareness and automation capabilities.
+> **Note:** Docker runs in an isolated container, so the daemon inside it cannot access your host desktop, browser, or clipboard directly. You must still install the [sidecar](#️-sidecar-setup) on each machine where you want MOGOI-AI to have desktop awareness and automation capabilities.
 
 ### One-liner
 
@@ -249,7 +249,7 @@ a bug.
 
 ### Updating
 
-`mogoi update` detects how you installed MOGOI and runs the right update command. Equivalent manual commands per install method:
+`mogoi update` detects how you installed MOGOI-AI and runs the right update command. Equivalent manual commands per install method:
 
 | Install method | `mogoi update` dispatches to |
 | --- | --- |
@@ -277,9 +277,9 @@ Run `mogoi doctor` to see what was detected and the exact commands for your inst
 
 ## 🖥️ Sidecar Setup
 
-The sidecar is what gives MOGOI physical reach beyond the machine it runs on. It is a lightweight agent that you install on any machine — your laptop, a dev server, a home PC — and it connects back to the central daemon over an authenticated WebSocket. Each sidecar gives MOGOI access to that machine's desktop, browser, terminal, filesystem, clipboard, and screenshots.
+The sidecar is what gives MOGOI-AI physical reach beyond the machine it runs on. It is a lightweight agent that you install on any machine — your laptop, a dev server, a home PC — and it connects back to the central daemon over an authenticated WebSocket. Each sidecar gives MOGOI-AI access to that machine's desktop, browser, terminal, filesystem, clipboard, and screenshots.
 
-This means you can run the daemon on an always-on server and still interact with your desktop machines as if MOGOI were running locally. Enroll as many sidecars as you want.
+This means you can run the daemon on an always-on server and still interact with your desktop machines as if MOGOI-AI were running locally. Enroll as many sidecars as you want.
 
 ### 1. Install the sidecar
 
@@ -293,7 +293,7 @@ bun install -g @motius/sidecar
 
 ### 2. Enroll in the dashboard
 
-1. Open the MOGOI dashboard at `http://localhost:1846`
+1. Open the MOGOI-AI dashboard at `http://localhost:1846`
 2. Go to **Settings** → **Sidecar**
 3. Enter a friendly name for this machine (e.g. "work laptop") and click **Enroll**
 4. Click **Copy** to copy the token command
@@ -341,7 +341,7 @@ Local development builds report `dev` and are never blocked.
 
 **Tool Execution** — 14+ builtin tools with up to 200 iterations per turn. The agent loop runs until the task is complete, not until the response looks done.
 
-**Memory & Knowledge** — Vault knowledge graph (entities, facts, relationships) stored in SQLite. Extracted automatically after each response. Injected into the system prompt so MOGOI always remembers what matters.
+**Memory & Knowledge** — Vault knowledge graph (entities, facts, relationships) stored in SQLite. Extracted automatically after each response. Injected into the system prompt so MOGOI-AI always remembers what matters.
 
 **Browser Control** — Auto-launches Chromium via CDP. 7 browser tools handle navigation, interaction, extraction, and form filling.
 
@@ -363,7 +363,7 @@ Local development builds report `dev` and are never blocked.
 
 ## ⚙️ Configuration
 
-MOGOI stores its system configuration at `~/.mogoi/config.yaml`; user-level settings live in its database and are managed from the dashboard. Access is **JWT-only by default**: run `mogoi enroll "<device-name>"` and paste the printed token into the sidecar (desktop app), which connects and gives you the dashboard. Setting up without a sidecar? Temporarily add `auth:\n  insecure_open_access: true` to config.yaml, open `http://localhost:1846` after `mogoi start` for the guided setup, then **remove the flag** once your device is enrolled. The Settings room lets you tweak channels, personality, and authority later.
+MOGOI-AI stores its system configuration at `~/.mogoi/config.yaml`; user-level settings live in its database and are managed from the dashboard. Access is **JWT-only by default**: run `mogoi enroll "<device-name>"` and paste the printed token into the sidecar (desktop app), which connects and gives you the dashboard. Setting up without a sidecar? Temporarily add `auth:\n  insecure_open_access: true` to config.yaml, open `http://localhost:1846` after `mogoi start` for the guided setup, then **remove the flag** once your device is enrolled. The Settings room lets you tweak channels, personality, and authority later.
 
 Running the brain on another machine — a home server, a LAN box, or a VPS with a domain? Read [docs/SELF_HOSTING.md](docs/SELF_HOSTING.md) for the reverse-proxy setup, `brain_domain`, device enrollment across machines, and what plain-HTTP access does and doesn't support.
 
@@ -398,7 +398,7 @@ See [config.example.yaml](config.example.yaml) for the full reference including 
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                     MOGOI Daemon                           │
+│                     MOGOI-AI Daemon                           │
 │                  (server or local machine)                  │
 │                                                             │
 │  ┌──────────┐  ┌──────────┐  ┌───────────┐  ┌───────────┐   │
@@ -430,7 +430,7 @@ The **daemon** is the brain — it holds the LLM connections, memory vault, agen
 
 **Sidecars** are the hands. Each sidecar is a lightweight Go binary that connects to the daemon and exposes its host machine's capabilities. The daemon can orchestrate actions across all connected sidecars simultaneously. Sidecars authenticate via JWT and communicate over a binary WebSocket protocol.
 
-This separation means MOGOI stays reachable 24/7 on a server while still being able to see your screen, type in your apps, and manage files on any machine where a sidecar is running.
+This separation means MOGOI-AI stays reachable 24/7 on a server while still being able to see your screen, type in your apps, and manage files on any machine where a sidecar is running.
 
 ---
 
@@ -486,7 +486,7 @@ Workflows (contributor reading order):
 
 ## 📊 Telemetry
 
-MOGOI sends **anonymous** usage metrics so the project can measure its unique
+MOGOI-AI sends **anonymous** usage metrics so the project can measure its unique
 user base and retention. Each ping contains only a hashed machine id (derived
 from hostname + username, never reversible to either), the app version, the
 install method, and the OS/arch. No personal data, config, content, or feature
@@ -510,7 +510,7 @@ Full details: [docs/TELEMETRY.md](docs/TELEMETRY.md).
 
 ## 🔒 Security
 
-MOGOI includes a built-in authority engine that gates every action at runtime. All tool executions are logged in an audit trail, and sensitive operations require explicit approval via the dashboard or Telegram. Emergency pause and kill controls are always available.
+MOGOI-AI includes a built-in authority engine that gates every action at runtime. All tool executions are logged in an audit trail, and sensitive operations require explicit approval via the dashboard or Telegram. Emergency pause and kill controls are always available.
 
 If you discover a security vulnerability, please report it privately by emailing the maintainer rather than opening a public issue.
 

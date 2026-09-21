@@ -1,4 +1,4 @@
-# MOGOI — Owner's Guide
+# MOGOI-AI — Owner's Guide
 
 **Understand it. Install it. Run it anywhere. Reshape it into your vision — without breaking it.**
 
@@ -16,9 +16,9 @@ How to use this document:
 
 ---
 
-## 1. The idea behind MOGOI
+## 1. The idea behind MOGOI-AI
 
-Most AI assistants are **request/response tools**: you ask, they answer, they forget. MOGOI is built on the opposite premise —
+Most AI assistants are **request/response tools**: you ask, they answer, they forget. MOGOI-AI is built on the opposite premise —
 a **persistent agent** that is always on, remembers, and acts on your behalf within limits you define.
 
 Three design decisions shape everything:
@@ -74,7 +74,7 @@ a visual n8n-style workflow builder (50+ nodes), voice (wake word + TTS/STT), OK
 ### 2.2 Runtime architecture (how the pieces talk)
 
 ```
-  ┌────────────────────────── MOGOI daemon (Bun + TypeScript) ──────────────────────────┐
+  ┌────────────────────────── MOGOI-AI daemon (Bun + TypeScript) ──────────────────────────┐
   │  LLM Router │ Vault Memory │ Agent Manager │ Workflow Engine │ Authority │ Goals …   │
   │  Bun.serve() — HTTP API + WebSocket + React dashboard (port 1846)                   │
   └───────────────┬──────────────────────────────────────────────┬────────────────────────┘

@@ -168,7 +168,7 @@ export function LibraryPanel(): React.ReactElement {
                 {lib.managed ? null : (
                   <p className="wf-lib__section-hint wf-lib__section-hint--warn">
                     Community pieces are installed from npm and run inside the engine
-                    sandbox. They haven't been individually reviewed by Mogoi -- check
+                    sandbox. They haven't been individually reviewed by Mogoi-AI -- check
                     each piece's source link before opting in.
                   </p>
                 )}

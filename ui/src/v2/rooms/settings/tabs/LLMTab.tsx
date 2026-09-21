@@ -219,7 +219,7 @@ export function LLMTab({
       <section className="v2-set__section">
         <div className="v2-set__section-head">
           <div>
-            <h3 className="v2-set__section-title">How should Mogoi think?</h3>
+            <h3 className="v2-set__section-title">How should Mogoi-AI think?</h3>
             <div className="v2-set__section-sub">
               Pick the architecture that drives chat and background work.
               You can switch any time.
@@ -515,7 +515,7 @@ function ProviderRow({
               />
               {entry.kind === "anthropic" && (
                 <div className="v2-set__hint">
-                  Mogoi appends /v1/messages and authenticates with the token above.
+                  Mogoi-AI appends /v1/messages and authenticates with the token above.
                 </div>
               )}
             </div>
@@ -726,7 +726,7 @@ function NewProviderRow({
             />
             {kind === "anthropic" && (
               <div className="v2-set__hint">
-                Mogoi appends /v1/messages and authenticates with the token above.
+                Mogoi-AI appends /v1/messages and authenticates with the token above.
               </div>
             )}
           </div>

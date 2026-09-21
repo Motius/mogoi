@@ -48,7 +48,7 @@ export interface TriggerKindMeta {
  *   - schedule / webhook: built-in primitives the trigger manager
  *     understands as a pieceName (no triggerName -- there's only one
  *     mode per primitive).
- *   - event: the Mogoi-side `@mogoipieces/piece-mogoi-trigger`
+ *   - event: the Mogoi-AI-side `@mogoipieces/piece-mogoi-trigger`
  *     piece's `on_event` trigger. Pulls events from the workflow event
  *     bus; the user picks which event type via a dedicated dropdown
  *     (powered by `WORKFLOW_EVENT_TYPES`).

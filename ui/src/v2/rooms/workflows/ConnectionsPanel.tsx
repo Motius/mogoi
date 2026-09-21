@@ -1,5 +1,5 @@
 /**
- * Connections panel: list `app_connection` rows + registered Mogoi sources,
+ * Connections panel: list `app_connection` rows + registered Mogoi-AI sources,
  * add / delete connections. Renders inline below the workflows list when the
  * "Connections" tab is active.
  *
@@ -53,7 +53,7 @@ export function ConnectionsPanel(): React.ReactElement {
 
       {conn.mogoiSources.length > 0 ? (
         <div className="wf-conn__sources">
-          <span className="wf-conn__sources-label">Reusable Mogoi credentials:</span>
+          <span className="wf-conn__sources-label">Reusable Mogoi-AI credentials:</span>
           {conn.mogoiSources.map((s) => (
             <Chip key={s.id} tone="ok">
               <code>mogoi:{s.id}</code>

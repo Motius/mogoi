@@ -123,7 +123,7 @@ export function WorkflowsRoomBody(): React.ReactElement {
       if (prompt) {
         setActionMessage({
           tone: "ok",
-          text: `Empty workflow created. To have Mogoi build "${prompt}" for you, ask in chat: "Make a workflow that ${prompt}".`,
+          text: `Empty workflow created. To have Mogoi-AI build "${prompt}" for you, ask in chat: "Make a workflow that ${prompt}".`,
         });
         window.setTimeout(() => setActionMessage(null), 6000);
       }
@@ -559,7 +559,7 @@ function EmptyState({ onCreate }: { onCreate: () => void }): React.ReactElement 
     <div className="wf-empty">
       <p>Your first workflow starts with a conversation.</p>
       <p className="wf-empty__hint">
-        Open Talk and describe a recurring task. Mogoi can draft the steps with you.
+        Open Talk and describe a recurring task. Mogoi-AI can draft the steps with you.
         Or start with a blank canvas below.
       </p>
       <Button variant="primary" size="sm" onClick={onCreate}>

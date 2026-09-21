@@ -8,7 +8,7 @@ import { isDevToolsEnabled } from "./devtools";
  *  - `room` is the Phase 6 fullscreen Room overlay (used inside the dashboard
  *    when the user navigates within the SPA).
  *  - `panel` is the bare-room mode used when the sidecar spawns a Room as a
- *    standalone native window (T18 — "Mogoi open settings"). Renders ONLY
+ *    standalone native window (T18 — "Mogoi-AI open settings"). Renders ONLY
  *    the RoomBody, no AppShell, no voice handlers — so the pebble's sidecar-
  *    side voice loop is the single source of voice input (no double-voice).
  *

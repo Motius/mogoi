@@ -92,7 +92,7 @@ type Provider = {
 const PROVIDERS: Provider[] = [
   // Hosted brain. `soon: true` is the self-hosted default; the wizard flips
   // it off when GET /api/config/llm reports hosted_llm (see provList below).
-  { id: "mogoi", name: "Mogoi AI", abbr: "JA", kind: "included", soon: true, noConfig: true },
+  { id: "mogoi", name: "Mogoi-AI", abbr: "JA", kind: "included", soon: true, noConfig: true },
   { id: "anthropic", name: "Anthropic", abbr: "A", kind: "API key", needsKey: true, optionalBaseUrl: true, keyLabel: "API key", urlLabel: "Custom endpoint URL", urlPh: "https://gateway.example.com", models: ["claude-fable-5", "claude-opus-4-8", "claude-sonnet-5", "claude-haiku-4-5-20251001"], hint: "Enable the custom endpoint option to use ANTHROPIC_BASE_URL and ANTHROPIC_AUTH_TOKEN-style authentication." },
   { id: "openai", name: "OpenAI", abbr: "O", kind: "API key", needsKey: true, models: ["gpt-5.5", "gpt-5.5-pro", "gpt-5.4", "gpt-5-mini", "o4-mini"] },
   { id: "groq", name: "Groq", abbr: "G", kind: "API key", needsKey: true, models: ["openai/gpt-oss-20b", "openai/gpt-oss-120b", "qwen/qwen3.6-27b"], hint: "Loads the current model catalog from Groq so decommissioned models are never suggested." },
@@ -148,7 +148,7 @@ async function playPreviewAudio(res: Response): Promise<void> {
 const TOUR = [
   { title: "Give the repetition a workflow", sm: "Turn repeated work into steps you can inspect and steer. Use programmatic steps for known operations, and AI where judgment is needed.", t: "Workflows is where you review and manage those steps.", focus: "workflows", pos: { left: "calc(var(--mrail-w) + 12px)", top: 58 } },
   { title: "Build it together", sm: "Describe a routine in Talk. Mogoi can draft its steps, prompts and variables with you. Review the workflow before testing and enabling it.", t: `After setup, open Talk with ${modKey("J")} or the Pebble.`, focus: "talk", pos: { right: 18, bottom: 50 } },
-  { title: "A cofounder with context", sm: "Awareness can surface patterns worth automating. Memory and goals help Mogoi understand what matters to you, and why a workflow would help.", t: "Give Mogoi context as you work together.", focus: "context", pos: { left: "calc(var(--mrail-w) + 12px)", top: 104 } },
+  { title: "A cofounder with context", sm: "Awareness can surface patterns worth automating. Memory and goals help Mogoi understand what matters to you, and why a workflow would help.", t: "Give Mogoi-AI context as you work together.", focus: "context", pos: { left: "calc(var(--mrail-w) + 12px)", top: 104 } },
   { title: "Work across your apps", sm: "Workflows can use connected tools, browser control and desktop control. Computer actions need that paired computer awake, connected and permitted.", t: "The Pebble keeps the conversation nearby.", focus: "apps", pos: { right: 18, bottom: 50 } },
   { title: "Decide where approval belongs", sm: "Set action permissions and approval rules in Authority. Inspect your workflow, test the result, then deliberately publish and enable it when ready.", t: "Your preferences in the interview are context. Set the rules in Authority.", focus: "authority", pos: { left: "calc(var(--mrail-w) + 12px)", top: 150 } },
 ];
@@ -257,7 +257,7 @@ export function OnboardingWizard({
   // send them BACK to Permissions, not forward. Permissions is where the
   // hosted setup POST fires; repairing forward to `connect` would skip it
   // silently, leaving onboarding never marked complete — the wizard then
-  // replays on the next launch and "Open Mogoi" appears to do nothing.
+  // replays on the next launch and "Open Mogoi-AI" appears to do nothing.
   useLayoutEffect(() => {
     if (!steps.some(([k]) => k === stepKey)) setStepKey("perms");
   }, [steps, stepKey]);
@@ -604,7 +604,7 @@ export function OnboardingWizard({
       await onComplete();
     } catch {
       // The skip is saved; only loading the dashboard failed, and retrying is safe.
-      setError("Skip saved, but Mogoi couldn't load your dashboard. Try again.");
+      setError("Skip saved, but Mogoi-AI couldn't load your dashboard. Try again.");
     } finally { setBusy(false); }
   }, [onComplete]);
 
@@ -801,7 +801,7 @@ export function OnboardingWizard({
     <div className="obw">
       <div className="obw-bar">
         <i /><i /><i />
-        <span className="obw-wt">{key === "welcome" || key === "interview" || key === "tour" || key === "allset" ? "Mogoi" : "Mogoi · Setup"}</span>
+        <span className="obw-wt">{key === "welcome" || key === "interview" || key === "tour" || key === "allset" ? "Mogoi-AI" : "Mogoi-AI · Setup"}</span>
       </div>
       {progress}
 
@@ -818,7 +818,7 @@ export function OnboardingWizard({
   /* ─────────── step renderers ─────────── */
   function renderStep() {
     // The provisioned screens are exactly the ones whose answers the server
-    // guard drops on hosted installs — never show them (or the "Mogoi AI ·
+    // guard drops on hosted installs — never show them (or the "Mogoi-AI ·
     // Soon" mislabel) until the probe has actually said which install this
     // is. Blocking here also blocks the path to the setup POST.
     if (stepGatedOnProbe(hostedProbe, key)) {
@@ -848,7 +848,7 @@ export function OnboardingWizard({
           <div className="obw-word" style={{ fontSize: 15, marginBottom: 11 }}><span className="u">use</span>mogoi</div>
           <h2>Your AI cofounder.<br />Let’s make room to build.</h2>
           <div className="obw-sub" style={{ maxWidth: "40ch", margin: "9px auto 0" }}>
-            Give repetitive work a workflow. Mogoi helps you find what to automate,
+            Give repetitive work a workflow. Mogoi-AI helps you find what to automate,
             build the steps, and use AI where judgment matters. First, let’s connect
             your tools and learn how you work.
           </div>
@@ -863,7 +863,7 @@ export function OnboardingWizard({
               <button className={theme === "light" ? "on" : ""} onClick={() => applyTheme("light")}>Light</button>
               <button className={theme === "dark" ? "on" : ""} onClick={() => applyTheme("dark")}>Dark</button>
             </div>
-            <button className="obw-btn obw-btn-pri" style={{ minWidth: 208, marginTop: 8 }} onClick={next}>Set up Mogoi</button>
+            <button className="obw-btn obw-btn-pri" style={{ minWidth: 208, marginTop: 8 }} onClick={next}>Set up Mogoi-AI</button>
             <button className="obw-skip" disabled={busy} onClick={skipAll}>I’ll do this later</button>
             {error && <div className="obw-hint" style={{ color: "var(--listen)" }}>{error}</div>}
           </div>
@@ -889,7 +889,7 @@ export function OnboardingWizard({
             {perms.phase === "loading" ? (
               <>
                 <h2>Checking this machine…</h2>
-                <div className="obw-sub">Asking the Mogoi desktop app what it already has.</div>
+                <div className="obw-sub">Asking the Mogoi-AI desktop app what it already has.</div>
               </>
             ) : perms.phase === "error" ? (
               // The BRAIN could not be reached, which is a different thing
@@ -900,7 +900,7 @@ export function OnboardingWizard({
               <>
                 <h2>Couldn't check this machine.</h2>
                 <div className="obw-sub">
-                  Mogoi couldn't be asked what it already has. You can carry on and grant
+                  Mogoi-AI couldn't be asked what it already has. You can carry on and grant
                   things later, or try again.
                 </div>
                 {perms.error && <div className="obw-hint" style={{ marginTop: 10 }}>{perms.error}</div>}
@@ -923,29 +923,29 @@ export function OnboardingWizard({
               <>
                 <h2>Nothing to set up here.</h2>
                 <div className="obw-sub">
-                  Mogoi already has the access it needs on this machine. Nothing is gated
+                  Mogoi-AI already has the access it needs on this machine. Nothing is gated
                   behind a permission you have to grant first.
                 </div>
               </>
             ) : (
               <>
-                <h2>Connect Mogoi to this computer.</h2>
+                <h2>Connect Mogoi-AI to this computer.</h2>
                 <div className="obw-sub">
                   {unbundled
                     ? "Here is what this machine currently allows. None of it can be granted from here yet, for the reason below."
                     : mac
-                      ? "These permissions let Mogoi understand your screen and operate your apps. Each button asks the OS or opens its settings. You choose action approval rules separately in Authority."
-                      : "One switch to check before Mogoi can hear you."}
+                      ? "These permissions let Mogoi-AI understand your screen and operate your apps. Each button asks the OS or opens its settings. You choose action approval rules separately in Authority."
+                      : "One switch to check before Mogoi-AI can hear you."}
                 </div>
                 {unbundled && (
                   // A bare binary has no bundle identity, so macOS attaches
                   // grants to whatever launched it. Granting from here would
-                  // permission the user's terminal and tell them Mogoi had
+                  // permission the user's terminal and tell them Mogoi-AI had
                   // it. The rows stay visible as information; the buttons are
                   // gone, and the server refuses the request too.
                   <div className="obw-hint" style={{ marginTop: 12, color: "var(--listen)" }}>
-                    Mogoi is running as a bare binary rather than an installed app, so macOS
-                    would attach these grants to whatever launched it. Install Mogoi.app and
+                    Mogoi-AI is running as a bare binary rather than an installed app, so macOS
+                    would attach these grants to whatever launched it. Install Mogoi-AI.app and
                     run setup again to grant them properly.
                   </div>
                 )}
@@ -966,7 +966,7 @@ export function OnboardingWizard({
                         {/* Nothing to offer, and nothing honest to claim: an
                             unbundled process reads the LAUNCHING app's grants,
                             so a "Granted" chip here would be reporting the
-                            user's terminal as Mogoi. */}
+                            user's terminal as Mogoi-AI. */}
                         {unbundled ? null : granted ? (
                           <span className="obw-granted"><Glyph k="check" />Granted</span>
                         ) : (
@@ -1003,7 +1003,7 @@ export function OnboardingWizard({
                 {needsRestartNote(rows, screenPaneVisited) && (
                   <div className="obw-hint" style={{ marginTop: 10 }}>
                     Switched Screen Recording on and this row is still amber? macOS keeps
-                    handing a running app its old answer — quit Mogoi and open it again.
+                    handing a running app its old answer — quit Mogoi-AI and open it again.
                   </div>
                 )}
                 {rows.some((r) => r.hasState) && allSettled(rows) && (
@@ -1014,7 +1014,7 @@ export function OnboardingWizard({
                 {mac && (
                   <div className="obw-hint" style={{ marginTop: 10 }}>
                     macOS asks about your files and about controlling other apps in the
-                    moment, the first time Mogoi needs them. Review or revoke any of this
+                    moment, the first time Mogoi-AI needs them. Review or revoke any of this
                     later in System Settings, Privacy &amp; Security.
                   </div>
                 )}
@@ -1060,12 +1060,12 @@ export function OnboardingWizard({
 
       case "brain": return (
         <div className="obw-body"><div className="obw-wrap wide">
-          <h2>Pick a brain for Mogoi.</h2>
+          <h2>Pick a brain for Mogoi-AI.</h2>
           <div className="obw-sub">
             Use AI to help design workflows and handle the steps that need judgment.{" "}
             {hosted
-              ? "Mogoi AI is included with your plan — nothing to configure. Prefer your own? Ollama runs locally with no key, or add an API key for Anthropic, OpenAI, and more. Change it anytime in Settings."
-              : "Bring your own: Ollama runs locally with no key, or add an API key for Anthropic, OpenAI, and more. Mogoi AI, our hosted brain, is coming soon. Change it anytime in Settings."}
+              ? "Mogoi-AI is included with your plan — nothing to configure. Prefer your own? Ollama runs locally with no key, or add an API key for Anthropic, OpenAI, and more. Change it anytime in Settings."
+              : "Bring your own: Ollama runs locally with no key, or add an API key for Anthropic, OpenAI, and more. Mogoi-AI, our hosted brain, is coming soon. Change it anytime in Settings."}
           </div>
           <div className="obw-provgrid" style={{ marginTop: 14 }}>
             {provList.map((p) => (
@@ -1099,7 +1099,7 @@ export function OnboardingWizard({
         ];
         return (
           <div className="obw-body"><div className="obw-wrap wide">
-            <h2>How should Mogoi hear you?</h2>
+            <h2>How should Mogoi-AI hear you?</h2>
             <div className="obw-sub">Describe your work by voice when it suits you. The interview uses written answers. Skip voice setup if you only plan to type; add it later in Settings.</div>
             <div className="obw-choices" style={{ marginTop: 14 }}>
               {opts.map(([v, ic, nm, bd]) => (
@@ -1130,7 +1130,7 @@ export function OnboardingWizard({
         ];
         return (
           <div className="obw-body"><div className="obw-wrap wide">
-            <h2>Should Mogoi speak to you?</h2>
+            <h2>Should Mogoi-AI speak to you?</h2>
             <div className="obw-sub">Voice replies are optional. Hear a voice before you choose; you can change this in Settings later.</div>
             <div className="obw-choices" style={{ marginTop: 14 }}>
               {opts.map(([v, ic, nm, bd]) => (
@@ -1192,7 +1192,7 @@ export function OnboardingWizard({
           // no token from this consent can do. A first-run screen that promises
           // more than the consent grants is a promise broken later, quietly.
           ["google", "calendar", "Google", "Read-only access to your calendar and Gmail, giving Mogoi context for your day and the routines you want to automate."],
-          ["telegram", "send", "Telegram", "Talk to Mogoi from your phone."],
+          ["telegram", "send", "Telegram", "Talk to Mogoi-AI from your phone."],
         ];
         return (
           <div className="obw-body"><div className="obw-wrap wide">
@@ -1276,7 +1276,7 @@ export function OnboardingWizard({
   }
 
   function renderProvDetail() {
-    if (prov.noConfig) return <div className="obw-testres ok" style={{ fontSize: 12 }}><span className="dot" />Mogoi AI is included with your plan. Nothing to configure.</div>;
+    if (prov.noConfig) return <div className="obw-testres ok" style={{ fontSize: 12 }}><span className="dot" />Mogoi-AI is included with your plan. Nothing to configure.</div>;
     // The live catalog when we have one, the curated list otherwise. A custom
     // Anthropic gateway serves its own catalog — the curated public ids would
     // be misleading there, so before discovery the picker is replaced by a
@@ -1365,7 +1365,7 @@ export function OnboardingWizard({
               big enough change to force a repaint, which is why only the tail
               of the tour showed it. A fresh node cannot be a stale one. */}
           <div key={tourI} className="obw-spot" style={pos}>
-            <div className="sh"><span className="sd"><span className="in" /></span><span className="sl">Mogoi · tour</span><span className="sc">{tourI + 1} of {TOUR.length}</span></div>
+            <div className="sh"><span className="sd"><span className="in" /></span><span className="sl">Mogoi-AI · tour</span><span className="sc">{tourI + 1} of {TOUR.length}</span></div>
             <h3>{T.title}</h3>
             <div className="sm">{T.sm}</div>
             {T.t && <div className="stry">{T.t}</div>}
@@ -1489,7 +1489,7 @@ function InterviewStep({ onComplete }: { onComplete: () => void }) {
           <span className="obw-drop s-done" style={{ width: 52, height: 52 }}><span className="in" /></span>
         </div>
         <h2>Got it.</h2>
-        <div className="obw-sub" style={{ maxWidth: "34ch", margin: "9px auto 0" }}>{session.farewell || "I have plenty to start with. Welcome to Mogoi."}</div>
+        <div className="obw-sub" style={{ maxWidth: "34ch", margin: "9px auto 0" }}>{session.farewell || "I have plenty to start with. Welcome to Mogoi-AI."}</div>
         <div className="obw-recap" style={{ marginTop: 10 }}><div>{session.factsRecorded} {session.factsRecorded === 1 ? "fact" : "facts"} in your Vault</div></div>
         <div style={{ marginTop: 20 }}><button className="obw-btn obw-btn-pri" style={{ minWidth: 180 }} onClick={onComplete}>Continue</button></div>
       </div></div></div>
@@ -1499,13 +1499,13 @@ function InterviewStep({ onComplete }: { onComplete: () => void }) {
   const msgs = session.messages;
   const lastAsstIdx = msgs.map((m) => m.role).lastIndexOf("assistant");
   const currentQ = lastAsstIdx >= 0 ? msgs[lastAsstIdx]!.text : (session.phase === "connecting" ? "Getting ready to chat…" : "…");
-  // Keep the newest written answer visible while Mogoi is thinking, too.
+  // Keep the newest written answer visible while Mogoi-AI is thinking, too.
   const history = msgs.filter((_, i) => i !== lastAsstIdx).slice(-4);
 
   return (
     <div className="obw-iv">
       <div className="obw-ivhead">
-        <span className="l">Mogoi · your work, in your words</span>
+        <span className="l">Mogoi-AI · your work, in your words</span>
         <span className="r">
           <span className="facts"><b>{session.factsRecorded}</b> facts</span>
           {skipErr && <span className="obw-hint" style={{ color: "var(--listen)" }}>{skipErr}</span>}

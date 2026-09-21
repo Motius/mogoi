@@ -317,8 +317,8 @@ function createSidecarNotice(payload: SidecarEventPayload, timestamp?: number): 
     id: uuid(),
     title: "Sidecar offline",
     text: reason
-      ? `Mogoi sidecar disconnected: ${reason}. Dashboard features may be delayed until it reconnects.`
-      : "Mogoi sidecar disconnected. Dashboard features may be delayed until it reconnects.",
+      ? `Mogoi-AI sidecar disconnected: ${reason}. Dashboard features may be delayed until it reconnects.`
+      : "Mogoi-AI sidecar disconnected. Dashboard features may be delayed until it reconnects.",
     level: "warning",
   };
 

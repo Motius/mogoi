@@ -50,7 +50,7 @@ export function RestartRequiredBanner({ status }: { status: OnboardingStatus | n
     >
       <span aria-hidden style={{ fontSize: 16 }}>↻</span>
       <span>
-        <strong>Restart Mogoi</strong> to enable background processing —
+        <strong>Restart Mogoi-AI</strong> to enable background processing —
         your heartbeat, commitments, and awareness services will activate
         after the next start.
       </span>

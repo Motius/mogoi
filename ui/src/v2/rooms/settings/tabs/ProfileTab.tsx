@@ -84,7 +84,7 @@ export function ProfileTab({
           <div>
             <h3 className="v2-set__section-title">Initial User Context</h3>
             <div className="v2-set__section-sub">
-              Durable context Mogoi uses for every conversation. Not a one-shot — refine it any time.
+              Durable context Mogoi-AI uses for every conversation. Not a one-shot — refine it any time.
             </div>
           </div>
           <div style={{ display: "flex", gap: "var(--s-2)", flexWrap: "wrap" }}>
@@ -233,7 +233,7 @@ export function ProfileTab({
       ) : (
         <section className="v2-set__section">
           <p className="v2-set__hint">
-            No user profile saved yet. Start the wizard to give Mogoi a strong initial
+            No user profile saved yet. Start the wizard to give Mogoi-AI a strong initial
             understanding of your identity, goals, preferences, routines, and context.
           </p>
         </section>
@@ -280,7 +280,7 @@ function OnboardingReplaySection({
         <div>
           <h3 className="v2-set__section-title">Replay onboarding</h3>
           <div className="v2-set__section-sub">
-            Re-run the conversational interview to refresh what Mogoi knows about
+            Re-run the conversational interview to refresh what Mogoi-AI knows about
             you, or take the dashboard tour again.
           </div>
         </div>

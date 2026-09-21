@@ -80,7 +80,7 @@ export function SidecarTab({
             <div>
               <h3 className="v2-set__section-title">Add a device</h3>
               <div className="v2-set__section-sub">
-                Install Mogoi on the new device and sign in with your account — it enrolls itself
+                Install Mogoi-AI on the new device and sign in with your account — it enrolls itself
                 and appears below. There is no token to copy.
               </div>
             </div>
@@ -92,7 +92,7 @@ export function SidecarTab({
           <div>
             <h3 className="v2-set__section-title">Enroll a new sidecar</h3>
             <div className="v2-set__section-sub">
-              Run the resulting token on the target machine to extend Mogoi there.
+              Run the resulting token on the target machine to extend Mogoi-AI there.
             </div>
           </div>
         </div>

@@ -133,7 +133,7 @@ export function ContentRoomBody({ mode }: { mode: RoomBodyMode }) {
         ) : (
           <div className="rk-content__list">
             {listItems.length === 0 ? (
-              <div style={{ padding: 22 }}><EmptyState title="Nothing here yet">Describe a piece to Mogoi or press <b>New content</b> to start the pipeline.</EmptyState></div>
+              <div style={{ padding: 22 }}><EmptyState title="Nothing here yet">Describe a piece to Mogoi-AI or press <b>New content</b> to start the pipeline.</EmptyState></div>
             ) : listItems.map((it) => (
               <button key={it.id} className={`rk-content__row${selectedId === it.id ? " rk-content__row--sel" : ""}`} onClick={() => setSelectedId(selectedId === it.id ? null : it.id)}>
                 <span className="rk-content__tbadge" title={TYPE_LABEL[it.content_type]}>{TYPE_SHORT[it.content_type]}</span>

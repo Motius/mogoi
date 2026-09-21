@@ -70,8 +70,8 @@ export function BillingTab({ onToast }: { data: SettingsHook; onToast: Toast }) 
   if (billing.state === "self") {
     return (
       <Soon
-        title="No bill on this Mogoi"
-        sub="This Mogoi runs on your own machine with your own model keys, so there is nothing to pay for here. Hosted plans and their billing live with motius."
+        title="No bill on this Mogoi-AI"
+        sub="This Mogoi-AI runs on your own machine with your own model keys, so there is nothing to pay for here. Hosted plans and their billing live with motius."
       />
     );
   }
@@ -85,7 +85,7 @@ export function BillingTab({ onToast }: { data: SettingsHook; onToast: Toast }) 
     return (
       <Soon
         title="Billing isn't connected here"
-        sub="This Mogoi has no link to a motius billing account. If you're on a hosted plan, you can manage billing from your motius account."
+        sub="This Mogoi-AI has no link to a motius billing account. If you're on a hosted plan, you can manage billing from your motius account."
       >
         <button className="bl-btn" onClick={billing.refresh}>Check again</button>
       </Soon>

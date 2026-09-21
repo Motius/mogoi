@@ -338,7 +338,7 @@ function AppShellLive() {
   // continues in the background; both paths produce identical thread items.
   // From any "busy" state (speaking/processing/wake_detected), tapping
   // interrupts the in-flight turn and starts a fresh recording — the user
-  // shouldn't have to wait for Mogoi to finish thinking to talk over it.
+  // shouldn't have to wait for Mogoi-AI to finish thinking to talk over it.
   const handleTapOrb = useCallback(() => {
     if (voice.muted) return;
     if (voice.voiceState === "recording") {
@@ -541,7 +541,7 @@ function AppShellLive() {
         composerDisabled={!live.isConnected}
         composerPlaceholder={
           live.isConnected
-            ? "Ask Mogoi, or press / to summon a tool…"
+            ? "Ask Mogoi-AI, or press / to summon a tool…"
             : "Waiting for daemon…"
         }
         composerResponding={live.isResponding || live.thinking || voice.voiceState === "speaking"}
@@ -835,7 +835,7 @@ function RoomSurface({ roomKey }: { roomKey: RoomKey }) {
 
 /** Live-state microcopy on the Talk hint line — the old rail's lines, verbatim. */
 const TALK_HINT: Record<VoiceState, string> = {
-  idle: "Tap the pebble, or say “Hey Mogoi.”",
+  idle: "Tap the pebble, or say “Hey Mogoi-AI.”",
   listening: "Listening. Pause to send.",
   thinking: "Thinking through that…",
   speaking: "Speaking — the reply is in the thread.",
@@ -980,7 +980,7 @@ function ShellLayout({
 
       {/* Talk — everything the VoiceRail + thread + composer did, summoned. */}
       {talkOpen && (
-        <div className={`rs-talk${talkIn ? " in" : ""}`} role="dialog" aria-label="Talk to Mogoi">
+        <div className={`rs-talk${talkIn ? " in" : ""}`} role="dialog" aria-label="Talk to Mogoi-AI">
           <div className="th">
             <button
               className="rs-talk-mic"

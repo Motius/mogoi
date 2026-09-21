@@ -341,7 +341,7 @@ export function planMeta(summary: BillingSummary, now: number): string {
       const grace = futureDate(sub.graceUntil, now);
       return grace
         ? `Payment failed · your brain stays online until **${grace}**`
-        : "Payment failed · update your card to keep Mogoi running";
+        : "Payment failed · update your card to keep Mogoi-AI running";
     }
     case "incomplete":
       return "The first payment hasn't completed yet.";
@@ -370,8 +370,8 @@ export function bannerFor(summary: BillingSummary, now: number): BannerView | nu
         tone: "warn",
         icon: "alert",
         message: grace
-          ? `**We couldn't charge your card.** Update it to keep Mogoi running; your brain stays online until ${grace}.`
-          : "**We couldn't charge your card.** Update it to keep Mogoi running.",
+          ? `**We couldn't charge your card.** Update it to keep Mogoi-AI running; your brain stays online until ${grace}.`
+          : "**We couldn't charge your card.** Update it to keep Mogoi-AI running.",
         action: { label: "Update card", link: "paymentMethod" },
       };
     }
@@ -390,7 +390,7 @@ export function bannerFor(summary: BillingSummary, now: number): BannerView | nu
       return {
         tone: "warn",
         icon: "alert",
-        message: "**Your first payment hasn't completed.** Finish it to keep Mogoi running.",
+        message: "**Your first payment hasn't completed.** Finish it to keep Mogoi-AI running.",
         action: { label: "Open billing", link: "manage" },
       };
     default:

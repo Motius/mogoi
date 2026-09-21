@@ -36,7 +36,7 @@ export interface LiveData {
   settingsEvents: SettingsAppliedEvent[];
   /**
    * Phase 6.5.5 — most-recent assistant reply, used by the RailReplyPreview
-   * so users in a Room can see Mogoi's response without leaving. Null when
+   * so users in a Room can see Mogoi-AI's response without leaving. Null when
    * no assistant message exists yet. `isStreaming` lets the rail show a
    * caret/spinner while the reply is in-progress.
    */

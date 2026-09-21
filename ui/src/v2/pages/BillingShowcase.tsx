@@ -87,7 +87,7 @@ export function BillingShowcase(): React.ReactElement {
         <div className="bl-soon">
           <div className="bl-soon__mark"><CreditCard size={22} strokeWidth={1.6} /></div>
           <div className="bl-soon__title">Billing is coming soon</div>
-          <div className="bl-soon__sub">Hosted plans and subscriptions will live here. For now Mogoi runs on your own model keys or self-hosted, at no charge.</div>
+          <div className="bl-soon__sub">Hosted plans and subscriptions will live here. For now Mogoi-AI runs on your own model keys or self-hosted, at no charge.</div>
           <span className="bl-chip info"><span className="d" />Coming soon</span>
         </div>
       </div>

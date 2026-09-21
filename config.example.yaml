@@ -9,8 +9,8 @@ daemon:
   # enrollment JWTs (`brain` + `jwks`). Behind a reverse proxy or for remote
   # sidecars, set this to the externally reachable HTTPS origin — never
   # localhost or a private/container-only hostname. No path, query, or
-  # credentials. Env override: MOGOI_PUBLIC_URL="https://mogoi.example.com"
-  # (legacy alias: brain_domain / MOGOI_BRAIN_DOMAIN)
+  # credentials. Env override: MOGOI_AI_PUBLIC_URL="https://mogoi.example.com"
+  # (legacy alias: brain_domain / MOGOI_AI_BRAIN_DOMAIN)
   # public_url: "https://mogoi.example.com"
   # Bind a unix domain socket INSTEAD of a TCP port (for a reverse proxy on
   # the same host). When set, nothing listens on TCP. See docs/SELF_HOSTING.md.
@@ -55,7 +55,7 @@ daemon:
 # own: a dir of prebuilt engine bundles (<hash>/main.js), a ready-made pieces
 # catalog (usable without installing; your own installs shadow it), and a
 # prebuilt piece-metadata cache file. Paths may contain ${version}, expanded
-# from the MOGOI_VERSION env var, for machines that keep artifacts per
+# from the MOGOI_AI_VERSION env var, for machines that keep artifacts per
 # installed version. Omit any of them and mogoi does that work itself.
 # workflows:
 #   engine_dir: /opt/mogoi-engine/${version}
@@ -69,7 +69,7 @@ daemon:
 #      dashboard is reached through it.
 #
 # ESCAPE HATCH (first-time setup only): open the dashboard WITHOUT auth.
-# Anyone who can reach this machine can then use your Mogoi. The daemon
+# Anyone who can reach this machine can then use your Mogoi-AI. The daemon
 # logs a loud warning while this is on — remove it as soon as enrollment
 # is done.
 # auth:
@@ -80,7 +80,7 @@ daemon:
 # count unique installs and retention. No personal data, config, or content —
 # just a hashed machine id, app version, install method, and OS.
 # See docs/TELEMETRY.md for exactly what is collected.
-# Disable here, or via MOGOI_TELEMETRY=0, or DO_NOT_TRACK=1.
+# Disable here, or via MOGOI_AI_TELEMETRY=0, or DO_NOT_TRACK=1.
 telemetry:
   enabled: true
 
@@ -89,7 +89,7 @@ telemetry:
 # default, and per-tier routing are all configured from the settings dashboard
 # (http://localhost:1846, Settings > LLM) and stored in the database +
 # encrypted keychain. Any `llm:` block added here is ignored on load and
-# stripped on save. Env vars (MOGOI_OPENAI_KEY, etc.) are no longer read for
+# stripped on save. Env vars (MOGOI_AI_OPENAI_KEY, etc.) are no longer read for
 # LLM config either.
 
 personality:

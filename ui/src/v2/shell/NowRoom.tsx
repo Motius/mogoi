@@ -152,7 +152,7 @@ function MemoryWidget() {
   const newest = facts[0];
   return (<><WHeader label="memory · new" room="memory" />
     {newest ? <Stat n={facts.length} unit={facts.length === 1 ? "fact" : "facts"} sub={<>Newest: {deslug(newest.predicate)} <b>{newest.object}</b></>} />
-      : loaded ? <Empty>New facts Mogoi learns surface here. <span className="dim">Browse the vault in Memory.</span></Empty> : <Loading />}</>);
+      : loaded ? <Empty>New facts Mogoi-AI learns surface here. <span className="dim">Browse the vault in Memory.</span></Empty> : <Loading />}</>);
 }
 
 function GoalsWidget() {
@@ -235,7 +235,7 @@ const WIDGETS: Record<string, WidgetDef> = {
       const a = agentRows(live);
       return (<><WHeader label="right now" room="agents" />
         {a.length ? a.map((x) => <Row key={x.name} dot={x.running ? "var(--speak)" : "var(--faint)"} room="agents" tm={rel(x.ts)}><b>{x.name}</b> · {x.what}</Row>)
-          : <Empty>Nothing running yet. Say <b>“Hey Mogoi”</b> and hand it something, or start in <b>Workflows</b>.</Empty>}</>);
+          : <Empty>Nothing running yet. Say <b>“Hey Mogoi-AI”</b> and hand it something, or start in <b>Workflows</b>.</Empty>}</>);
     },
   },
   waiting: {
@@ -279,7 +279,7 @@ const WIDGETS: Record<string, WidgetDef> = {
       const t = taskRows(live);
       return (<><WHeader label="tasks · due" room="tasks" />
         {t.length ? t.map((x) => <Row key={x.id} dot={x.status === "in_progress" ? "var(--speak)" : "var(--faint)"} room="tasks" tm={x.due ? (x.due < Date.now() ? relPast(x.due) : relSoon(x.due)) : ""}>{x.what}</Row>)
-          : <Empty>No open tasks. <span className="dim">Ask Mogoi to track one, or add it in Tasks.</span></Empty>}</>);
+          : <Empty>No open tasks. <span className="dim">Ask Mogoi-AI to track one, or add it in Tasks.</span></Empty>}</>);
     },
   },
   "agents-roster": {

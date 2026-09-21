@@ -166,7 +166,7 @@ export interface PieceCatalogActionOrTrigger {
   /**
    * Optional declared output for the action or trigger. Used by the
    * variable picker to surface field-level rows even before the step has
-   * been run. Actions populate `outputSample` (Mogoi extension to AP);
+   * been run. Actions populate `outputSample` (Mogoi-AI extension to AP);
    * triggers populate the upstream-native `sampleData`. The picker reads
    * either -- both carry the same kind of JSON shape.
    */

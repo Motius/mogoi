@@ -68,7 +68,7 @@ export function MogoiSpeechItem({
   return (
     <article className="v2-item v2-item--speech">
       <Meta
-        who="Mogoi"
+        who="Mogoi-AI"
         whoClass="v2-item__who--mogoi"
         tag={isSpeaking ? "speaking" : undefined}
         time={item.t}
@@ -90,9 +90,9 @@ export function MogoiThoughtItem({
   item: Extract<ThreadItem, { kind: "mogoi-thought" }>;
 }) {
   return (
-    <article className="v2-item v2-item--thought" aria-label="Mogoi thought">
+    <article className="v2-item v2-item--thought" aria-label="Mogoi-AI thought">
       <Meta
-        who="Mogoi"
+        who="Mogoi-AI"
         whoClass="v2-item__who--mogoi"
         tag="thinking"
         time={item.t}

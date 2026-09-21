@@ -1,6 +1,6 @@
 /**
  * Hook for the Connections panel: fetches `/api/workflows/connections`,
- * exposes the list + registered Mogoi sources, and offers add/delete
+ * exposes the list + registered Mogoi-AI sources, and offers add/delete
  * mutations. Connection `value` is never returned by the API (encrypted at
  * rest server-side), so this layer only models the metadata.
  */

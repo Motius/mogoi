@@ -83,7 +83,7 @@ export function SettingsRoomBody({ mode }: { mode: RoomBodyMode }) {
   useEffect(() => {
     if (showBilling || tab !== "billing") return;
     setTab("general");
-    showToast("This Mogoi is self-hosted, so there's no billing to show.", "ok");
+    showToast("This Mogoi-AI is self-hosted, so there's no billing to show.", "ok");
   }, [showBilling, tab, showToast]);
 
   useEffect(() => {

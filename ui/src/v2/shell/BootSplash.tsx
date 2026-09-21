@@ -105,7 +105,7 @@ export function BootSplash() {
   const statusText = blocked ? "still mounting the vault…" : st.length ? st[Math.min(statusIdx, st.length - 1)] : "";
 
   return (
-    <div className={`jboot ${out ? "out" : ""}`} role="status" aria-label="Starting Mogoi" aria-live="polite">
+    <div className={`jboot ${out ? "out" : ""}`} role="status" aria-label="Starting Mogoi-AI" aria-live="polite">
       {variant === "summon" && (
         <div className="lstage st-summon">
           <div className="dropwrap"><div className="lbloom" /><Drop /></div>

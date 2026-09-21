@@ -388,7 +388,7 @@ function EmptyState() {
         Make room for <em>your work.</em>
       </h1>
       <p className="v2-thread__empty-lede">
-        Describe a recurring task below. Mogoi can help you draft a workflow, work through
+        Describe a recurring task below. Mogoi-AI can help you draft a workflow, work through
         the details, and decide where your judgment belongs.
       </p>
     </section>

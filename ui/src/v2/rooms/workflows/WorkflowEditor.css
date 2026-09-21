@@ -1,7 +1,7 @@
 /* WorkflowEditor — full-screen overlay with @xyflow canvas + properties panel. */
 
 .wf-editor {
-  /* Leave the Mogoi voice rail (right column of the AppShell) uncovered
+  /* Leave the Mogoi-AI voice rail (right column of the AppShell) uncovered
      so the user keeps access to the orb / suggestions while editing a
      workflow. The rail width is the same token RoomShell uses for its own
      overlay. */

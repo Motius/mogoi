@@ -128,7 +128,7 @@ export function KitShowcase(): React.ReactElement {
 
         <Section label="Empty state · teaches, never apologises">
           <EmptyState title="No flows yet" action={<button className="v2-btn v2-btn--primary v2-btn--sm">New flow</button>}>
-            Describe one to Mogoi: “every weekday at 8, summarise my email,” or build it by hand.
+            Describe one to Mogoi-AI: “every weekday at 8, summarise my email,” or build it by hand.
           </EmptyState>
         </Section>
 

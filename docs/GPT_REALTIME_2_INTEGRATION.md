@@ -1,7 +1,7 @@
 # GPT-Realtime-2 Integration
 
 Premium opt-in speech-to-speech voice via OpenAI's GA Realtime API
-(`gpt-realtime-2`). When enabled with a key, MOGOI streams mic audio to OpenAI
+(`gpt-realtime-2`). When enabled with a key, MOGOI-AI streams mic audio to OpenAI
 and plays the model's audio back, with the daemon acting as both the audio relay
 and the tool executor. When disabled (the default) MOGOI uses the standard
 STT -> text LLM -> TTS pipeline, which is unaffected by anything here.

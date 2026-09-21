@@ -80,7 +80,7 @@ function TakeoverBody({ kind, on, data }: { kind: TakeoverKind; on: TakeoverHand
       <div className="sys-wrap">
         {head}
         <h2 className="sys-h2">Can't reach your daemon.</h2>
-        <div className="sys-sub">The dashboard lost its connection to the Mogoi runtime on this machine. Retrying automatically.</div>
+        <div className="sys-sub">The dashboard lost its connection to the Mogoi-AI runtime on this machine. Retrying automatically.</div>
         <div className="sys-statuslist">
           <div className="sr ok"><span className="si"><IChk /></span><span><b>Nothing is lost</b>, your work is saved</span></div>
           <div className="sr wait"><span className="si"><ISpin /></span><span>Reconnecting every few seconds…</span></div>
@@ -102,7 +102,7 @@ function TakeoverBody({ kind, on, data }: { kind: TakeoverKind; on: TakeoverHand
         <h2 className="sys-h2">Updating to {v}</h2>
         <div className="sys-sub">This takes a few seconds. You can leave it running.</div>
         <div className="sys-pbar run"><i /></div>
-        <div className="sys-fine">Don't close Mogoi while it updates.</div>
+        <div className="sys-fine">Don't close Mogoi-AI while it updates.</div>
       </div>
     );
   }
@@ -111,10 +111,10 @@ function TakeoverBody({ kind, on, data }: { kind: TakeoverKind; on: TakeoverHand
     return (
       <div className="sys-wrap">
         {head}
-        <h2 className="sys-h2">Mogoi stopped unexpectedly.</h2>
+        <h2 className="sys-h2">Mogoi-AI stopped unexpectedly.</h2>
         <div className="sys-sub">We recovered your session, so you won't lose your place. Reopen to pick up where you left off.</div>
         <div className="sys-btnrow">
-          <button className="sys-btn sys-btn--pri" onClick={on.onReopen}>Reopen Mogoi</button>
+          <button className="sys-btn sys-btn--pri" onClick={on.onReopen}>Reopen Mogoi-AI</button>
           <button className="sys-btn sys-btn--ghost" onClick={on.onSendReport}>Send a report</button>
         </div>
         <div className="sys-fine">A report helps us fix it. It never includes your screen or file contents, only what crashed.</div>
@@ -162,8 +162,8 @@ export function SystemTakeoverContent({
 
 const TAKEOVER_LABEL: Record<TakeoverKind, string> = {
   offline: "Can't reach your brain",
-  updating: "Updating Mogoi",
-  crash: "Mogoi stopped unexpectedly",
+  updating: "Updating Mogoi-AI",
+  crash: "Mogoi-AI stopped unexpectedly",
   quota: "Out of tokens this month",
 };
 
@@ -222,7 +222,7 @@ export function ProviderBusyBanner() {
   return (
     <div className="sys-bnr warn" role="status" aria-live="polite">
       <span className="bi"><span className="ratespin"><ISpin /></span></span>
-      <span className="bm"><b>The model provider is busy.</b> Mogoi is retrying, this usually clears in a few seconds.</span>
+      <span className="bm"><b>The model provider is busy.</b> Mogoi-AI is retrying, this usually clears in a few seconds.</span>
     </div>
   );
 }

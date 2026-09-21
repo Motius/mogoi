@@ -34,7 +34,7 @@ export const STATE_META: Record<BillingState, StateInfo> = {
   },
   past_due: {
     chip: { tone: "warn", label: "Past due" },
-    banner: { tone: "warn", icon: "alert", message: "**We couldn't charge your card** on Jul 15. Update it to keep Mogoi running; we'll retry Jul 18.", action: { label: "Update card", to: "active" } },
+    banner: { tone: "warn", icon: "alert", message: "**We couldn't charge your card** on Jul 15. Update it to keep Mogoi-AI running; we'll retry Jul 18.", action: { label: "Update card", to: "active" } },
     planName: "Hosted + AI", price: "$29 / mo", meta: "Payment failed · your brain stays online until Jul 22",
   },
   canceled: {
@@ -45,7 +45,7 @@ export const STATE_META: Record<BillingState, StateInfo> = {
   expired: {
     chip: { tone: "danger", label: "Expired" },
     banner: { tone: "danger", icon: "alert", message: "Your subscription **ended**. Your hosted brain is offline.", action: { label: "Resubscribe", to: "active" } },
-    planName: "No active plan", price: "", meta: "Your data is safe. Resubscribe to bring Mogoi back, or self-host.",
+    planName: "No active plan", price: "", meta: "Your data is safe. Resubscribe to bring Mogoi-AI back, or self-host.",
   },
 };
 
