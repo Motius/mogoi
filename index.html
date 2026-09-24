@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mogoi-AI — Your AI Co-Founder</title>
+  <link rel="icon" href="../favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Spline+Sans+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ════════════════ DESIGN TOKENS ════════════════ */
+    :root {
+      --sans: 'Familjen Grotesk', system-ui, -apple-system, sans-serif;
+      --mono: 'Spline Sans Mono', ui-monospace, 'SF Mono', monospace;
+      --listen: #E63B2E; --speak: #2D78FF; --hold: #EAA40E; --ok: #2FA45E;
+      --x-bg: #0B0D10; --x-panel: #14171C; --x-rule: #232730;
+      --x-ink: #E7EAEE; --x-ink2: #AEB4BD; --x-dim: #79808A;
+      --bg: #0B0D10; --raise: #14171C; --panel: #16191E; --panel2: #1E2128;
+      --rule: #272C33; --rule2: #21252B;
+      --ink: #EEF1F4; --ink2: #A4ABB3; --ink3: #8A919A; --faint: #5C636B;
+      --listen-tx: #FF6A5C; --speak-tx: #6FA4FF; --hold-tx: #F0B53C; --ok-tx: #52C97F;
+      --sh-sm: 0 1px 2px rgba(0,0,0,.4);
+      --sh-md: 0 10px 24px -10px rgba(0,0,0,.6);
+      --sh-lg: 0 22px 48px -18px rgba(0,0,0,.7);
+      --corner: 14px 3px 14px 14px;
+      --ease: cubic-bezier(.2, .7, .2, 1);
+      --dur-fast: 150ms; --dur-med: 220ms; --dur-slow: 360ms;
+      --text-xs: 11px; --text-sm: 13px; --text-md: 15px; --text-lg: 18px;
+      --text-xl: 24px; --text-2xl: 34px; --text-3xl: 48px; --text-4xl: 64px;
+      --lh-tight: 1.15; --lh-body: 1.45;
+      --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 20px;
+      --s-6: 24px; --s-8: 32px; --s-10: 40px; --s-12: 48px; --s-16: 64px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      scrollbar-width: thin;
+      scrollbar-color: var(--rule) var(--bg);
+    }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--ink);
+      line-height: var(--lh-body);
+      overflow-x: hidden;
+    }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--rule); border-radius: 3px; }
+
+    /* ════════════════ NAV ════════════════ */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      background: rgba(11,13,16,.85);
+      border-bottom: 1px solid var(--rule);
+      padding: 0 var(--s-8);
+      height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: background var(--dur-med);
+    }
+    .nav.scrolled { background: rgba(11,13,16,.95); }
+    .nav-brand {
+      display: flex; align-items: center; gap: var(--s-3);
+      font-weight: 700; font-size: var(--text-lg);
+      color: var(--ink); text-decoration: none;
+    }
+    .nav-brand .logo-ring {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: conic-gradient(from 0deg, var(--speak), var(--ok), var(--hold), var(--listen), var(--speak));
+      animation: logo-spin 4s linear infinite;
+      flex-shrink: 0;
+    }
+    @keyframes logo-spin { to { transform: rotate(360deg); } }
+    .nav-links { display: flex; gap: var(--s-6); align-items: center; }
+    .nav-links a {
+      color: var(--ink2); text-decoration: none; font-size: var(--text-sm);
+      font-weight: 500; transition: color var(--dur-fast);
+      position: relative;
+    }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+      height: 2px; background: var(--speak); border-radius: 1px;
+      transform: scaleX(0); transition: transform var(--dur-med);
+    }
+    .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-cta {
+      padding: 8px 20px; border-radius: var(--corner-sm);
+      background: var(--speak); color: #fff; font-weight: 600;
+      font-size: var(--text-sm); text-decoration: none;
+      border: none; cursor: pointer; transition: all var(--dur-med);
+    }
+    .nav-cta:hover { background: #4CA0FF; transform: translateY(-1px); box-shadow: var(--sh-md); }
+    .nav-cta.secondary {
+      background: transparent; border: 1px solid var(--rule); color: var(--ink);
+    }
+    .nav-cta.secondary:hover { border-color: var(--speak); color: var(--speak); }
+    .nav-mobile-btn {
+      display: none; background: none; border: none; color: var(--ink);
+      font-size: 24px; cursor: pointer;
+    }
+
+    /* ════════════════ HERO ════════════════ */
+    .hero {
+      min-height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 120px var(--s-8) var(--s-16);
+      position: relative; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: -1;
+      background:
+        radial-gradient(ellipse 60% 40% at 50% 0%, rgba(45,120,255,.08) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 30% at 80% 80%, rgba(47,164,94,.06) 0%, transparent 60%),
+        radial-gradient(ellipse 30% 20% at 20% 70%, rgba(234,164,14,.05) 0%, transparent 60%);
+    }
+    .hero-orb {
+      position: absolute; border-radius: 50%; filter: blur(80px); opacity: .3;
+      animation: orb-float 8s ease-in-out infinite;
+    }
+    .hero-orb-1 { width: 400px; height: 400px; background: var(--speak); top: 10%; left: -10%; animation-delay: 0s; }
+    .hero-orb-2 { width: 300px; height: 300px; background: var(--ok); bottom: 10%; right: -5%; animation-delay: -3s; }
+    .hero-orb-3 { width: 200px; height: 200px; background: var(--listen); top: 50%; right: 20%; animation-delay: -5s; }
+    @keyframes orb-float {
+      0%, 100% { transform: translate(0, 0); }
+      33% { transform: translate(30px, -20px); }
+      66% { transform: translate(-20px, 20px); }
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: var(--s-2);
+      padding: 6px 16px; border-radius: 999px;
+      background: rgba(45,120,255,.1); border: 1px solid rgba(45,120,255,.2);
+      color: var(--speak-tx); font-size: var(--text-sm);
+      font-weight: 500; font-family: var(--mono);
+      margin-bottom: var(--s-8);
+      animation: fade-up .8s var(--ease) both;
+    }
+    .hero-badge .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--ok); animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: .3; } }
+    .hero h1 {
+      font-size: var(--text-4xl); font-weight: 700;
+      line-height: var(--lh-tight); letter-spacing: -.03em;
+      max-width: 900px; margin-bottom: var(--s-6);
+      animation: fade-up .8s .1s var(--ease) both;
+    }
+    .hero h1 .highlight {
+      background: linear-gradient(135deg, var(--speak-tx), var(--ok-tx));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: var(--text-xl); color: var(--ink2);
+      max-width: 600px; line-height: 1.6;
+      margin-bottom: var(--s-10);
+      animation: fade-up .8s .2s var(--ease) both;
+    }
+    .hero-actions {
+      display: flex; gap: var(--s-4); flex-wrap: wrap; justify-content: center;
+      animation: fade-up .8s .3s var(--ease) both;
+    }
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ════════════════ SECTIONS ════════════════ */
+    .section {
+      padding: var(--s-16) var(--s-8);
+      max-width: 1200px; margin: 0 auto;
+    }
+    .section-header {
+      text-align: center; margin-bottom: var(--s-12);
+    }
+    .section-tag {
+      font-family: var(--mono); font-size: var(--text-xs);
+      color: var(--speak-tx); text-transform: uppercase;
+      letter-spacing: .15em; margin-bottom: var(--s-3);
+    }
+    .section-title {
+      font-size: var(--text-3xl); font-weight: 700;
+      line-height: var(--lh-tight); letter-spacing: -.02em;
+    }
+    .section-desc {
+      color: var(--ink2); max-width: 500px; margin: var(--s-4) auto 0;
+      line-height: 1.6;
+    }
+
+    /* ════════════════ FEATURES ════════════════ */
+    .features-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--s-6);
+    }
+    .feature-card {
+      background: var(--raise); border: 1px solid var(--rule);
+      border-radius: var(--corner); padding: var(--s-8);
+      transition: all var(--dur-med); position: relative; overflow: hidden;
+      opacity: 0; transform: translateY(40px);
+    }
+    .feature-card.visible {
+      opacity: 1; transform: translateY(0);
+      transition: all .6s var(--ease);
+    }
+    .feature-card:hover {
+      border-color: rgba(45,120,255,.3); transform: translateY(-4px);
+      box-shadow: var(--sh-lg);
+    }
+    .feature-card .icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px; margin-bottom: var(--s-5);
+      background: rgba(45,120,255,.1); color: var(--speak-tx);
+    }
+    .feature-card h3 {
+      font-size: var(--text-xl); font-weight: 600; margin-bottom: var(--s-2);
+    }
+    .feature-card p {
+      color: var(--ink2); font-size: var(--text-sm); line-height: 1.6;
+    }
+    .feature-card .status-bar {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--speak), var(--ok));
+      transform: scaleX(0); transition: transform .6s var(--ease);
+    }
+    .feature-card:hover .status-bar { transform: scaleX(1); }
+
+    /* ════════════════ WORKFLOW DEMO ════════════════ */
+    .workflow-demo {
+      background: var(--raise); border: 1px solid var(--rule);
+      border-radius: var(--corner); padding: var(--s-10);
+      margin: var(--s-8) 0;
+      opacity: 0; transform: translateY(40px);
+      transition: all .6s var(--ease);
+    }
+    .workflow-demo.visible { opacity: 1; transform: translateY(0); }
+    .demo-header {
+      display: flex; align-items: center; gap: var(--s-3);
+      margin-bottom: var(--s-8); font-family: var(--mono); font-size: var(--text-sm);
+    }
+    .demo-dot { width: 12px; height: 12px; border-radius: 50%; }
+    .demo-dot.r { background: var(--listen); }
+    .demo-dot.y { background: var(--hold); }
+    .demo-dot.g { background: var(--ok); }
+    .demo-step {
+      display: flex; align-items: flex-start; gap: var(--s-5);
+      padding: var(--s-4) 0; border-bottom: 1px solid var(--rule);
+      opacity: 0; transform: translateX(-20px);
+      transition: all .5s var(--ease);
+    }
+    .demo-step.visible { opacity: 1; transform: translateX(0); }
+    .demo-step:last-child { border-bottom: none; }
+    .step-num {
+      width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: var(--text-sm); font-weight: 700; font-family: var(--mono);
+      background: rgba(45,120,255,.1); color: var(--speak-tx);
+      border: 1px solid rgba(45,120,255,.2);
+    }
+    .step-num.ai {
+      background: rgba(234,164,14,.1); color: var(--hold-tx);
+      border-color: rgba(234,164,14,.2);
+    }
+    .step-num.review {
+      background: rgba(47,164,94,.1); color: var(--ok-tx);
+      border-color: rgba(47,164,94,.2);
+    }
+    .step-content h4 { font-size: var(--text-md); font-weight: 600; margin-bottom: var(--s-1); }
+    .step-content p { font-size: var(--text-sm); color: var(--ink2); }
+    .step-tag {
+      display: inline-block; padding: 2px 8px; border-radius: 4px;
+      font-size: 10px; font-family: var(--mono); font-weight: 600;
+      text-transform: uppercase; letter-spacing: .05em; margin-top: var(--s-1);
+    }
+    .step-tag.programmed { background: rgba(45,120,255,.1); color: var(--speak-tx); }
+    .step-tag.ai-judgment { background: rgba(234,164,14,.1); color: var(--hold-tx); }
+    .step-tag.review { background: rgba(47,164,94,.1); color: var(--ok-tx); }
+
+    /* ════════════════ PASSWORD STREAK ════════════════ */
+    .streak-section {
+      display: flex; gap: var(--s-10); overflow-x: auto;
+      padding: var(--s-6) 0; margin: var(--s-8) 0;
+      scrollbar-width: none;
+    }
+    .streak-section::-webkit-scrollbar { display: none; }
+    .streak-card {
+      flex: 0 0 280px; background: var(--raise); border: 1px solid var(--rule);
+      border-radius: var(--corner); padding: var(--s-6);
+      opacity: 0; transform: translateY(30px);
+      transition: all .6s var(--ease);
+    }
+    .streak-card.visible { opacity: 1; transform: translateY(0); }
+    .streak-card:hover { border-color: rgba(45,120,255,.3); }
+    .streak-card .streak-num {
+      font-size: 48px; font-weight: 700; font-family: var(--mono);
+      background: linear-gradient(135deg, var(--speak-tx), var(--ok-tx));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .streak-card .streak-label { color: var(--ink2); font-size: var(--text-sm); margin-top: var(--s-1); }
+
+    /* ════════════════ VOICE / PEBBLE ════════════════ */
+    .pebble-section {
+      display: flex; gap: var(--s-12); align-items: center;
+      flex-wrap: wrap; margin: var(--s-8) 0;
+    }
+    .pebble-visual {
+      flex: 1; min-width: 280px; display: flex; justify-content: center;
+      position: relative;
+    }
+    .pebble-circle {
+      width: 200px; height: 200px; border-radius: 50%;
+      background: conic-gradient(from 0deg, var(--speak), var(--ok), var(--hold), var(--listen), var(--speak));
+      display: flex; align-items: center; justify-content: center;
+      animation: pebble-rotate 3s linear infinite;
+      box-shadow: 0 0 60px rgba(45,120,255,.2), 0 0 120px rgba(45,120,255,.1);
+    }
+    @keyframes pebble-rotate { to { transform: rotate(360deg); } }
+    .pebble-inner {
+      width: 150px; height: 150px; border-radius: 50%;
+      background: var(--raise); display: flex; align-items: center;
+      justify-content: center; font-size: 48px;
+      box-shadow: inset 0 2px 10px rgba(0,0,0,.2);
+    }
+    .pebble-text {
+      flex: 1; min-width: 280px;
+    }
+    .pebble-text h2 { font-size: var(--text-3xl); font-weight: 700; margin-bottom: var(--s-4); }
+    .pebble-text p { color: var(--ink2); line-height: 1.7; margin-bottom: var(--s-4); }
+    .pebble-commands {
+      display: flex; gap: var(--s-3); margin-top: var(--s-5);
+    }
+    .pebble-cmd {
+      padding: 8px 16px; border-radius: var(--corner-sm);
+      background: var(--panel); border: 1px solid var(--rule);
+      color: var(--ink); font-family: var(--mono); font-size: var(--text-sm);
+      cursor: pointer; transition: all var(--dur-fast);
+    }
+    .pebble-cmd:hover { border-color: var(--speak); color: var(--speak-tx); }
+    .pebble-cmd.active { background: rgba(45,120,255,.1); border-color: var(--speak); color: var(--speak-tx); }
+
+    /* ════════════════ AUTHORITY ════════════════ */
+    .authority-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: var(--s-6); margin: var(--s-8) 0;
+    }
+    .auth-card {
+      background: var(--raise); border: 1px solid var(--rule);
+      border-radius: var(--corner); padding: var(--s-6);
+      opacity: 0; transform: translateY(30px);
+      transition: all .6s var(--ease);
+    }
+    .auth-card.visible { opacity: 1; transform: translateY(0); }
+    .auth-card:hover { border-color: rgba(47,164,94,.3); }
+    .auth-card .auth-icon { font-size: 32px; margin-bottom: var(--s-3); }
+    .auth-card h4 { font-size: var(--text-lg); font-weight: 600; margin-bottom: var(--s-2); }
+    .auth-card p { color: var(--ink2); font-size: var(--text-sm); }
+    .auth-toggle {
+      display: inline-flex; align-items: center; gap: var(--s-2);
+      margin-top: var(--s-3); padding: 4px 12px; border-radius: 999px;
+      font-size: var(--text-xs); font-family: var(--mono); font-weight: 600;
+    }
+    .auth-toggle.on { background: rgba(47,164,94,.1); color: var(--ok-tx); }
+    .auth-toggle.off { background: rgba(230,59,46,.1); color: var(--listen-tx); }
+
+    /* ════════════════ CONNECTIONS ════════════════ */
+    .connections-grid {
+      display: flex; flex-wrap: wrap; gap: var(--s-4); margin: var(--s-8) 0;
+    }
+    .connection-chip {
+      display: flex; align-items: center; gap: var(--s-2);
+      padding: 10px 20px; border-radius: 999px;
+      background: var(--raise); border: 1px solid var(--rule);
+      font-size: var(--text-sm); font-weight: 500;
+      transition: all var(--dur-med); cursor: default;
+      opacity: 0; transform: translateY(20px);
+    }
+    .connection-chip.visible { opacity: 1; transform: translateY(0); transition: all .5s var(--ease); }
+    .connection-chip:hover { border-color: var(--speak); transform: translateY(-2px); }
+    .connection-chip .conn-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+    }
+
+    /* ════════════════ PRICING ════════════════ */
+    .pricing-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--s-6); margin: var(--s-8) 0;
+    }
+    .pricing-card {
+      background: var(--raise); border: 1px solid var(--rule);
+      border-radius: var(--corner); padding: var(--s-8);
+      text-align: center; position: relative;
+      opacity: 0; transform: translateY(40px);
+      transition: all .6s var(--ease);
+    }
+    .pricing-card.visible { opacity: 1; transform: translateY(0); }
+    .pricing-card:hover { border-color: rgba(45,120,255,.3); transform: translateY(-4px); box-shadow: var(--sh-lg); }
+    .pricing-card.popular { border-color: var(--speak); }
+    .pricing-card.popular::before {
+      content: 'MOGOI-AI PRO'; position: absolute; top: -12px; left: 50%;
+      transform: translateX(-50%); padding: 4px 16px; border-radius: 999px;
+      background: var(--speak); color: #fff; font-size: 11px;
+      font-family: var(--mono); font-weight: 700; letter-spacing: .05em;
+    }
+    .pricing-card h3 { font-size: var(--text-xl); font-weight: 600; margin-bottom: var(--s-2); }
+    .pricing-card .price {
+      font-size: 48px; font-weight: 700; font-family: var(--mono);
+      margin: var(--s-4) 0;
+    }
+    .pricing-card .price span { font-size: var(--text-sm); color: var(--ink2); font-weight: 400; }
+    .pricing-card ul { list-style: none; text-align: left; margin: var(--s-6) 0; }
+    .pricing-card li {
+      padding: var(--s-2) 0; font-size: var(--text-sm);
+      color: var(--ink2); display: flex; align-items: center; gap: var(--s-2);
+    }
+    .pricing-card li::before { content: '✓'; color: var(--ok-tx); font-weight: 700; }
+    .pricing-card .cta {
+      width: 100%; padding: 12px; border-radius: var(--corner-sm);
+      border: 1px solid var(--rule); background: transparent;
+      color: var(--ink); font-weight: 600; cursor: pointer;
+      transition: all var(--dur-med); font-family: var(--sans);
+    }
+    .pricing-card .cta:hover { border-color: var(--speak); color: var(--speak-tx); }
+    .pricing-card.popular .cta { background: var(--speak); color: #fff; border-color: var(--speak); }
+    .pricing-card.popular .cta:hover { background: #4CA0FF; }
+
+    /* ════════════════ FAQ ════════════════ */
+    .faq-list { max-width: 700px; margin: var(--s-8) auto 0; }
+    .faq-item {
+      border-bottom: 1px solid var(--rule); padding: var(--s-5) 0;
+      cursor: pointer; opacity: 0; transform: translateY(20px);
+      transition: all .5s var(--ease);
+    }
+    .faq-item.visible { opacity: 1; transform: translateY(0); }
+    .faq-item:hover { border-color: rgba(45,120,255,.2); }
+    .faq-question {
+      display: flex; justify-content: space-between; align-items: center;
+      font-weight: 600; font-size: var(--text-md);
+    }
+    .faq-question .chevron {
+      transition: transform var(--dur-med); color: var(--ink2);
+    }
+    .faq-item.open .faq-question .chevron { transform: rotate(180deg); }
+    .faq-answer {
+      max-height: 0; overflow: hidden; transition: max-height .4s var(--ease);
+      color: var(--ink2); font-size: var(--text-sm); line-height: 1.7;
+    }
+    .faq-item.open .faq-answer { max-height: 200px; padding-top: var(--s-3); }
+
+    /* ════════════════ DOCS SECTION ════════════════ */
+    .docs-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--s-6); margin: var(--s-8) 0;
+    }
+    .doc-card {
+      background: var(--raise); border: 1px solid var(--rule);
+      border-radius: var(--corner); padding: var(--s-6);
+      text-decoration: none; color: inherit;
+      transition: all var(--dur-med);
+      opacity: 0; transform: translateY(30px);
+    }
+    .doc-card.visible { opacity: 1; transform: translateY(0); transition: all .6s var(--ease); }
+    .doc-card:hover { border-color: var(--speak); transform: translateY(-4px); box-shadow: var(--sh-lg); text-decoration: none; color: inherit; }
+    .doc-card .doc-icon { font-size: 28px; margin-bottom: var(--s-3); }
+    .doc-card h3 { font-size: var(--text-lg); font-weight: 600; margin-bottom: var(--s-2); }
+    .doc-card p { color: var(--ink2); font-size: var(--text-sm); line-height: 1.5; }
+    .doc-card .doc-link {
+      display: inline-flex; align-items: center; gap: var(--s-1);
+      color: var(--speak-tx); font-size: var(--text-sm); font-weight: 600;
+      margin-top: var(--s-3);
+    }
+
+    /* ════════════════ FOOTER ════════════════ */
+    .footer {
+      border-top: 1px solid var(--rule); padding: var(--s-12) var(--s-8);
+      margin-top: var(--s-16);
+    }
+    .footer-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--s-8);
+    }
+    .footer-brand { font-weight: 700; font-size: var(--text-lg); }
+    .footer-links { display: flex; gap: var(--s-6); }
+    .footer-links a { color: var(--ink2); text-decoration: none; font-size: var(--text-sm); transition: color var(--dur-fast); }
+    .footer-links a:hover { color: var(--ink); }
+    .footer-bottom {
+      max-width: 1200px; margin: var(--s-8) auto 0;
+      padding-top: var(--s-6); border-top: 1px solid var(--rule);
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--s-4);
+      font-size: var(--text-sm); color: var(--faint);
+    }
+
+    /* ════════════════ ANIMATIONS ════════════════ */
+    .reveal {
+      opacity: 0; transform: translateY(40px);
+      transition: all .6s var(--ease);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    .counter { font-family: var(--mono); font-weight: 700; color: var(--speak-tx); }
+
+    /* ════════════════ FLOATING PARTICLES ════════════════ */
+    .particles {
+      position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      overflow: hidden;
+    }
+    .particle {
+      position: absolute; width: 2px; height: 2px;
+      background: rgba(45,120,255,.3); border-radius: 50%;
+      animation: particle-float linear infinite;
+    }
+    @keyframes particle-float {
+      0% { transform: translateY(100vh) scale(0); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+    }
+
+    /* ════════════════ MOBILE ════════════════ */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-mobile-btn { display: block; }
+      .hero h1 { font-size: var(--text-2xl); }
+      .hero-sub { font-size: var(--text-md); }
+      .section-title { font-size: var(--text-2xl); }
+      .pebble-section { flex-direction: column; }
+      .pricing-card.popular::before { font-size: 9px; padding: 3px 12px; }
+      .footer-inner { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Particles -->
+  <div class="particles" id="particles"></div>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <a href="#hero" class="nav-brand">
+      <div class="logo-ring"></div>
+      Mogoi-AI
+    </a>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#workflows">Workflows</a>
+      <a href="#voice">Voice</a>
+      <a href="#authority">Authority</a>
+      <a href="MOGOI_Documentation.html">Docs</a>
+      <a href="#pricing">Pricing</a>
+    </div>
+    <a href="https://github.com/Motius/mogoi" class="nav-cta secondary" target="_blank">GitHub</a>
+    <button class="nav-cta" onclick="window.location.href='#pricing'">Get Started</button>
+    <button class="nav-mobile-btn" onclick="document.querySelector('.nav-links').style.display = document.querySelector('.nav-links').style.display === 'flex' ? 'none' : 'flex'">☰</button>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+    <div class="hero-orb hero-orb-3"></div>
+    <div class="hero-badge"><span class="dot"></span> v0.13.7 — Now Open Source</div>
+    <h1>Your AI <span class="highlight">Co-Founder</span><br/>That Never Sleeps</h1>
+    <p class="hero-sub">
+      Mogoi-AI is an always-on autonomous AI daemon with desktop awareness,
+      multi-agent hierarchy, visual workflows, and goal pursuit. Program the repeatable.
+      Use AI for the rest.
+    </p>
+    <div class="hero-actions">
+      <a href="https://github.com/Motius/mogoi" class="nav-cta" target="_blank">Download Free</a>
+      <a href="#features" class="nav-cta secondary">Explore Features</a>
+    </div>
+    <div style="margin-top: var(--s-16); display: flex; gap: var(--s-12); justify-content: center; flex-wrap: wrap;">
+      <div class="reveal">
+        <div class="counter" id="counter-installs">0</div>
+        <div style="color: var(--ink2); font-size: var(--text-sm); margin-top: var(--s-1);">Installs</div>
+      </div>
+      <div class="reveal">
+        <div class="counter" id="counter-workflows">0</div>
+        <div style="color: var(--ink2); font-size: var(--text-sm); margin-top: var(--s-1);">Workflows</div>
+      </div>
+      <div class="reveal">
+        <div class="counter" id="counter-agents">0</div>
+        <div style="color: var(--ink2); font-size: var(--text-sm); margin-top: var(--s-1);">Agents</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="section" id="features">
+    <div class="section-header reveal">
+      <div class="section-tag">Core Capabilities</div>
+      <h2 class="section-title">Program the Repeatable. Use AI for the Rest.</h2>
+      <p class="section-desc">Every component is built to work together. Your context, your goals, your rules — all visible, all configurable.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card" data-reveal>
+        <div class="icon">⚡</div>
+        <h3>Visual Workflows</h3>
+        <p>Drag, drop, and connect operations into powerful automation pipelines. Every step is inspectable and testable before it goes live.</p>
+        <div class="status-bar"></div>
+      </div>
+      <div class="feature-card" data-reveal>
+        <div class="icon">🧠</div>
+        <h3>Memory &amp; Goals</h3>
+        <p>Mogoi-AI remembers what matters. Set goals, track progress, and let awareness surface patterns worth automating.</p>
+        <div class="status-bar"></div>
+      </div>
+      <div class="feature-card" data-reveal>
+        <div class="icon">🎤</div>
+        <h3>Voice Interface</h3>
+        <p>Think out loud with realtime voice. The Pebble keeps Mogoi-AI close without becoming another app to manage.</p>
+        <div class="status-bar"></div>
+      </div>
+      <div class="feature-card" data-reveal>
+        <div class="icon">🔒</div>
+        <h3>Authority Engine</h3>
+        <p>Define permissions with soft-gate approvals. Multi-channel delivery, full audit trail, emergency pause — all configurable.</p>
+        <div class="status-bar"></div>
+      </div>
+      <div class="feature-card" data-reveal>
+        <div class="icon">🔗</div>
+        <h3>Connected Tools</h3>
+        <p>Browser control, desktop control, and service connections. One brain coordinating work across your entire stack.</p>
+        <div class="status-bar"></div>
+      </div>
+      <div class="feature-card" data-reveal>
+        <div class="icon">🧩</div>
+        <h3>Pieces Library</h3>
+        <p>Reusable components for common tasks. Install, configure, and compose — or build your own from scratch.</p>
+        <div class="status-bar"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Workflow Demo -->
+  <section class="section" id="workflows">
+    <div class="section-header reveal">
+      <div class="section-tag">How It Works</div>
+      <h2 class="section-title">A Process You Can Inspect</h2>
+      <p class="section-desc">Every workflow is a mix of programmed steps and AI judgment. You review before it ships.</p>
+    </div>
+    <div class="workflow-demo" id="workflow-demo">
+      <div class="demo-header">
+        <div class="demo-dot r"></div>
+        <div class="demo-dot y"></div>
+        <div class="demo-dot g"></div>
+        <span style="margin-left: var(--s-3);">weekly-competitor-brief.mogoi</span>
+      </div>
+      <div class="demo-step" data-demo-step>
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h4>Fetch source pages</h4>
+          <p>Programmed operation. Pulls competitor pages on a schedule.</p>
+          <span class="step-tag programmed">Programmed</span>
+        </div>
+      </div>
+      <div class="demo-step" data-demo-step>
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h4>Compare the fields</h4>
+          <p>Programmed operation. Matches fields across sources.</p>
+          <span class="step-tag programmed">Programmed</span>
+        </div>
+      </div>
+      <div class="demo-step" data-demo-step>
+        <div class="step-num ai">3</div>
+        <div class="step-content">
+          <h4>Explain what changed</h4>
+          <p>AI judgment. It interprets the differences and explains what matters for your launch.</p>
+          <span class="step-tag ai-judgment">AI Judgment</span>
+        </div>
+      </div>
+      <div class="demo-step" data-demo-step>
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h4>Save the brief</h4>
+          <p>Programmed operation. Writes the result to your workspace.</p>
+          <span class="step-tag programmed">Programmed</span>
+        </div>
+      </div>
+      <div class="demo-step" data-demo-step>
+        <div class="step-num review">5</div>
+        <div class="step-content">
+          <h4>Your review</h4>
+          <p>Configured checkpoint. You inspect the brief and decide what happens next.</p>
+          <span class="step-tag review">Your Review</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats / Streak -->
+  <section class="section" style="text-align: center;">
+    <div class="section-header reveal">
+      <div class="section-tag">By The Numbers</div>
+      <h2 class="section-title">Built for Production</h2>
+    </div>
+    <div class="streak-section">
+      <div class="streak-card" data-reveal>
+        <div class="streak-num">2727</div>
+        <div class="streak-label">Source files</div>
+      </div>
+      <div class="streak-card" data-reveal>
+        <div class="streak-num">66</div>
+        <div class="streak-label">Pieces catalog</div>
+      </div>
+      <div class="streak-card" data-reveal>
+        <div class="streak-num">3</div>
+        <div class="streak-label">Architectures</div>
+      </div>
+      <div class="streak-card" data-reveal>
+        <div class="streak-num">100%</div>
+        <div class="streak-label">Source-available</div>
+      </div>
+      <div class="streak-card" data-reveal>
+        <div class="streak-num">∞</div>
+        <div class="streak-label">Self-hostable</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Voice / Pebble -->
+  <section class="section" id="voice">
+    <div class="section-header reveal">
+      <div class="section-tag">Voice Interface</div>
+      <h2 class="section-title">A Thought Away. Right Beside Your Work.</h2>
+      <p class="section-desc">Think out loud with realtime voice. The Pebble keeps Mogoi-AI close, without becoming another place to spend your day.</p>
+    </div>
+    <div class="pebble-section">
+      <div class="pebble-visual reveal">
+        <div class="pebble-circle">
+          <div class="pebble-inner">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 2a3 3 0 00-3 3v7a3 3 0 006 0V5a3 3 0 00-3-3z"/>
+              <path d="M19 10v2a7 7 0 01-14 0v-2"/>
+              <line x1="12" y1="19" x2="12" y2="22"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="pebble-text reveal">
+        <h2>Speak. Listen. Act.</h2>
+        <p>Voice when you want to think out loud. A visible workflow when you want to look closely. Mogoi-AI's realtime voice pipeline processes your speech locally and responds instantly.</p>
+        <div class="pebble-commands">
+          <div class="pebble-cmd active">Hey Mogoi-AI</div>
+          <div class="pebble-cmd">Listen</div>
+          <div class="pebble-cmd">Speak</div>
+          <div class="pebble-cmd">Done</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Authority -->
+  <section class="section" id="authority">
+    <div class="section-header reveal">
+      <div class="section-tag">Authority Engine</div>
+      <h2 class="section-title">Within Your Rules</h2>
+      <p class="section-desc">Delegating work should come with boundaries. Define permissions, and the workflow makes the intended actions visible.</p>
+    </div>
+    <div class="authority-grid">
+      <div class="auth-card" data-reveal>
+        <div class="auth-icon">📋</div>
+        <h4>Soft-Gate Approvals</h4>
+        <p>Sensitive operations require explicit approval before execution. Configurable per-action.</p>
+        <div class="auth-toggle on">● Active</div>
+      </div>
+      <div class="auth-card" data-reveal>
+        <div class="auth-icon">📡</div>
+        <h4>Multi-Channel Delivery</h4>
+        <p>Approval requests reach you via dashboard, voice, or Telegram. Never miss a critical decision.</p>
+        <div class="auth-toggle on">● Active</div>
+      </div>
+      <div class="auth-card" data-reveal>
+        <div class="auth-icon">📊</div>
+        <h4>Full Audit Trail</h4>
+        <p>Every tool execution is logged. Every approval is recorded. Complete traceability.</p>
+        <div class="auth-toggle on">● Active</div>
+      </div>
+      <div class="auth-card" data-reveal>
+        <div class="auth-icon">⏸️</div>
+        <h4>Emergency Pause</h4>
+        <p>Instant pause and kill controls. Consecutive-approval learning suggests auto-approve rules over time.</p>
+        <div class="auth-toggle off">○ Configuring</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Connected Tools -->
+  <section class="section" id="connections">
+    <div class="section-header reveal">
+      <div class="section-tag">Connected Tools</div>
+      <h2 class="section-title">The Work Lives Across Your Apps</h2>
+      <p class="section-desc">Through connected tools, your browser and your desktop — one brain coordinating everything.</p>
+    </div>
+    <div class="connections-grid reveal">
+      <div class="connection-chip"><div class="conn-dot" style="background: #4285F4;"></div> Google</div>
+      <div class="connection-chip"><div class="conn-dot" style="background: #1976D2;"></div> Notion</div>
+      <div class="connection-chip"><div class="conn-dot" style="background: #E01E24;"></div> Slack</div>
+      <div class="connection-chip"><div class="conn-dot" style="background: #24292E;"></div> GitHub</div>
+      <div class="connection-chip"><div class="conn-dot" style="background: #0078D4;"></div> Drive</div>
+      <div class="connection-chip"><div class="conn-dot" style="background: #1A1A1A;"></div> Desktop</div>
+      <div class="connection-chip"><div class="conn-dot" style="background: #F7DF1E;"></div> Browser</div>
+      <div class="connection-chip"><div class="conn-dot" style="background: #26A69A;"></div> Telegram</div>
+    </div>
+    <div style="text-align: center; margin-top: var(--s-6);">
+      <a href="#pricing" class="nav-cta secondary">Connect Your Tools →</a>
+    </div>
+  </section>
+
+  <!-- Docs -->
+  <section class="section" id="docs">
+    <div class="section-header reveal">
+      <div class="section-tag">Documentation</div>
+      <h2 class="section-title">Everything You Need to Build</h2>
+      <p class="section-desc">The complete interactive MOGOI documentation lives in <a href="MOGOI_Documentation.html" style="color: var(--speak-tx);">MOGOI_Documentation.html</a>. It includes all 25 guides with a fixed documentation sidebar and in-page navigation.</p>
+    </div>
+    <div class="docs-grid">
+      <a href="MOGOI_Documentation.html" class="doc-card" data-reveal>
+        <div class="doc-icon">📚</div>
+        <h3>Complete Documentation</h3>
+        <p>Open the full 25-guide MOGOI manual with installation, features, security, APIs, and reference material.</p>
+        <div class="doc-link">Open documentation →</div>
+      </a>
+      <a href="docs/LLM_PROVIDERS.md" class="doc-card" target="_blank" data-reveal>
+        <div class="doc-icon">🧠</div>
+        <h3>LLM Providers</h3>
+        <p>Configure OpenAI, Anthropic, Ollama, and custom providers. Model routing and token management.</p>
+        <div class="doc-link">Read docs →</div>
+      </a>
+      <a href="docs/WORKFLOW_AUTOMATION.md" class="doc-card" target="_blank" data-reveal>
+        <div class="doc-icon">⚡</div>
+        <h3>Workflow Automation</h3>
+        <p>Build, test, and deploy automated workflows. Programmed steps and AI judgment.</p>
+        <div class="doc-link">Read docs →</div>
+      </a>
+      <a href="docs/TELEMETRY.md" class="doc-card" target="_blank" data-reveal>
+        <div class="doc-icon">📊</div>
+        <h3>Telemetry &amp; Analytics</h3>
+        <p>Understand usage patterns, performance metrics, and system health.</p>
+        <div class="doc-link">Read docs →</div>
+      </a>
+      <a href="docs/PIECE_VERIFICATION.md" class="doc-card" target="_blank" data-reveal>
+        <div class="doc-icon">🧩</div>
+        <h3>Pieces Library</h3>
+        <p>Verify, install, and manage pieces. Browse the catalog of 66+ integrations.</p>
+        <div class="doc-link">Read docs →</div>
+      </a>
+      <a href="docs/PERSONALITY_ENGINE.md" class="doc-card" target="_blank" data-reveal>
+        <div class="doc-icon">🎭</div>
+        <h3>Personality Engine</h3>
+        <p>Configure Mogoi-AI's persona, tone, and behavior across conversations.</p>
+        <div class="doc-link">Read docs →</div>
+      </a>
+      <a href="docs/sidecar/SIDECAR_AUTHENTICATION.md" class="doc-card" target="_blank" data-reveal>
+        <div class="doc-icon">🔐</div>
+        <h3>Sidecar Authentication</h3>
+        <p>Enroll and authenticate sidecars. JWT tokens and device management.</p>
+        <div class="doc-link">Read docs →</div>
+      </a>
+      <a href="docs/GPT_REALTIME_2_INTEGRATION.md" class="doc-card" target="_blank" data-reveal>
+        <div class="doc-icon">🎙️</div>
+        <h3>Realtime Voice</h3>
+        <p>Connect GPT Realtime-2 for natural speech-to-speech conversations.</p>
+        <div class="doc-link">Read docs →</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section class="section" id="pricing">
+    <div class="section-header reveal">
+      <div class="section-tag">Pricing</div>
+      <h2 class="section-title">Hosted with AI Included. Free to Self-Host.</h2>
+      <p class="section-desc">Choose the plan that fits your ambition. All plans include unlimited workflows.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card" data-reveal>
+        <h3>Starter</h3>
+        <div class="price">$29<span>/month</span></div>
+        <ul>
+          <li>170,000 tokens / month</li>
+          <li>Everyday voice</li>
+          <li>Unlimited workflows</li>
+          <li>Mogoi-AI low included</li>
+          <li>Hosting included</li>
+        </ul>
+        <button class="cta" onclick="window.location.href='https://github.com/Motius/mogoi'">Get Started</button>
+      </div>
+      <div class="pricing-card popular" data-reveal>
+        <h3>Pro</h3>
+        <div class="price">$99<span>/month</span></div>
+        <ul>
+          <li>520,000 tokens / month</li>
+          <li>Natural realtime voice</li>
+          <li>Unlimited workflows</li>
+          <li>Mogoi-AI high included</li>
+          <li>Hosting included</li>
+        </ul>
+        <button class="cta" onclick="window.location.href='https://github.com/Motius/mogoi'">Get Started</button>
+      </div>
+      <div class="pricing-card" data-reveal>
+        <h3>Max</h3>
+        <div class="price">$199<span>/month</span></div>
+        <ul>
+          <li>1,200,000 tokens / month</li>
+          <li>Natural realtime voice</li>
+          <li>Unlimited workflows</li>
+          <li>Mogoi-AI high included</li>
+          <li>Hosting included</li>
+        </ul>
+        <button class="cta" onclick="window.location.href='https://github.com/Motius/mogoi'">Get Started</button>
+      </div>
+    </div>
+    <p style="text-align: center; color: var(--faint); font-size: var(--text-sm); margin-top: var(--s-4);">
+      Text and voice share the monthly token allowance. <a href="https://github.com/Motius/mogoi" style="color: var(--speak-tx);">Self-host free</a> — source-available, yours to explore.
+    </p>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section">
+    <div class="section-header reveal">
+      <div class="section-tag">FAQ</div>
+      <h2 class="section-title">A Few Things Worth Knowing</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item" data-faq>
+        <div class="faq-question">
+          <span>What is Mogoi-AI exactly?</span>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="faq-answer">Mogoi-AI is an always-on autonomous AI daemon with desktop awareness, multi-agent hierarchy, visual workflows, and goal pursuit. It works as a co-founder that never sleeps — programming the repeatable parts and using AI for the parts that need thought.</div>
+      </div>
+      <div class="faq-item" data-faq>
+        <div class="faq-question">
+          <span>Can I self-host instead?</span>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="faq-answer">Yes. Mogoi-AI is fully source-available and free to self-host. Run it on your own hardware with your own model keys. Docker, binary, and WSL2 support all included.</div>
+      </div>
+      <div class="faq-item" data-faq>
+        <div class="faq-question">
+          <span>Does a single prompt give me a finished workflow?</span>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="faq-answer">Not exactly — and that's by design. Mogoi-AI helps you spot what to automate, builds the steps with you, and uses AI where judgment matters. You review every workflow before it publishes.</div>
+      </div>
+      <div class="faq-item" data-faq>
+        <div class="faq-question">
+          <span>How does awareness work?</span>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="faq-answer">Awareness observes your work patterns and surfaces signals worth discussing. Repeated app switching, repeated tasks, or forgotten goals — Mogoi-AI flags them so you can decide whether to automate.</div>
+      </div>
+      <div class="faq-item" data-faq>
+        <div class="faq-question">
+          <span>How much control do I have?</span>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="faq-answer">Complete control. The Authority engine gates every action at runtime. All tool executions are logged in an audit trail. Sensitive operations require explicit approval via dashboard, voice, or Telegram.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand">
+          <div class="logo-ring" style="width: 24px; height: 24px; display: inline-block; vertical-align: middle; margin-right: var(--s-2);"></div>
+          Mogoi-AI
+        </div>
+        <p style="color: var(--ink2); font-size: var(--text-sm); margin-top: var(--s-2); max-width: 300px;">Your AI co-founder. Programmatic workflows. AI where it matters.</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/Motius/mogoi" target="_blank">GitHub</a>
+        <a href="https://github.com/Motius/mogoi/blob/main/LICENSE" target="_blank">License</a>
+        <a href="MOGOI_Documentation.html">Docs</a>
+        <a href="#pricing">Pricing</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Mogoi-AI</span>
+      <span>Source-available under the Mogoi-AI Source Available License</span>
+    </div>
+  </footer>
+
+  <script>
+    // ════════════════ PARTICLES ════════════════
+    (function() {
+      const container = document.getElementById('particles');
+      for (let i = 0; i < 30; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        p.style.left = Math.random() * 100 + '%';
+        p.style.animationDuration = (8 + Math.random() * 12) + 's';
+        p.style.animationDelay = Math.random() * 10 + 's';
+        p.style.width = (1 + Math.random() * 2) + 'px';
+        p.style.height = p.style.width;
+        p.style.background = `rgba(${45 + Math.random()*30}, ${120 + Math.random()*40}, ${255}, ${0.2 + Math.random()*0.3})`;
+        container.appendChild(p);
+      }
+    })();
+
+    // ════════════════ NAV SCROLL ════════════════
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // ════════════════ REVEAL ON SCROLL ════════════════
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          // Stagger children
+          const staggerDelay = el.dataset.stagger !== undefined ? parseInt(el.dataset.stagger) : 100;
+          const children = el.querySelectorAll('[data-reveal], [data-demo-step]');
+          children.forEach((child, i) => {
+            setTimeout(() => {
+              child.classList.add('visible');
+            }, i * staggerDelay);
+          });
+          el.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    // Observe all reveal elements
+    document.querySelectorAll('[data-reveal], .feature-card, .streak-card, .auth-card, .pricing-card, .connection-chip, .faq-item, .doc-card, .workflow-demo').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Also observe section-level elements
+    document.querySelectorAll('.section-header, .section, .features-grid, .authority-grid, .pricing-grid, .docs-grid, .streak-section, .pebble-section, .connections-grid').forEach(el => {
+      observer.observe(el);
+    });
+
+    // ════════════════ COUNTER ANIMATION ════════════════
+    function animateCounter(id, target, duration = 2000) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const start = 0;
+      const startTime = performance.now();
+      function update(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = Math.floor(start + (target - start) * eased);
+        el.textContent = current.toLocaleString();
+        if (progress < 1) requestAnimationFrame(update);
+      }
+      requestAnimationFrame(update);
+    }
+
+    // Trigger counters when hero is visible
+    const heroObserver = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        animateCounter('counter-installs', 1434, 2500);
+        animateCounter('counter-workflows', 8760, 2500);
+        animateCounter('counter-agents', 2340, 2500);
+        heroObserver.disconnect();
+      }
+    }, { threshold: 0.3 });
+    heroObserver.observe(document.getElementById('hero'));
+
+    // ════════════════ FAQ TOGGLE ════════════════
+    document.querySelectorAll('.faq-item').forEach(item => {
+      item.addEventListener('click', () => {
+        item.classList.toggle('open');
+      });
+    });
+
+    // ════════════════ PEBBLE COMMANDS ════════════════
+    document.querySelectorAll('.pebble-cmd').forEach(cmd => {
+      cmd.addEventListener('click', () => {
+        document.querySelectorAll('.pebble-cmd').forEach(c => c.classList.remove('active'));
+        cmd.classList.add('active');
+      });
+    });
+
+    // ════════════════ SMOOTH SCROLL ════════════════
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // ════════════════ PARALLAX ORBS ════════════════
+    window.addEventListener('scroll', () => {
+      const scroll = window.scrollY;
+      document.querySelectorAll('.hero-orb').forEach((orb, i) => {
+        const speed = (i + 1) * 0.05;
+        orb.style.transform = `translateY(${scroll * speed}px)`;
+      });
+    });
+  </script>
+</body>
+</html>
