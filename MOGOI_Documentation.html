@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MOGOI Documentation</title>
+<style>
+:root {
+  --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', 'Inter', system-ui, sans-serif;
+  --font-mono: 'SF Mono', 'Spline Sans Mono', ui-monospace, monospace;
+  --bg: #0A0C10;
+  --raise: #111419;
+  --panel: #15181E;
+  --panel2: #1A1E26;
+  --rule: #252A33;
+  --ink: #F0F2F5;
+  --ink2: #A8AFB6;
+  --ink3: #828990;
+  --faint: #5A6169;
+  --listen: #E63B2E;
+  --speak: #2D78FF;
+  --hold: #EAA40E;
+  --ok: #2FA45E;
+  --corner: 14px 3px 14px 14px;
+  --corner-sm: 9px 2px 9px 9px;
+  --text-xs: 11px; --text-sm: 13px; --text-md: 15px;
+  --text-lg: 18px; --text-xl: 24px; --text-2xl: 34px; --text-3xl: 48px;
+  --lh-tight: 1.2; --lh-body: 1.55;
+  --s-1:4px;--s-2:8px;--s-3:12px;--s-4:16px;--s-5:20px;--s-6:24px;--s-8:32px;--s-10:40px;--s-12:48px;--s-16:64px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-sans);background:var(--bg);color:var(--ink);line-height:var(--lh-body);font-size:var(--text-md);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;min-height:100vh}
+a{color:var(--speak);text-decoration:none;transition:color 150ms}
+a:hover{color:#5BA3FF}
+
+/* ── Layout ── */
+.page-wrapper{display:flex;min-height:100vh}
+.sidebar{width:260px;min-width:260px;background:var(--raise);border-right:1px solid var(--rule);padding:var(--s-6) 0;position:fixed;top:0;left:0;bottom:0;overflow-y:auto;z-index:50}
+.main{margin-left:260px;flex:1;padding:var(--s-16) var(--s-12);max-width:860px}
+
+/* ── Accent bar ── */
+.accent-bar{position:fixed;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--speak),var(--ok),var(--hold));z-index:100}
+
+/* ── Sidebar ── */
+.sidebar-logo{font-size:22px;font-weight:700;padding:0 var(--s-6) var(--s-6);border-bottom:1px solid var(--rule);margin-bottom:var(--s-6);letter-spacing:-0.5px}
+.sidebar-logo span{color:var(--speak)}
+.sidebar-section{margin-bottom:var(--s-8)}
+.sidebar-heading{font-size:var(--text-xs);text-transform:uppercase;letter-spacing:1.2px;color:var(--ink3);padding:var(--s-2) var(--s-6);font-weight:600}
+.sidebar-link{display:block;padding:var(--s-2) var(--s-6);font-size:var(--text-sm);color:var(--ink2);border-left:2px solid transparent;transition:all 150ms;cursor:pointer}
+.sidebar-link:hover{color:var(--ink);background:var(--panel);border-left-color:var(--rule)}
+.sidebar-link.active{color:var(--ink);border-left-color:var(--speak);background:var(--panel2)}
+.sidebar-link.external{color:var(--faint);font-style:italic}
+
+/* ── Content ── */
+.content-header{margin-bottom:var(--s-12);padding-bottom:var(--s-8);border-bottom:1px solid var(--rule)}
+.content-header h1{font-size:var(--text-3xl);font-weight:700;letter-spacing:-1px;line-height:var(--lh-tight);margin-bottom:var(--s-4)}
+.content-header .subtitle{font-size:var(--text-lg);color:var(--ink2);font-weight:400;line-height:1.5}
+
+.prose{max-width:100%}
+.prose h2{font-size:var(--text-2xl);font-weight:600;letter-spacing:-0.5px;margin:var(--s-12) 0 var(--s-4);padding-top:var(--s-8);border-top:1px solid var(--rule)}
+.prose h2:first-of-type{border-top:none;padding-top:0}
+.prose h3{font-size:var(--text-xl);font-weight:600;margin:var(--s-8) 0 var(--s-3)}
+.prose p{margin-bottom:var(--s-4);color:var(--ink2);line-height:1.65}
+.prose ul,.prose ol{margin:var(--s-3) 0 var(--s-4);padding-left:var(--s-6)}
+.prose li{margin-bottom:var(--s-2);color:var(--ink2);line-height:1.6}
+.prose strong{color:var(--ink);font-weight:600}
+.prose code{font-family:var(--font-mono);font-size:var(--text-sm);background:var(--panel2);padding:2px 6px;border-radius:3px;color:var(--speak)}
+.prose pre{background:var(--panel);border:1px solid var(--rule);border-radius:var(--corner-sm);padding:var(--s-4);overflow-x:auto;margin:var(--s-4) 0;font-family:var(--font-mono);font-size:var(--text-sm);line-height:1.6;color:var(--ink2)}
+.prose pre code{background:none;padding:0;color:inherit}
+.prose a{text-decoration:underline;text-underline-offset:2px}
+.prose table{width:100%;border-collapse:collapse;margin:var(--s-4) 0;font-size:var(--text-sm)}
+.prose th,.prose td{padding:var(--s-2) var(--s-3);border:1px solid var(--rule);text-align:left}
+.prose th{color:var(--ink);font-weight:600;background:var(--panel2)}
+.prose td{color:var(--ink2)}
+
+/* ── Callout ── */
+.callout{border-radius:var(--corner-sm);padding:var(--s-4) var(--s-5);margin:var(--s-5) 0;font-size:var(--text-sm);line-height:1.55}
+.callout-warn{background:rgba(234,164,14,0.08);border-left:3px solid var(--hold);color:var(--ink2)}
+.callout-info{background:rgba(45,120,255,0.08);border-left:3px solid var(--speak);color:var(--ink2)}
+.callout-warn strong,.callout-info strong{color:var(--ink)}
+
+.tag{display:inline-block;font-size:var(--text-xs);font-weight:600;padding:2px 8px;border-radius:999px;letter-spacing:0.3px}
+.tag-warn{background:rgba(234,164,14,0.15);color:var(--hold)}
+.tag-info{background:rgba(45,120,255,0.15);color:var(--speak)}
+.tag-ok{background:rgba(47,164,94,0.15);color:var(--ok)}
+
+/* ── Terminal ── */
+.terminal{background:#0D0F14;border:1px solid var(--rule);border-radius:var(--corner-sm);overflow:hidden;margin:var(--s-4) 0}
+.terminal-header{background:var(--panel);padding:var(--s-2) var(--s-3);font-size:var(--text-xs);color:var(--ink3);border-bottom:1px solid var(--rule);display:flex;align-items:center;gap:var(--s-2)}
+.terminal-dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+.terminal-dot.r{background:var(--listen)}
+.terminal-dot.y{background:var(--hold)}
+.terminal-dot.g{background:var(--ok)}
+.terminal-body{padding:var(--s-3);font-family:var(--font-mono);font-size:var(--text-sm);color:var(--ink);overflow-x:auto;white-space:pre;line-height:1.6}
+
+/* ── Next / Prev ── */
+.nav-btns{display:flex;justify-content:space-between;margin-top:var(--s-12);padding-top:var(--s-8);border-top:1px solid var(--rule)}
+.nav-btn{display:inline-flex;align-items:center;gap:var(--s-2);font-size:var(--text-md);font-weight:500;padding:var(--s-3) var(--s-5);border:1px solid var(--rule);border-radius:var(--corner-sm);color:var(--ink2);transition:all 150ms;text-decoration:none}
+.nav-btn:hover{border-color:var(--speak);color:var(--ink);background:var(--panel2)}
+
+/* ── Footer ── */
+.page-footer{margin-top:var(--s-16);padding-top:var(--s-6);border-top:1px solid var(--rule);font-size:var(--text-sm);color:var(--faint);display:flex;justify-content:space-between;align-items:center}
+
+/* ── Responsive ── */
+@media(max-width:900px){.sidebar{display:none}.main{margin-left:0;padding:var(--s-8) var(--s-6)}}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--rule);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--ink3)}
+
+/* ── Section display toggle ── */
+.doc-section{display:none}
+.doc-section.active{display:block}
+</style>
+</head>
+<body>
+<div class="accent-bar"></div>
+<div class="page-wrapper">
+
+<!-- ═══════ SIDEBAR ═══════ -->
+<aside class="sidebar">
+  <div class="sidebar-logo">M<span>OGOI</span></div>
+  <div class="sidebar-section">
+    <div class="sidebar-heading">Getting Started</div>
+    <a href="#" class="sidebar-link active" onclick="show('intro')">Introduction</a>
+    <a href="#" class="sidebar-link" onclick="show('install')">Installation</a>
+    <a href="#" class="sidebar-link" onclick="show('quickstart')">Quick Start</a>
+    <a href="#" class="sidebar-link" onclick="show('config')">Configuration</a>
+    <a href="#" class="sidebar-link" onclick="show('contributing')">Contributing</a>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-heading">Core Features</div>
+    <a href="#" class="sidebar-link" onclick="show('browser')">Browser Control</a>
+    <a href="#" class="sidebar-link" onclick="show('desktop')">Desktop Control</a>
+    <a href="#" class="sidebar-link" onclick="show('sites')">Workspaces</a>
+    <a href="#" class="sidebar-link" onclick="show('voice')">Voice Interface</a>
+    <a href="#" class="sidebar-link" onclick="show('multiagent')">Multi-Agent System</a>
+    <a href="#" class="sidebar-link" onclick="show('memory')">Memory &amp; Knowledge</a>
+    <a href="#" class="sidebar-link" onclick="show('awareness')">Continuous Awareness</a>
+    <a href="#" class="sidebar-link" onclick="show('workflows')">Workflow Automation</a>
+    <a href="#" class="sidebar-link" onclick="show('goals')">Autonomous Goals</a>
+    <a href="#" class="sidebar-link" onclick="show('proactive')">Proactive Agent</a>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-heading">Channels</div>
+    <a href="#" class="sidebar-link" onclick="show('dashboard')">Dashboard</a>
+    <a href="#" class="sidebar-link" onclick="show('telegram')">Telegram</a>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-heading">Configuration</div>
+    <a href="#" class="sidebar-link" onclick="show('llm')">LLM Providers</a>
+    <a href="#" class="sidebar-link" onclick="show('authority')">Authority &amp; Safety</a>
+    <a href="#" class="sidebar-link" onclick="show('autostart')">Autostart</a>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-heading">Reference</div>
+    <a href="#" class="sidebar-link" onclick="show('cli')">CLI Commands</a>
+    <a href="#" class="sidebar-link" onclick="show('configref')">Config Reference</a>
+    <a href="#" class="sidebar-link" onclick="show('websocket')">WebSocket API</a>
+    <a href="#" class="sidebar-link" onclick="show('troubleshoot')">Troubleshooting</a>
+    <a href="#" class="sidebar-link" onclick="show('disclaimer')">Disclaimer &amp; Liability</a>
+  </div>
+  <div style="margin-top:auto;padding:var(--s-4) var(--s-6);border-top:1px solid var(--rule)">
+    <a href="https://github.com/Motius/mogoi" class="sidebar-link external" target="_blank">GitHub Repository</a>
+  </div>
+</aside>
+
+<!-- ═══════ MAIN CONTENT ═══════ -->
+<main class="main">
+
+<!-- ═══ INTRODUCTION ═══ -->
+<div id="intro" class="doc-section active">
+  <div class="content-header">
+    <h1>Introduction</h1>
+    <p class="subtitle">MOGOI is an always-on AI daemon — not a tab-bound chatbot.</p>
+  </div>
+  <div class="prose">
+    <p>MOGOI is designed to keep running in the background, maintain memory over time, watch what is happening across your setup, and act through real tools and connected machines. You can run the daemon locally or on a VPS, keep it alive 24/7, and connect sidecars on other machines so one MOGOI instance can reach your laptop, desktop, and server at the same time.</p>
+    <div class="callout callout-warn">
+      <strong>⚠ Warning</strong> — MOGOI can control your desktop, filesystem, applications, browsers, and online accounts. Treat it like giving a trusted human remote access to your machines.
+    </div>
+    <div class="callout callout-info">
+      <strong>📖 Read these first</strong> — <a href="#" onclick="show('disclaimer')">Disclaimer &amp; Liability</a> · <a href="#" onclick="show('authority')">Authority &amp; Safety</a>
+    </div>
+    <h2 id="read-before">Read This Before You Deploy It</h2>
+    <p>MOGOI is not a toy chatbot. It can be given access to files, terminals, browsers, messaging channels, and remote machines.</p>
+    <p>Before you expose it over the network, connect real accounts, or raise its autonomy level, review:</p>
+    <ul>
+      <li><a href="#" onclick="show('disclaimer')">Disclaimer &amp; Liability</a></li>
+      <li><a href="#" onclick="show('authority')">Authority &amp; Safety</a></li>
+    </ul>
+    <h2 id="what-makes-it-different">What Makes MOGOI Different</h2>
+    <p>Most AI products are request/response systems. You open a UI, ask something, and the model disappears until the next prompt.</p>
+    <p>MOGOI is built around a different operating model:</p>
+    <ul>
+      <li>A <strong>persistent daemon</strong> that keeps state and stays online</li>
+      <li>A <strong>web dashboard</strong> served directly by the daemon</li>
+      <li>An <strong>ambient Pebble mode</strong> that lives at your cursor (Windows today; the dashboard is the cross-platform surface)</li>
+      <li>A <strong>memory vault</strong> backed by SQLite</li>
+      <li>Tool use, browser control, workflow execution, and delegated sub-agents</li>
+      <li><strong>Authority rules</strong> that gate risky actions at runtime</li>
+      <li><strong>Sidecars</strong> that give MOGOI desktop, browser, terminal, filesystem, and screenshot access on each machine</li>
+    </ul>
+    <h2 id="platform-support">Platform Support</h2>
+    <ul>
+      <li>The daemon runs on <strong>macOS</strong>, <strong>Linux</strong>, and <strong>Windows via WSL2 or Docker</strong>. Native Windows is not supported for the daemon.</li>
+      <li>The sidecar runs natively on <strong>Windows</strong>, <strong>macOS</strong>, and <strong>Linux</strong>.</li>
+      <li>Ambient/Pebble mode is <strong>Windows-only</strong> today; cross-platform ports are planned. The dashboard works everywhere.</li>
+    </ul>
+    <h2 id="high-level-architecture">High-Level Architecture</h2>
+    <p>At a high level, MOGOI has three layers:</p>
+    <ol>
+      <li>The daemon</li>
+      <li>The dashboard</li>
+      <li>Sidecars</li>
+    </ol>
+    <p>Access is <strong>JWT-only by default</strong>: you enroll each device with <code>mogoi enroll</code> and the sidecar connects with that token, which also unlocks the dashboard. Sidecars are required for the default access path and for any desktop or browser control; you can only skip them by enabling <code>insecure_open_access</code> during setup.</p>
+    <h3>The Daemon</h3>
+    <p>The daemon is the brain. It owns:</p>
+    <ul>
+      <li>LLM routing and fallback providers</li>
+      <li>Conversation history and persistent memory</li>
+      <li>The tool execution loop</li>
+      <li>Multi-agent delegation</li>
+      <li>The authority engine and approval system</li>
+      <li>Workflows, goals, awareness, and background services</li>
+      <li>The HTTP and WebSocket server that powers the dashboard</li>
+    </ul>
+    <h3>The Dashboard</h3>
+    <p>The dashboard is the control surface. On Windows, the ambient Pebble is the default surface after onboarding, and the dashboard remains available as the full control plane. It exposes the main product areas as rooms:</p>
+    <ul>
+      <li>Home · Workflows · Memory · Tools · Agents</li>
+      <li>Authority · Logs · Calendar · Goals · Tasks</li>
+      <li>Content · Workspaces · Usage · Settings</li>
+    </ul>
+    <h3>Sidecars</h3>
+    <p>Sidecars are how MOGOI reaches your machines. Each sidecar authenticates to the daemon with a JWT over WebSocket and exposes capabilities from that host, such as: desktop automation, browser automation, terminal access, filesystem access, clipboard, screenshots and awareness capture.</p>
+    <p>This lets you keep MOGOI running on an always-on server while still giving it hands and eyes on the machines you actually use.</p>
+    <h2 id="core-product-areas">Core Product Areas</h2>
+    <p>The current product centers around these capability groups:</p>
+    <ul>
+      <li>Conversational agent with streaming responses and tool use</li>
+      <li>Persistent memory and knowledge extraction</li>
+      <li>Browser and desktop control</li>
+      <li>Voice input and streaming TTS</li>
+      <li>Multi-agent delegation, gated by the authority engine</li>
+      <li>Continuous awareness and proactive suggestions</li>
+      <li>Workflow automation</li>
+      <li>Goal tracking and accountability</li>
+      <li>Web app building and deployment (Workspaces)</li>
+      <li>Multi-provider LLM routing with fallback (Anthropic, OpenAI, Gemini, Ollama, Groq)</li>
+    </ul>
+    <h2 id="before-you-start">Before You Start</h2>
+    <p>If you are new to MOGOI, read these next:</p>
+    <ol>
+      <li><a href="#" onclick="show('install')">Installation</a></li>
+      <li><a href="#" onclick="show('quickstart')">Quick Start</a></li>
+      <li><a href="#" onclick="show('config')">Configuration</a></li>
+      <li><a href="#" onclick="show('authority')">Authority &amp; Safety</a></li>
+      <li><a href="#" onclick="show('disclaimer')">Disclaimer &amp; Liability</a></li>
+    </ol>
+    <p>If you already have it running, the best orientation pages are: <a href="#" onclick="show('dashboard')">Dashboard</a>, <a href="#" onclick="show('cli')">CLI Commands</a>, <a href="#" onclick="show('authority')">Authority &amp; Safety</a>, <a href="#" onclick="show('troubleshoot')">Troubleshooting</a>.</p>
+  </div>
+  <div class="nav-btns">
+    <span></span>
+    <a href="#" class="nav-btn" onclick="show('install')">Next: Installation →</a>
+  </div>
+</div>
+
+<!-- ═══ INSTALLATION ═══ -->
+<div id="install" class="doc-section">
+  <div class="content-header">
+    <h1>Installation</h1>
+    <p class="subtitle">Run MOGOI in Docker, locally via Bun, or on a server.</p>
+  </div>
+  <div class="prose">
+    <p>MOGOI can run in Docker (recommended), on your local machine via Bun, on a home server, or on a VPS.</p>
+    <div class="callout callout-info">
+      <strong>🔒 Security First</strong> — MOGOI can control files, terminals, browsers, remote channels, and connected machines. Treat installation as a security decision, not just a package install. Before exposing the dashboard outside localhost or giving MOGOI access to real accounts, read <a href="#" onclick="show('disclaimer')">Disclaimer &amp; Liability</a> and <a href="#" onclick="show('authority')">Authority &amp; Safety</a>.
+    </div>
+    <h2 id="docker">Recommended Install: Docker</h2>
+    <p>Docker runs MOGOI on any OS with a single command. No Bun or other dependencies required.</p>
+    <h3>1. Install Docker Desktop</h3>
+    <p>Download <a href="https://www.docker.com/products/docker-desktop/" target="_blank">Docker Desktop</a> for Windows, macOS, or Linux if you do not have Docker yet.</p>
+    <h3>2. Run the daemon</h3>
+    <div class="terminal"><div class="terminal-header"><span class="terminal-dot r"></span><span class="terminal-dot y"></span><span class="terminal-dot g"></span>Terminal</div><div class="terminal-body">docker run -d --name mogoi \
+  -p 1846:1846 \
+  -v mogoi-data:/data \
+  ghcr.io/Motius/mogoi:latest</div></div>
+    <p>The image is published to <a href="https://ghcr.io/Motius/mogoi">GHCR</a> for amd64 and arm64. All daemon state lives in the <code>mogoi-data</code> volume, mounted at <code>/data</code>.</p>
+    <p>LLM providers, API keys, and model routing are configured from the settings dashboard after first boot. They are stored in the database and encrypted keychain, not in env vars or <code>config.yaml</code>.</p>
+    <div class="callout callout-warn">
+      <strong>Important limitation</strong> — The daemon inside Docker cannot access your host desktop, browser, clipboard, or native apps. To give MOGOI desktop awareness and automation on a machine, install the sidecar on that machine. This is a required step, not an optional one.
+    </div>
+    <h3>3. Enroll your first device</h3>
+    <p>Because the daemon runs inside a container, run the enroll command through <code>docker exec</code>:</p>
+    <div class="terminal"><div class="terminal-header"><span class="terminal-dot r"></span><span class="terminal-dot y"></span><span class="terminal-dot g"></span>Terminal</div><div class="terminal-body">docker exec mogoi mogoi enroll "my-desktop"</div></div>
+    <p>This prints an enrollment token. You will paste it into the sidecar in the next step.</p>
+    <h2 id="other-options">Other Installation Options</h2>
+    <h3>Option 1: Bun Package</h3>
+    <p>Use this if you want a native local install and already have Bun:</p>
+    <div class="terminal"><div class="terminal-header"><span class="terminal-dot r"></span><span class="terminal-dot y"></span><span class="terminal-dot g"></span>Terminal</div><div class="terminal-body">bun install -g @motius/brain
+mogoi start</div></div>
+    <h3>Option 2: One-Liner Installer</h3>
+    <div class="terminal"><div class="terminal-header"><span class="terminal-dot r"></span><span class="terminal-dot y"></span><span class="terminal-dot g"></span>Terminal</div><div class="terminal-body">curl -fsSL https://raw.githubusercontent.com/Motius/mogoi/main/install.sh | bash
+mogoi start</div></div>
+    <h3>Option 3: Manual Repository Install</h3>
+    <div class="terminal"><div class="terminal-header"><span class="terminal-dot r"></span><span class="terminal-dot y"></span><span class="terminal-dot g"></span>Terminal</div><div class="terminal-body">git clone https://github.com/Motius/mogoi.git ~/.mogoi/daemon
+cd ~/.mogoi/daemon
+bun install
+bun run build:ui
+bun link
+mogoi start</div></div>
+    <h2 id="requirements">Requirements</h2>
+    <ul>
+      <li>Docker, or Bun for a native install</li>
+      <li>A supported OS: Linux, macOS, or Windows via Docker or WSL2</li>
+      <li>An API key for at least one LLM provider (configured in the dashboard after first boot)</li>
+    </ul>
+    <h2 id="choosing-where">Choosing Where to Run the Daemon</h2>
+    <p><strong>Local Machine</strong> — Best when you are just getting started, want the simplest setup, or mainly use one machine. Tradeoff: MOGOI only stays online while that machine is on.</p>
+    <p><strong>VPS or Home Server</strong> — Best when you want MOGOI available 24/7, want one daemon to coordinate multiple machines, or care about uptime more than local-only simplicity. Set <code>daemon.brain_domain</code> with an explicit scheme for sidecars to dial the right endpoint.</p>
+    <div class="nav-btns">
+      <a href="#" class="nav-btn" onclick="show('intro')">← Previous: Introduction</a>
+      <a href="#" class="nav-btn" onclick="show('quickstart')">Next: Quick Start →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ QUICK START ═══ -->
+<div id="quickstart" class="doc-section">
+  <div class="content-header">
+    <h1>Quick Start</h1>
+    <p class="subtitle">Get MOGOI running, enrolled, and controlling your machine in minutes.</p>
+  </div>
+  <div class="prose">
+    <p>This guide assumes you have Docker Desktop installed. If you prefer a native Bun install or a source checkout, see <a href="#" onclick="show('install')">Installation</a>, then continue from Step 2.</p>
+    <h2 id="step1">Step 1: Run the Daemon</h2>
+    <div class="terminal"><div class="terminal-header"><span class="terminal-dot r"></span><span class="terminal-dot y"></span><span class="terminal-dot g"></span>Terminal</div><div class="terminal-body">docker run -d --name mogoi \
+  -p 1846:1846 \
+  -v mogoi-data:/data \
+  ghcr.io/Motius/mogoi:latest</div></div>
+    <p>The daemon boots and listens on port 1846. All state lives in the <code>mogoi-data</code> volume.</p>
+    <h2 id="step2">Step 2: Enroll This Machine</h2>
+    <p>Since 0.9, access is JWT-only by default. You enroll each device from the machine running the brain:</p>
+    <div class="terminal"><div class="terminal-header"><span class="terminal-dot r"></span><span class="terminal-dot y"></span><span class="terminal-dot g"></span>Terminal</div><div class="terminal-body">docker exec mogoi mogoi enroll "my-desktop"</div></div>
+    <p>On a native install, run it directly: <code>mogoi enroll "my-desktop"</code>. This mints a long-lived enrollment token and prints it. Keep the terminal open; you paste this token into the sidecar in Step 4.</p>
+    <h2 id="step3">Step 3: Install and Run the Sidecar</h2>
+    <div class="terminal"><div class="terminal-header"><span class="terminal-dot r"></span><span class="terminal-dot y"></span><span class="terminal-dot g"></span>Terminal</div><div class="terminal-body">bun install -g @motius/sidecar
+mogoi</div></div>
+    <p>The sidecar is the machine-level actuator: desktop automation, browser automation, terminal, filesystem, clipboard, and screenshots. Even a single-machine setup needs it, because the Docker container cannot reach your host desktop.</p>
+    <h2 id="step4">Step 4: Paste the Enrollment Token</h2>
+    <p>On first run, the sidecar opens a connect window. Click <strong>Paste your enrollment token</strong>, paste the token from Step 2, and connect. You can also pass it on the command line:</p>
+    <div class="terminal"><div class="terminal-header"><span class="terminal-dot r"></span><span class="terminal-dot y"></span><span class="terminal-dot g"></span>Terminal</div><div class="terminal-body">mogoi --token &lt;your-token&gt;</div></div>
+    <p>The token is stored locally at <code>~/.mogoi/sidecar.yaml</code>, so subsequent runs reconnect automatically.</p>
+    <h2 id="step5">Step 5: Finish Setup in the Dashboard</h2>
+    <p>Once the sidecar connects, open the dashboard: <a href="http://localhost:1846" target="_blank">http://localhost:1846</a></p>
+    <p>On first boot, the dashboard guides you through: Primary LLM provider and API key, Voice (TTS) choice, A conversational profile interview, and a short tour.</p>
+    <h2 id="step6">Step 6: Send a First Real Task</h2>
+    <p>Good first prompts are tasks that exercise the system, not toy questions. For example:</p>
+    <ul>
+      <li>"Summarize what this project actually does."</li>
+      <li>"Open the docs and tell me what is missing."</li>
+      <li>"Create a workflow that posts a Telegram summary every morning."</li>
+      <li>"Plan my day from my current goals."</li>
+    </ul>
+    <div class="callout callout-info">
+      <strong>✅ Quick Verification Checklist</strong> — You are in a good state if: the daemon is running (<code>docker ps</code> or <code>mogoi status</code>), the sidecar shows as connected, the dashboard connects successfully, chat messages stream normally, and your selected LLM provider responds.
+    </div>
+    <div class="nav-btns">
+      <a href="#" class="nav-btn" onclick="show('install')">← Previous: Installation</a>
+      <a href="#" class="nav-btn" onclick="show('config')">Next: Configuration →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CONFIGURATION ═══ -->
+<div id="config" class="doc-section">
+  <div class="content-header">
+    <h1>Configuration</h1>
+    <p class="subtitle">Since 0.9, configuration is split between two homes: the system config and the dashboard settings.</p>
+  </div>
+  <div class="prose">
+    <ul>
+      <li><strong><code>~/.mogoi/config.yaml</code></strong>: system configuration only. The daemon treats it as read-only: <code>daemon</code>, <code>auth</code>, <code>google</code>, <code>browser</code>, <code>timezone</code>, <code>cron</code>.</li>
+      <li><strong>The dashboard settings</strong> (stored in the database): everything user-facing. LLM providers and API keys (keys go to an encrypted keychain), voice/TTS/STT, channels, authority, heartbeat, awareness, personality, goals, workflows, sites.</li>
+    </ul>
+    <p>Use MOGOI runs on built-in defaults if the file is absent. Create it by hand (start from <code>config.example.yaml</code> in the repo) when you need to change system settings. A file that exists but fails to parse is a fatal error.</p>
+    <h2 id="the-system-config">The System Config: config.yaml</h2>
+    <div class="terminal"><div class="terminal-header"><span class="terminal-dot r"></span><span class="terminal-dot y"></span><span class="terminal-dot g"></span>config.yaml</div><div class="terminal-body">daemon:
+  port: 1846
+  data_dir: "~/.mogoi"
+  db_path: "~/.mogoi/mogoi.db"
+  brain_domain: "https://mogoi.example.com"
+  drain_deadline_ms: 75000
+auth:
+  insecure_open_access: false
+google:
+  client_id: "..."
+  client_secret: "..."
+browser:
+  local: true
+timezone: "Europe/Rome"</div></div>
+    <h3>daemon</h3>
+    <p>Where the daemon listens and stores data. <code>brain_domain</code> matters as soon as anything connects from another machine. <code>listen: "unix:/abs/path.sock"</code> switches to a unix socket instead of TCP.</p>
+    <h3>auth</h3>
+    <p>There is exactly one key: <code>insecure_open_access</code>. Access is JWT-only by default. Setting <code>insecure_open_access: true</code> disables auth entirely for first-time setup; the daemon logs a loud warning the whole time it is on.</p>
+    <h3>browser</h3>
+    <p><code>local: false</code> stops the daemon from ever launching a local Chromium; browser actions route to a connected sidecar's browser. Recommended for headless servers.</p>
+    <h3>Environment overrides</h3>
+    <p><code>MOGOI_PORT</code>, <code>MOGOI_HOME</code>, <code>MOGOI_BRAIN_DOMAIN</code>, <code>MOGOI_WAKE_ENGINE</code>, <code>MOGOI_REALTIME_VOICE</code>, <code>MOGOI_TELEMETRY</code>. LLM provider configuration is intentionally not read from env vars.</p>
+    <h2 id="dashboard-managed">Dashboard-Managed Settings</h2>
+    <p>Everything else lives in <strong>Settings</strong> in the dashboard and applies without a restart:</p>
+    <ul>
+      <li><strong>LLM</strong>: providers, API keys, single-model or multi-tier routing</li>
+      <li><strong>Voice</strong>: TTS, STT, wake engine, realtime voice</li>
+      <li><strong>Channels</strong>: Telegram</li>
+      <li><strong>Authority</strong>: autonomy level, governed categories, overrides</li>
+      <li><strong>Awareness, heartbeat, personality, goals, workflows, sites</strong></li>
+    </ul>
+    <p>Telemetry defaults to on and can be disabled with <code>telemetry.enabled: false</code>, <code>MOGOI_TELEMETRY=0</code>, or <code>DO_NOT_TRACK=1</code>.</p>
+    <div class="nav-btns">
+      <a href="#" class="nav-btn" onclick="show('quickstart')">← Previous: Quick Start</a>
+      <a href="#" class="nav-btn" onclick="show('contributing')">Next: Contributing →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ BROWSER CONTROL ═══ -->
+<div id="browser" class="doc-section">
+  <div class="content-header">
+    <h1>Browser Control</h1>
+    <p class="subtitle">MOGOI controls a real browser instance using the Chrome DevTools Protocol (CDP).</p>
+  </div>
+  <div class="prose">
+    <p>MOGOI auto-detects Chrome, Brave, Edge, or Chromium on your system, launches it with a dedicated profile, attaches, and exposes ten browser tools to the agent.</p>
+    <h2 id="how-it-works">How It Works</h2>
+    <p>The browser launches lazily the first time a browser tool is used, not at daemon startup:</p>
+    <ol>
+      <li>If a browser is already running with a reachable CDP endpoint, MOGOI attaches to it</li>
+      <li>Otherwise it scans for a supported browser binary and launches it with remote debugging</li>
+      <li>Pages are snapshotted as a DOM scan of interactive elements, and the agent interacts using numbered element IDs</li>
+    </ol>
+    <p>Browser tools also route to sidecars: every browser tool accepts a <code>target</code>, and when omitted the call auto-routes to a connected browser-capable sidecar.</p>
+    <h2 id="supported-browsers">Supported Browsers</h2>
+    <p>On Linux, MOGOI probes absolute paths in order: Google Chrome, Brave, Microsoft Edge, Chromium. macOS and Windows check the standard install locations. To disable local browser control entirely, set <code>browser.local: false</code>.</p>
+    <h2 id="browser-tools">The Browser Tools</h2>
+    <table>
+      <tr><th>Tool</th><th>Description</th></tr>
+      <tr><td><code>browser_navigate</code></td><td>Navigate to a URL; returns page text plus interactive elements</td></tr>
+      <tr><td><code>browser_snapshot</code></td><td>Re-scan the current page; returns text plus numbered elements</td></tr>
+      <tr><td><code>browser_click</code></td><td>Click an element by <code>element_id</code> from the last snapshot</td></tr>
+      <tr><td><code>browser_type</code></td><td>Type into an element (<code>element_id</code> required)</td></tr>
+      <tr><td><code>browser_hover</code></td><td>Hover an element by <code>element_id</code></td></tr>
+      <tr><td><code>browser_press_key</code></td><td>Send a key or combination to the page</td></tr>
+      <tr><td><code>browser_scroll</code></td><td>Scroll the page or an element</td></tr>
+      <tr><td><code>browser_evaluate</code></td><td>Execute JavaScript in the page context</td></tr>
+      <tr><td><code>browser_screenshot</code></td><td>Capture the page as PNG</td></tr>
+    </table>
+    <div class="nav-btns">
+      <a href="#" class="nav-btn" onclick="show('config')">← Previous: Configuration</a>
+      <a href="#" class="nav-btn" onclick="show('desktop')">Next: Desktop Control →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ DESKTOP CONTROL ═══ -->
+<div id="desktop" class="doc-section">
+  <div class="content-header">
+    <h1>Desktop Control</h1>
+    <p class="subtitle">MOGOI controls native desktop applications through a Go sidecar process.</p>
+  </div>
+  <div class="prose">
+    <p>MOGOI controls native desktop applications through a Go sidecar process that connects to the daemon over a JWT-authenticated WebSocket. The sidecar runs natively on each platform — Windows, macOS, and Linux — using platform-specific APIs for window management, UI automation, screenshots, and input simulation.</p>
+    <h2 id="desktop-capabilities">Capabilities</h2>
+    <table>
+      <tr><th>Capability</th><th>Description</th><th>Windows</th><th>macOS</th><th>Linux</th></tr>
+      <tr><td><code>terminal</code></td><td>Run shell commands</td><td>cmd.exe</td><td>sh</td><td>sh</td></tr>
+      <tr><td><code>filesystem</code></td><td>Read/write files</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+      <tr><td><code>clipboard</code></td><td>Get/set clipboard</td><td>PowerShell</td><td>pbcopy</td><td>xclip</td></tr>
+      <tr><td><code>screenshot</code></td><td>Capture screen to PNG</td><td>PowerShell</td><td>screencapture</td><td>scrot</td></tr>
+      <tr><td><code>desktop</code></td><td>Window management & UI automation</td><td>UI Automation</td><td>AppleScript+JXA</td><td>xdotool+AT-SPI2</td></tr>
+      <tr><td><code>browser</code></td><td>Chromium-family via CDP pipe</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+      <tr><td><code>ocr</code></td><td>Read text from screen regions</td><td>Windows.Media.Ocr</td><td>Vision</td><td>tesseract</td></tr>
+      <tr><td><code>notifications</code></td><td>OS notifications</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+    </table>
+    <h2 id="platform-details">Platform Details</h2>
+    <h3>Windows</h3>
+    <p>Desktop automation uses native UI Automation COM. PowerShell is used for window enumeration, SendKeys, and screen capture. OCR uses <code>Windows.Media.Ocr</code>. Windows 11 has the required WebView2 runtime preinstalled.</p>
+    <h3>macOS</h3>
+    <p>Desktop automation uses AppleScript and JXA. Grant Accessibility and Screen Recording permissions in System Settings → Privacy &amp; Security.</p>
+    <h3>Linux</h3>
+    <p>Desktop automation uses X11 tools plus AT-SPI2. <code>xdotool</code> and <code>wmctrl</code> are required for the <code>desktop</code> capability. Install <code>python3-gi</code> and <code>gir1.2-atspi-2.0</code>. OCR uses <code>tesseract</code>.</p>
+    <div class="nav-btns">
+      <a href="#" class="nav-btn" onclick="show('browser')">← Previous: Browser Control</a>
+      <a href="#" class="nav-btn" onclick="show('sites')">Next: Workspaces →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MULTI-AGENT ═══ -->
+<div id="multiagent" class="doc-section">
+  <div class="content-header">
+    <h1>Multi-Agent System</h1>
+    <p class="subtitle">Delegate tasks and manage sub-agents. Authority stays with the top-level agent.</p>
+  </div>
+  <div class="prose">
+    <p>MOGOI features a multi-agent hierarchy with <strong>delegation</strong> and <strong>management</strong> tools. An AgentTaskManager coordinates specialist roles. Sub-agents are denied governed actions — authority stays with the top-level agent.</p>
+    <h2 id="nine-specialist-roles">Nine Specialist Roles</h2>
+    <ul>
+      <li><strong>Personal Assistant</strong> — general-purpose everyday productivity</li>
+      <li><strong>CEO Founder</strong> — strategic and business decisions</li>
+      <li><strong>Chief of Staff</strong> — coordination and follow-through</li>
+      <li><strong>Dev Lead</strong> — engineering oversight and code review</li>
+      <li><strong>Executive Assistant</strong> — admin and scheduling</li>
+      <li><strong>Marketing Director</strong> — campaigns and positioning</li>
+      <li><strong>System Admin</strong> — infrastructure and operations</li>
+      <li><strong>Research Specialist</strong> — deep research and analysis</li>
+      <li><strong>Activity Observer</strong> — monitoring and awareness</li>
+    </ul>
+    <p>Roles are defined in <code>roles/*.yaml</code>. Each role specifies: description, responsibilities, autonomous_actions (free), approval_required (gated), and tools (allow-list). Copy a role to create a custom one.</p>
+    <h2 id="sub-agent-authority">Sub-Agent Authority</h2>
+    <p>Sub-agents run through the same authority engine with two differences: governed actions are denied outright for sub-agents (they cannot request approval; authority stays with the top-level agent), and a parent can pass a temporary grant for a specific category for the duration of a delegated task.</p>
+    <div class="nav-btns">
+      <a href="#" class="nav-btn" onclick="show('desktop')">← Previous: Desktop Control</a>
+      <a href="#" class="nav-btn" onclick="show('memory')">Next: Memory &amp; Knowledge →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MEMORY ═══ -->
+<div id="memory" class="doc-section">
+  <div class="content-header">
+    <h1>Memory &amp; Knowledge</h1>
+    <p class="subtitle">The Vault extracts entities, facts, relationships, and commitments from every conversation.</p>
+  </div>
+  <div class="prose">
+    <p>MOGOI's Vault Extractor is an LLM-powered knowledge extraction system that automatically extracts structured knowledge from conversations and stores it in a SQLite knowledge graph.</p>
+    <h2 id="features">Features</h2>
+    <ul>
+      <li><strong>Automatic Extraction</strong> — Extracts structured knowledge from unstructured conversations</li>
+      <li><strong>Entity Recognition</strong> — Identifies people, projects, tools, places, concepts, and events</li>
+      <li><strong>Fact Extraction</strong> — Captures attributes and properties of entities</li>
+      <li><strong>Relationship Mapping</strong> — Discovers connections between entities</li>
+      <li><strong>Commitment Tracking</strong> — Detects promises, tasks, and reminders</li>
+      <li><strong>Deduplication</strong> — Reuses existing entities to maintain graph integrity</li>
+    </ul>
+    <p>Relevant knowledge is injected into the system prompt on every turn so MOGOI always remembers what matters. The knowledge graph is stored in SQLite at <code>~/.mogoi/mogoi.db</code>.</p>
+    <div class="nav-btns">
+      <a href="#" class="nav-btn" onclick="show('multiagent')">← Previous: Multi-Agent System</a>
+      <a href="#" class="nav-btn" onclick="show('awareness')">Next: Continuous Awareness →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ AWARENESS ═══ -->
+<div id="awareness" class="doc-section">
+  <div class="content-header">
+    <h1>Continuous Awareness</h1>
+    <p class="subtitle">Full desktop capture at 5-10 second intervals with OCR + struggle detection.</p>
+  </div>
+  <div class="prose">
+    <p>MOGOI's awareness pipeline captures the screen at regular intervals, runs hybrid OCR (Tesseract.js + Cloud Vision), and detects activity patterns. It produces struggle detection, activity session inference, and entity-linked context graphs.</p>
+    <h2 id="capabilities">Capabilities</h2>
+    <ul>
+      <li>Full desktop capture at 5-10 second intervals</li>
+      <li>Hybrid OCR (Tesseract.js + Cloud Vision)</li>
+      <li>Struggle detection</li>
+      <li>Activity session inference</li>
+      <li>Entity-linked context graph</li>
+      <li>Proactive suggestions and overlay widget</li>
+    </ul>
+    <p>Host-sensing observers (clipboard, file watch, process monitor, desktop notifications) run inside the sidecar on your machine and stream to the brain.</p>
+    <div class="nav-btns">
+      <a href="#" class="nav-btn" onclick="show('memory')">← Previous: Memory &amp; Knowledge</a>
+      <a href="#" class="nav-btn" onclick="show('workflows')">Next: Workflow Automation →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ WORKFLOWS ═══ -->
+<div id="workflows" class="doc-section">
+  <div class="content-header">
+    <h1>Workflow Automation</h1>
+    <p class="subtitle">Visual builder powered by @xyflow/react with 50+ node types.</p>
+  </div>
+  <div class="prose">
+    <p>MOGOI ships a visual workflow builder with 50+ nodes across 5 categories. Triggers include: cron, webhook, file watch, screen events, polling, clipboard, process, git, email, calendar.</p>
+    <h2 id="features-2">Features</h2>
+    <ul>
+      <li>NL chat creation</li>
+      <li>YAML export/import</li>
+      <li>Retry + fallback + AI-powered self-heal</li>
+      <li>50+ nodes across 5 categories</li>
+      <li>Native pieces and community curation</li>
+    </ul>
+    <p>Native pieces live in <code>src/workflows/mogoi-pieces/</code>. Community curation in <code>src/workflows/pieces-library/</code>. The vendored Activepieces engine provides the foundation.</p>
+    <div class="nav-btns">
+      <a href="#" class="nav-btn" onclick="show('awareness')">← Previous: Continuous Awareness</a>
+      <a href="#" class="nav-btn" onclick="show('goals')">Next: Autonomous Goals →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ GOALS ═══ -->
+<div id="goals" class="doc-section">
+  <div class="content-header">
+    <h1>Autonomous Goals</h1>
+    <p class="subtitle">OKR hierarchy with Google-style 0.0-1.0 scoring and drill sergeant accountability.</p>
+  </div>
+  <div class="prose">
+    <p>MOGOI's goal system implements a full OKR hierarchy (objective → key result → daily action) with morning planning, evening review, and drill sergeant escalation.</p>
+    <h2 id="features-3">Features</h2>
+    <ul>
+      <li>OKR hierarchy: objective → key result → daily action</li>
+      <li>Google-style 0.0-1.0 scoring</li>
+      <li>Morning planning, evening review</li>
+      <li>Drill sergeant accountability escalation</li>
+      <li>Three dashboard views: kanban, timeline, metrics</li>
+      <li>Awareness pipeline auto-advances progress</li>
+    </ul>
+    <div class="nav-btns">
+      <a href="#" class="nav-btn" onclick="show('workflows')">← Previous: Workflow Automation</a>
+      <a href="#" class="nav-btn" onclick="show('telegram')">Next: Telegram →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TELEGRAM ═══ -->
+<div id="telegram" class="doc-section">
+  <div class="content-header">
+    <h1>Telegram Channel</h1>
+    <p class="subtitle">Connect MOGOI to Telegram for chat-based control and approval delivery.</p>
+  </div>
+  <div class="prose">
+    <p>MOGOI integrates with Telegram for chat-based control, notification delivery, and approval requests. You can approve actions, receive alerts, and interact with MOGOI through Telegram.</p>
+    <h2 id="approval-delivery">Approval Delivery</h2>
+    <p>When an action requires approval, MOGOI asks everywhere you are — Dashboard and <strong>Telegram</strong>. Reply <code>approve &lt;id&gt;</code> or <code>deny &lt;id&gt;</code> with the short id from the message.</p>
+    <h2 id="setup">Setup</h2>
+    <ol>
+      <li>Create a Telegram bot via <a href="https://t.me/BotFather" target="_blank">@BotFather</a></li>
+      <li>Add the bot token to your configuration</li>
+      <li>Configure the channel in the dashboard Settings</li>
+      <li>Approve/deny actions from Telegram</li>
+    </ol>
+    <div class="callout callout-info">
+      <strong>ℹ️ Note</strong> — Telegram is the primary remote messaging channel. MOGOI supports approval delivery across all connected channels. Voice approvals are safety-gated — destructive actions (payments, deletes, shell execution) can never be approved by voice.
+    </div>
+    <div class="nav-btns">
+      <a href="#" class="nav-btn" onclick="show('goals')">← Previous: Autonomous Goals</a>
+      <a href="#" class="nav-btn" onclick="show('authority')">Next: Authority &amp; Safety →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ AUTHORITY ═══ -->
+<div id="authority" class="doc-section">
+  <div class="content-header">
+    <h1>Authority &amp; Safety</h1>
+    <p class="subtitle">Runtime enforcement with soft-gate approvals. Full audit trail.</p>
+  </div>
+  <div class="prose">
+    <p>The authority system controls how much autonomy MOGOI has. It determines which actions the agent can take on its own, which require your approval, and which are blocked entirely.</p>
+    <h2 id="authority-levels">Authority Levels</h2>
+    <table>
+      <tr><th>Action category</th><th>Minimum level</th><th>Impact</th></tr>
+      <tr><td><code>read_data</code></td><td>1</td><td>read</td></tr>
+      <tr><td><code>spawn_agent</code></td><td>1</td><td>write</td></tr>
+      <tr><td><code>write_data</code></td><td>3</td><td>write</td></tr>
+      <tr><td><code>send_message</code></td><td>3</td><td>external</td></tr>
+      <tr><td><code>execute_command</code></td><td>5</td><td>destructive</td></tr>
+      <tr><td><code>access_browser</code></td><td>5</td><td>external</td></tr>
+      <tr><td><code>control_app</code></td><td>5</td><td>write</td></tr>
+      <tr><td><code>send_email</code></td><td>7</td><td>external</td></tr>
+      <tr><td><code>install_software</code></td><td>7</td><td>destructive</td></tr>
+      <tr><td><code>make_payment</code></td><td>9</td><td>destructive</td></tr>
+      <tr><td><code>delete_data</code></td><td>9</td><td>destructive</td></tr>
+    </table>
+    <p><code>default_level</code> (shipped default: 3) is a floor, not a fallback. The dashboard authority slider is that floor.</p>
+    <h2 id="approval-workflow">Approval Workflow</h2>
+    <p>When an action requires approval, MOGOI asks everywhere you are: Dashboard (an approval card with approve/deny buttons) and Telegram (a plain-text message; reply <code>approve &lt;id&gt;</code> or <code>deny &lt;id&gt;</code>).</p>
+    <h2 id="emergency-controls">Emergency Controls</h2>
+    <table>
+      <tr><th>State</th><th>Effect</th></tr>
+      <tr><td><code>normal</code></td><td>Agent operates according to authority rules</td></tr>
+      <tr><td><code>paused</code></td><td>Agent still receives messages, but every tool call returns blocked</td></tr>
+      <tr><td><code>killed</code></td><td>Agent fully stopped. No responses, no actions.</td></tr>
+    </table>
+    <h2 id="learning">Learning &amp; Auto-Approve</h2>
+    <p>When you approve the same type of action repeatedly, MOGOI suggests an auto-approve rule. A denial resets the counter. This gradually reduces approval fatigue for routine actions.</p>
+    <h2 id="audit-trail">Audit Trail</h2>
+    <p>Every authority decision is logged to the <code>audit_trail</code> table in the SQLite database. View recent decisions in the Authority room.</p>
+    <div class="nav-btns">
+      <a href="#" class="nav-btn" onclick="show('telegram')">← Previous: Telegram</a>
+      <a href="#" class="nav-btn" onclick="show('cli')">Next: CLI Commands →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CLI COMMANDS ═══ -->
+<div id="cli" class="doc-section">
+  <div class="content-header">
+    <h1>CLI Commands</h1>
+    <p class="subtitle">The <code>mogoi</code> CLI is the operational entry point for the daemon.</p>
+  </div>
+  <div class="prose">
+    <h2 id="command-summary">Command Summary</h2>
+    <ul>
+      <li><code>mogoi start</code> — Start the daemon</li>
+      <li><code>mogoi start -d</code> — Start as background daemon</li>
+      <li><code>mogoi stop</code> — Stop the daemon gracefully</li>
+      <li><code>mogoi restart</code> — Stop and start again</li>
+      <li><code>mogoi status</code> — Check if running</li>
+      <li><code>mogoi logs [-f]</code> — Follow daemon logs</li>
+      <li><code>mogoi enroll "name"</code> — Enroll a device</li>
+      <li><code>mogoi sidecars list</code> — List enrolled devices</li>
+      <li><code>mogoi revoke &lt;sid&gt;</code> — Revoke a device</li>
+      <li><code>mogoi doctor</code> — Verify environment &amp; connectivity</li>
+      <li><code>mogoi update</code> — Update MOGOI</li>
+      <li><code>mogoi version</code> — Print version</li>
+    </ul>
+    <h2 id="common-flows">Common CLI Flows</h2>
+    <div class="terminal"><div class="terminal-header"><span class="terminal-dot r"></span><span class="terminal-dot y"></span><span class="terminal-dot g"></span>First-time setup</div><div class="terminal-body">mogoi start                  # boots in setup mode, dashboard guides you
+mogoi enroll "my-desktop"    # paste the token into the sidecar</div></div>
+    <div class="terminal"><div class="terminal-header"><span class="terminal-dot r"></span><span class="terminal-dot y"></span><span class="terminal-dot g"></span>Start in background and watch logs</div><div class="terminal-body">mogoi start -d
+mogoi logs -f</div></div>
+    <div class="terminal"><div class="terminal-header"><span class="terminal-dot r"></span><span class="terminal-dot y"></span><span class="terminal-dot g"></span>Diagnose a broken setup</div><div class="terminal-body">mogoi doctor
+mogoi status
+mogoi logs -n 200</div></div>
+    <div class="nav-btns">
+      <a href="#" class="nav-btn" onclick="show('authority')">← Previous: Authority &amp; Safety</a>
+      <a href="#" class="nav-btn" onclick="show('troubleshoot')">Next: Troubleshooting →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TROUBLESHOOTING ═══ -->
+<div id="troubleshoot" class="doc-section">
+  <div class="content-header">
+    <h1>Troubleshooting</h1>
+    <p class="subtitle">Known failure points and their fixes.</p>
+  </div>
+  <div class="prose">
+    <h2>Daemon won't start</h2>
+    <ul>
+      <li>Check if the daemon is already running: <code>mogoi status</code></li>
+      <li>Stale lockfile: remove <code>~/.mogoi/mogoi.pid</code></li>
+      <li>Config parse failure: <code>mogoi doctor</code> reports it</li>
+    </ul>
+    <h2>Sidecar won't connect</h2>
+    <ul>
+      <li>Verify the daemon is running: <code>mogoi status</code></li>
+      <li>Re-enroll: <code>mogoi enroll "device-name"</code> and paste the new token</li>
+      <li>Check firewall — port 1846 must be reachable</li>
+      <li>Set <code>daemon.brain_domain</code> with an explicit scheme</li>
+    </ul>
+    <h2>No LLM providers configured</h2>
+    <p>Configure in dashboard Settings → LLM. Any <code>llm:</code> block in <code>config.yaml</code> is ignored; providers are stored in the database + encrypted keychain.</p>
+    <h2>Browser fails to launch on a server</h2>
+    <p>No display available: set <code>browser.local: false</code> and route browser actions through a sidecar on a desktop machine.</p>
+    <h2>Sidecar version too old</h2>
+    <p>Update the sidecar: <code>bun update -g @motius/sidecar</code> or grab a newer binary from <a href="https://github.com/Motius/mogoi/releases" target="_blank">GitHub Releases</a>. Local <code>dev</code> builds are never blocked.</p>
+    <div class="nav-btns">
+      <a href="#" class="nav-btn" onclick="show('cli')">← Previous: CLI Commands</a>
+      <a href="#" class="nav-btn" onclick="show('disclaimer')">Next: Disclaimer &amp; Liability →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ DISCLAIMER ═══ -->
+<div id="disclaimer" class="doc-section">
+  <div class="content-header">
+    <h1>Disclaimer &amp; Liability</h1>
+    <p class="subtitle">MOGOI is distributed under the Mogoi Source Available License 2.0.</p>
+  </div>
+  <div class="prose">
+    <p>MOGOI is distributed under the <a href="https://github.com/Motius/mogoi/blob/main/LICENSE" target="_blank">Mogoi Source Available License 2.0</a> (based on RSALv2).</p>
+    <p>The MOGOI codebase incorporates third-party components under their own licenses. Those components retain their original licenses for any party who extracts them as a standalone work; the combined MOGOI distribution is governed by the Mogoi Source Available License. See <code>THIRD_PARTY_NOTICES.md</code> for the full list and per-component license text.</p>
+    <h2>Limitations</h2>
+    <p>You may not make the functionality of the Software or a Modified version available to third parties as a service. You may not distribute the Software or a Modified version in a manner that makes the functionality available to third parties remotely through a computer network.</p>
+    <div class="callout callout-warn">
+      <strong>⚠ Warning</strong> — MOGOI can control your desktop, filesystem, applications, browsers, and online accounts. Use at your own risk. The Licensor provides the Software "AS IS" without warranty of any kind.
+    </div>
+    <div class="nav-btns">
+      <a href="#" class="nav-btn" onclick="show('troubleshoot')">← Previous: Troubleshooting</a>
+      <a href="#" class="nav-btn" onclick="show('intro')">← Back to Introduction</a>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══ DASHBOARD ═══ -->
+<div id="dashboard" class="doc-section">
+  <div class="content-header">
+    <h1>Dashboard</h1>
+    <p class="subtitle">The control surface for every MOGOI capability.</p>
+  </div>
+  <div class="prose">
+    <p>The dashboard is the main control plane served directly by the daemon. It exposes all product areas as rooms. On Windows, the ambient Pebble is the default surface after onboarding; the dashboard remains the full control plane.</p>
+    <h2>Rooms</h2>
+    <ul>
+      <li><strong>Home</strong> — Overview and status</li>
+      <li><strong>Workflows</strong> — Build and manage visual automations</li>
+      <li><strong>Memory</strong> — Browse and search the knowledge vault</li>
+      <li><strong>Tools</strong> — Manage tools and their configurations</li>
+      <li><strong>Agents</strong> — Manage roles, sub-agents, and delegation</li>
+      <li><strong>Authority</strong> — Set autonomy levels, governed actions, and emergency controls</li>
+      <li><strong>Logs</strong> — Daemon output and audit trail</li>
+      <li><strong>Calendar</strong> — Scheduled events and cron triggers</li>
+      <li><strong>Goals</strong> — OKR tracking and accountability</li>
+      <li><strong>Tasks</strong> — Task management</li>
+      <li><strong>Content</strong> — Knowledge and content management</li>
+      <li><strong>Workspaces</strong> — Web app building and deployment</li>
+      <li><strong>Usage</strong> — Token usage and billing</li>
+      <li><strong>Settings</strong> — LLM, voice, channels, authority, telemetry</li>
+    </ul>
+    <p>The dashboard is JWT-protected. Access it via <a href="http://localhost:1846" target="_blank">http://localhost:1846</a> after enrollment.</p>
+    <div class="nav-btns">
+      <a href="#" class="nav-btn" onclick="show('intro')">← Previous: Introduction</a>
+      <a href="#" class="nav-btn" onclick="show('sites')">Next: Workspaces →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ WORKSPACES ═══ -->
+<div id="sites" class="doc-section">
+  <div class="content-header">
+    <h1>Workspaces</h1>
+    <p class="subtitle">Build, deploy, and manage web applications inside MOGOI.</p>
+  </div>
+  <div class="prose">
+    <p>Workspaces give MOGOI the ability to build and deploy web applications. It includes a built-in project framework with templates for common web apps, a live preview, and deployment capabilities.</p>
+    <h2>Features</h2>
+    <ul>
+      <li>100+ built-in webapp templates (React, Vue, Next.js, Svelte, and more)</li>
+      <li>Live preview and editing</li>
+      <li>Template extension under <code>~/.mogoi/webapp-templates/</code></li>
+      <li>Deploy from the dashboard</li>
+    </ul>
+    <p>When the browser lands on a known domain, a matching per-app playbook is injected into the model context, teaching it the app's roles and flows.</p>
+    <div class="nav-btns">
+      <a href="#" class="nav-btn" onclick="show('dashboard')">← Previous: Dashboard</a>
+      <a href="#" class="nav-btn" onclick="show('voice')">Next: Voice Interface →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ VOICE ═══ -->
+<div id="voice" class="doc-section">
+  <div class="content-header">
+    <h1>Voice Interface</h1>
+    <p class="subtitle">Streaming TTS, STT, wake word, and realtime voice.</p>
+  </div>
+  <div class="prose">
+    <p>MOGOI ships a full voice interface: text-to-speech output, speech-to-text input, a wake word ("Hey MOGOI"), and premium realtime speech-to-speech voice via OpenAI's Realtime API.</p>
+    <h2 id="tts">Text-to-Speech</h2>
+    <p>MOGOI supports Edge TTS (free) and ElevenLabs (API key). Streaming TTS plays sentences sentence-by-sentence.</p>
+    <h2 id="stt">Speech-to-Text</h2>
+    <p>Supported providers: OpenAI, Groq, local Whisper endpoints. Configured in Settings → Voice.</p>
+    <h2 id="wake-word">Wake Word</h2>
+    <p>openwakeword runs in-browser (ONNX). The pebble's eye glyph shows when MOGOI is actively listening.</p>
+    <h2 id="realtime">Realtime Voice (Premium)</h2>
+    <p>Opt-in speech-to-speech voice via OpenAI's <code>gpt-realtime-2</code> API. The daemon acts as both audio relay and tool executor. Requires an OpenAI key configured under Settings → LLM.</p>
+    <div class="callout callout-warn">
+      <strong>⚠ Safety-gated</strong> — Destructive actions (payments, deletes, shell execution, installs, settings changes, agent termination) can never be approved by voice. Non-destructive approvals by voice require high transcription confidence.
+    </div>
+    <div class="nav-btns">
+      <a href="#" class="nav-btn" onclick="show('sites')">← Previous: Workspaces</a>
+      <a href="#" class="nav-btn" onclick="show('multiagent')">Next: Multi-Agent →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROACTIVE AGENT ═══ -->
+<div id="proactive" class="doc-section">
+  <div class="content-header">
+    <h1>Proactive Agent</h1>
+    <p class="subtitle">MOGOI anticipates needs, surfaces suggestions, and acts before you ask.</p>
+  </div>
+  <div class="prose">
+    <p>The proactive agent uses continuous awareness data to detect patterns, surface suggestions, and take initiative. It monitors your activity, identifies struggles, and can proactively offer help.</p>
+    <h2>Capabilities</h2>
+    <ul>
+      <li><strong>Struggle detection</strong> — Recognizes when you're stuck on an error or complex task</li>
+      <li><strong>Proactive suggestions</strong> — Offers relevant actions based on context</li>
+      <li><strong>Activity session inference</strong> — Understands what you're working on</li>
+      <li><strong>Overlay widget</strong> — Shows status and suggestions without interrupting</li>
+      <li><strong>Cron-triggered tasks</strong> — Scheduled actions via the event bus</li>
+    </ul>
+    <div class="nav-btns">
+      <a href="#" class="nav-btn" onclick="show('voice')">← Previous: Voice Interface</a>
+      <a href="#" class="nav-btn" onclick="show('llm')">Next: LLM Providers →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ LLM PROVIDERS ═══ -->
+<div id="llm" class="doc-section">
+  <div class="content-header">
+    <h1>LLM Providers</h1>
+    <p class="subtitle">Multi-provider routing with fallback chains.</p>
+  </div>
+  <div class="prose">
+    <p>MOGOI supports multiple LLM providers with automatic fallback. Providers are configured in the dashboard (Settings → LLM) and stored in the database + encrypted keychain. Any <code>llm:</code> block in <code>config.yaml</code> is ignored on load.</p>
+    <h2>Supported Providers</h2>
+    <table>
+      <tr><th>Provider</th><th>Models</th><th>Features</th></tr>
+      <tr><td><strong>Anthropic</strong></td><td>Claude Sonnet, Opus</td><td>Text, Streaming, Tools</td></tr>
+      <tr><td><strong>OpenAI</strong></td><td>GPT-4o, GPT-4 Turbo</td><td>Text, Streaming, Functions</td></tr>
+      <tr><td><strong>Gemini</strong></td><td>Gemini Pro</td><td>Text, Streaming</td></tr>
+      <tr><td><strong>Ollama</strong></td><td>Llama 3, Mistral</td><td>Text, Streaming, Tools (local)</td></tr>
+      <tr><td><strong>Groq</strong></td><td>Llama 3, Mixtral</td><td>Ultra-fast inference</td></tr>
+      <tr><td><strong>OpenRouter</strong></td><td>Multiple models</td><td>Unified API</td></tr>
+      <tr><td><strong>Nvidia</strong></td><td>Various</td><td>GPU-accelerated</td></tr>
+      <tr><td><strong>LiteLLM</strong></td><td>100+ models</td><td>Unified interface</td></tr>
+    </table>
+    <h2>Configuration</h2>
+    <p>All LLM configuration happens in the dashboard. LLM provider keys are stored in an encrypted keychain. The single-model or multi-tier routing is configured visually.</p>
+    <h2>Fallback Chains</h2>
+    <p>Configure a primary provider and a fallback list. If the primary fails, MOGOI automatically tries the next provider in the chain.</p>
+    <div class="nav-btns">
+      <a href="#" class="nav-btn" onclick="show('proactive')">← Previous: Proactive Agent</a>
+      <a href="#" class="nav-btn" onclick="show('autostart')">Next: Autostart →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ AUTOSTART ═══ -->
+<div id="autostart" class="doc-section">
+  <div class="content-header">
+    <h1>Autostart</h1>
+    <p class="subtitle">Start MOGOI automatically on login or boot.</p>
+  </div>
+  <div class="prose">
+    <p>Configure MOGOI to start automatically when you log in or boot your machine.</p>
+    <h2>Linux</h2>
+    <p>MOGOI uses a systemd user service: <code>~/.config/systemd/user/mogoi.service</code>. Managed via <code>mogoi</code> CLI. Requires <code>loginctl enable-linger</code> on servers.</p>
+    <div class="terminal"><div class="terminal-header"><span class="terminal-dot r"></span><span class="terminal-dot y"></span><span class="terminal-dot g"></span>Terminal</div><div class="terminal-body">mogoi start -d                    # enables autostart
+systemctl --user enable mogoi.service</div></div>
+    <h2>macOS</h2>
+    <p>MOGOI uses a launchd user agent: <code>~/Library/LaunchAgents/ai.mogoi.daemon.plist</code> (<code>RunAtLoad</code>, <code>KeepAlive</code>).</p>
+    <div class="terminal"><div class="terminal-header"><span class="terminal-dot r"></span><span class="terminal-dot y"></span><span class="terminal-dot g"></span>Terminal</div><div class="terminal-body">launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/ai.mogoi.daemon.plist</div></div>
+    <h2>Windows</h2>
+    <p>Native Windows daemon is not supported. Use WSL2 or Docker. The Windows sidecar uses HKCU <code>Run</code> for autostart.</p>
+    <div class="nav-btns">
+      <a href="#" class="nav-btn" onclick="show('llm')">← Previous: LLM Providers</a>
+      <a href="#" class="nav-btn" onclick="show('configref')">Next: Config Reference →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CONFIG REFERENCE ═══ -->
+<div id="configref" class="doc-section">
+  <div class="content-header">
+    <h1>Config Reference</h1>
+    <p class="subtitle">Complete reference for <code>config.example.yaml</code>.</p>
+  </div>
+  <div class="prose">
+    <p>Copy <code>config.example.yaml</code> to <code>~/.mogoi/config.yaml</code> and customize. Only system-level settings belong here; everything user-facing is in the dashboard.</p>
+    <h2>daemon</h2>
+    <div class="terminal"><div class="terminal-header"><span class="terminal-dot r"></span><span class="terminal-dot y"></span><span class="terminal-dot g"></span>config.yaml</div><div class="terminal-body">daemon:
+  port: 1846                    # TCP port (default)
+  data_dir: "~/.mogoi"          # data directory
+  db_path: "~/.mogoi/mogoi.db"  # SQLite database path
+  brain_domain: "https://mogoi.example.com"  # external origin
+  drain_deadline_ms: 75000      # graceful shutdown budget
+  listen: "unix:/run/mogoi/mogoi.sock"       # optional unix socket
+  log_file_path: "~/.mogoi/logs/mogoi.log"   # optional log file
+  log_file_max_bytes: 1048576              # ring buffer size</div></div>
+    <h2>auth</h2>
+    <div class="terminal"><div class="terminal-header"><span class="terminal-dot r"></span><span class="terminal-dot y"></span><span class="terminal-dot g"></span>config.yaml</div><div class="terminal-body">auth:
+  insecure_open_access: false   # setup-only escape hatch</div></div>
+    <h2>personality</h2>
+    <div class="terminal"><div class="terminal-header"><span class="terminal-dot r"></span><span class="terminal-dot y"></span><span class="terminal-dot g"></span>config.yaml</div><div class="terminal-body">personality:
+  core_traits:
+    - "loyal"
+    - "efficient"
+    - "proactive"
+  assistant_name: "MOGOI"</div></div>
+    <h2>authority</h2>
+    <div class="terminal"><div class="terminal-header"><span class="terminal-dot r"></span><span class="terminal-dot y"></span><span class="terminal-dot g"></span>config.yaml</div><div class="terminal-body">authority:
+  default_level: 3              # 0-5 scale</div></div>
+    <h2>Environment Overrides</h2>
+    <p><code>MOGOI_PORT</code>, <code>MOGOI_HOME</code>, <code>MOGOI_BRAIN_DOMAIN</code>, <code>MOGOI_TELEMETRY</code>, <code>MOGOI_AMBIENT_UI</code>, <code>MOGOI_WAKE_ENGINE</code>, <code>MOGOI_REALTIME_VOICE</code></p>
+    <div class="nav-btns">
+      <a href="#" class="nav-btn" onclick="show('autostart')">← Previous: Autostart</a>
+      <a href="#" class="nav-btn" onclick="show('websocket')">Next: WebSocket API →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ WEB SOCKET API ═══ -->
+<div id="websocket" class="doc-section">
+  <div class="content-header">
+    <h1>WebSocket API</h1>
+    <p class="subtitle">Real-time communication between the daemon, dashboard, and sidecars.</p>
+  </div>
+  <div class="prose">
+    <p>MOGOI uses a binary WebSocket protocol for real-time communication. The daemon serves WebSocket connections on the same port as the HTTP server.</p>
+    <h2>Endpoints</h2>
+    <ul>
+      <li><code>ws://localhost:1846/sidecar/connect</code> — Sidecar enrollment and messaging</li>
+      <li><code>ws://localhost:1846/ws</code> — Dashboard WebSocket</li>
+      <li><code>ws://localhost:1846/api/webhooks/*</code> — Webhook endpoints</li>
+    </ul>
+    <h2>Authentication</h2>
+    <p>All WebSocket connections require JWT authentication. Sidecars authenticate with enrollment tokens. Dashboard sessions use cookie-based authentication from the panel session.</p>
+    <h2>Protocol</h2>
+    <p>The binary WebSocket protocol carries:</p>
+    <ul>
+      <li>Mic audio (WebM) and TTS audio (MP3) on the same connection</li>
+      <li>RPC commands from daemon to sidecar</li>
+      <li>Capability announcements and events</li>
+      <li>Screen capture and OCR data</li>
+    </ul>
+    <h2>Public Routes</h2>
+    <p>Only four routes are unauthenticated: <code>/health</code>, <code>/sidecar/connect</code>, the JWKS endpoint (<code>/api/sidecars/.well-known/jwks.json</code>), and <code>/api/webhooks/*</code>.</p>
+    <div class="nav-btns">
+      <a href="#" class="nav-btn" onclick="show('configref')">← Previous: Config Reference</a>
+      <a href="#" class="nav-btn" onclick="show('troubleshoot')">Next: Troubleshooting →</a>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══ CONTRIBUTING ═══ -->
+<div id="contributing" class="doc-section">
+  <div class="content-header">
+    <h1>Contributing</h1>
+    <p class="subtitle">How to modify, extend, and contribute to MOGOI safely.</p>
+  </div>
+  <div class="prose">
+    <p>MOGOI is designed to be reshaped safely. Change behavior through roles and config first, UI and pieces second, core code last.</p>
+    <h2>Safe Change Zones</h2>
+    <ul>
+      <li><strong>Configuration</strong> — <code>~/.mogoi/config.yaml</code> (traits, authority, cron, TTS/STT, <code>active_role</code>)</li>
+      <li><strong>Roles</strong> — <code>roles/*.yaml</code> (description, responsibilities, tools, approval lists)</li>
+      <li><strong>Dashboard UI</strong> — edit <code>ui/src/</code>, then <code>bun run build:ui</code></li>
+      <li><strong>Workflow pieces</strong> — <code>src/workflows/mogoi-pieces/</code>, run <code>bun run build:workflows</code></li>
+      <li><strong>TypeScript behavior</strong> — agent loop, tools, daemon services (keep strict, ESM, path aliases)</li>
+      <li><strong>Go sidecar</strong> — only via <code>sidecar/Makefile</code> matrix builds</li>
+    </ul>
+    <h2>Change Workflow</h2>
+    <div class="terminal"><div class="terminal-header"><span class="terminal-dot r"></span><span class="terminal-dot y"></span><span class="terminal-dot g"></span>Terminal</div><div class="terminal-body">git status && git pull --ff-only
+# 1. Edit
+# 2. Rebuild what you touched
+bun run build:ui            # if ui/ changed
+bun run build:workflows     # if workflow framework changed
+# 3. Verify
+bun test
+bun run check:no-ee && bun run check:migrations && bun run lint:templates && bun run check:package
+mogoi doctor
+# 4. Restart and watch
+mogoi restart && mogoi logs -f</div></div>
+    <h2>Guardrails</h2>
+    <ul>
+      <li>Pre-commit hooks are mandatory: no-EE check → migration check → template lint → package-files check → <code>bun test --bail</code> (240s timeout)</li>
+      <li>Never vendor <code>ee/</code> paths (Activepieces Enterprise License)</li>
+      <li>Migrations are expand/contract — never rewrite a shipped migration</li>
+      <li>Keep <code>bun.lock</code> and <code>package.json#files</code> coherent</li>
+      <li>Never ship <code>insecure_open_access: true</code> as a default</li>
+      <li>Never embed secrets in commits</li>
+      <li>Keep versions coherent: <code>package.json</code>, <code>sidecar/VERSION</code>, <code>sidecar/installer/VERSION</code></li>
+    </ul>
+    <div class="callout callout-info">
+      <strong>💡 Rule of thumb</strong> — Reshape behavior through roles and config first, UI and pieces second, core code last. The machine is built to be reshaped — just reshape it in the order it was designed to bend.
+    </div>
+    <div class="nav-btns">
+      <a href="#" class="nav-btn" onclick="show('config')">← Previous: Configuration</a>
+      <a href="#" class="nav-btn" onclick="show('intro')">← Back to Introduction</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PAGE FOOTER ═══ -->
+<div class="page-footer">
+  <span>MOGOI v0.13.7 · Motius-ke labs, your Co-Founder AI with no emotions</span>
+  <span>Premium · Secure · Always-on</span>
+</div>
+
+</main>
+</div>
+
+<script>
+function show(id) {
+  document.querySelectorAll('.doc-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+  var section = document.getElementById(id);
+  if (section) section.classList.add('active');
+  var links = document.querySelectorAll('.sidebar-link');
+  links.forEach(function(l) {
+    if (l.getAttribute('onclick') && l.getAttribute('onclick').indexOf("'"+id+"'") !== -1) {
+      l.classList.add('active');
+    }
+  });
+  window.scrollTo({top: 0, behavior: 'smooth'});
+  return false;
+}
+</script>
+</body>
+</html>
