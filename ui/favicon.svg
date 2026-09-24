@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Mogoi-AI brand mark: a perfectly round disc.
+       Ink on light, paper on dark (follows the OS colour scheme,
+       since a favicon can't read the app's data-theme). -->
+  <style>
+    circle { fill: #13161A; }
+    @media (prefers-color-scheme: dark) { circle { fill: #EEF1F4; } }
+  </style>
+  <circle cx="16" cy="16" r="13" />
+</svg>
